@@ -28,11 +28,13 @@ define( function( require ) {
 
     var representations = ['horizontal-bar', 'vertical-bar', 'circle', 'chocolate', 'different-sized-circles'];
     var icons = {};
-    icons['horizontal-bar'] = new Rectangle( 0, 0, 50, 30, {fill: '#208644'} );
-    icons['vertical-bar'] = new Rectangle( 0, 0, 20, 50, {fill: 'red'} );
-    icons['circle'] = new Circle( 25, {fill: '#145991'} );
-    icons['chocolate'] = new Rectangle( 0, 0, 50, 40, {fill: '#563329'} );
-    icons['different-sized-circles'] = new Circle( 20, {fill: '#f0d041'} );
+    icons['horizontal-bar'] = new Rectangle( 0, 0, 50, 30, {fill: '#208644', lineWidth: 1, stroke: 'black'} );
+    icons['vertical-bar'] = new Rectangle( 0, 0, 14, 50, {fill: 'red', lineWidth: 1, stroke: 'black'} );
+    icons['circle'] = new Circle( 22, {fill: '#145991', lineWidth: 1, stroke: 'black'} );
+    icons['chocolate'] = new Rectangle( 0, 0, 50, 40, {fill: '#563329', lineWidth: 1, stroke: 'black'} );
+    icons['different-sized-circles'] = new Node( {children: [
+      new Circle( 20, {fill: '#f0d041', lineWidth: 1, stroke: 'black', x: 26, y: -26} ),
+      new Circle( 12, {fill: '#f0d041', lineWidth: 1, stroke: 'black'} )]} );
 
     var maxWidth = -1;
     var maxHeight = -1;
@@ -51,12 +53,15 @@ define( function( require ) {
       ]} );
     }
 
+    var widthWithPadding = maxWidth + 5;
+    var heightWithPadding = maxHeight + 5;
+
     var children = representations.map( function( representation ) {
-      return new InOutRadioButton( representationProperty, representation, paddedNode( icons[representation], maxWidth, maxHeight ) );
+      return new InOutRadioButton( representationProperty, representation, paddedNode( icons[representation], widthWithPadding, heightWithPadding ) );
     } );
 
     var content = new HBox( {
-      spacing: 10,
+      spacing: 20,
       children: children
     } );
     Panel.call( this, content, options );
