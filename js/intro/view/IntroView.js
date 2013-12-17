@@ -17,12 +17,16 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
+  var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
+
   function IntroView( model ) {
 
     var introView = this;
     ScreenView.call( introView, { renderer: 'svg' } );
 
-
+    //Representation panel at the bottom center
+    var representationPanel = new RepresentationPanel( model.property( 'representation' ), {bottom: this.layoutBounds.maxY - 5, centerX: this.layoutBounds.centerX} );
+    this.addChild( representationPanel );
   }
 
   return inherit( ScreenView, IntroView );
