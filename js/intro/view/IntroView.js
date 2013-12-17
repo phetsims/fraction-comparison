@@ -19,8 +19,10 @@ define( function( require ) {
 
   function IntroView( model ) {
 
-    var thisView = this;
-    ScreenView.call( thisView, { renderer: 'svg' } );
+    var introView = this;
+    ScreenView.call( introView, { renderer: 'svg' } );
+
+
   }
 
   return inherit( ScreenView, IntroView );

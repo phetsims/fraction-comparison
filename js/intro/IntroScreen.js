@@ -17,8 +17,7 @@ define( function( require ) {
   var IntroView = require( 'FRACTION_COMPARISON/intro/view/IntroView' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  // strings
-  var screenTitle = require( 'string!FRACTION_COMPARISON/solutions' );
+  var screenTitle = 'Intro';
 
   function IntroScreen() {
     Screen.call( this,
