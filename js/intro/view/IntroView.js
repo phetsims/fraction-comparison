@@ -16,6 +16,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
 
@@ -34,7 +35,17 @@ define( function( require ) {
       right: this.layoutBounds.maxX - 2,
       bottom: this.layoutBounds.maxY - 2
     } ) );
+
+    //To make it possible to drag pieces from the left over pieces in the right, we cannot just make subtrees for the left and right views
+    //So model the pieces individually
+
+    var leftFractionNode = new FractionNode( model.leftFractionModel.property( 'numerator' ), model.leftFractionModel.property( 'denominator' ), {
+      centerX: 100,
+      top: 100
+    } );
+    this.addChild( leftFractionNode );
   }
 
+  //TODO: redo layout so things float to the sides (and bottom)
   return inherit( ScreenView, IntroView );
 } );
