@@ -27,6 +27,13 @@ define( function( require ) {
     //Representation panel at the bottom center
     var representationPanel = new RepresentationPanel( model.property( 'representation' ), {bottom: this.layoutBounds.maxY - 5, centerX: this.layoutBounds.centerX} );
     this.addChild( representationPanel );
+
+    this.addChild( new ResetAllButton( model.reset.bind( model ), {
+      radius: 24,
+      touchAreaRadius: 24 * 1.3,
+      right: this.layoutBounds.maxX - 2,
+      bottom: this.layoutBounds.maxY - 2
+    } ) );
   }
 
   return inherit( ScreenView, IntroView );

@@ -18,5 +18,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, FractionModel, {} );
+  return inherit( PropertySet, FractionModel );
 } );

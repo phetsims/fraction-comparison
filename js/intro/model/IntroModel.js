@@ -24,6 +24,11 @@ define( function( require ) {
   inherit( PropertySet, IntroModel, {
     step: function( dt ) {
 
+    },
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.leftFractionModel.reset();
+      this.rightFractionModel.reset();
     }
   } );
 
