@@ -17,6 +17,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
+  var CheckBox = require( 'SUN/CheckBox' );
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
   var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
@@ -33,6 +34,9 @@ define( function( require ) {
     var numberLineNode = new NumberLineNode( model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' ), model.property( 'numberLineVisible' ),
       {centerX: this.layoutBounds.centerX, y: 50} );
     this.addChild( numberLineNode );
+
+    //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
+    this.addChild( new CheckBox( new Node(), model.property( 'numberLineVisible' ), {left: numberLineNode.bounds.maxX + 10, centerY: numberLineNode.centerY + 6} ) );
 
     this.addChild( new ResetAllButton( model.reset.bind( model ), {
       radius: 24,

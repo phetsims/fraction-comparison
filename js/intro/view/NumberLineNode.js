@@ -37,6 +37,9 @@ define( function( require ) {
     var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: 'blue', lineWidth: 1, stroke: 'black'} );
     this.addChild( rightRectangle );
 
+    visibleProperty.linkAttribute( leftRectangle, 'visible' );
+    visibleProperty.linkAttribute( rightRectangle, 'visible' );
+
     leftFractionProperty.link( function( leftFraction ) { leftRectangle.setRectWidth( leftFraction * width ); } );
     rightFractionProperty.link( function( rightFraction ) { rightRectangle.setRectWidth( rightFraction * width ); } );
 
