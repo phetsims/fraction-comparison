@@ -41,6 +41,7 @@ define( function( require ) {
     var denominatorNode = new Text( denominatorProperty.get(), { font: font } );
     denominatorProperty.link( function( value ) {denominatorNode.text = value + '';} );
 
+    //TODO: use bounding box of max bounds to ensure always to the right?
 //    var numbers = _.range( 1, 10, 1 );
 //    var numberNodes = numbers.map( function( number ) {
 //      return new Text( number + '', {font: font} )
@@ -65,7 +66,7 @@ define( function( require ) {
     var numeratorSpinner = new UpDownSpinner( numeratorProperty, 1, 9 );
     var denominatorSpinner = new UpDownSpinner( denominatorProperty, 1, 9 );
 
-    var spinners = new VBox( {spacing: 40, children: [numeratorSpinner, denominatorSpinner], right: line.bounds.minX, centerY: line.bounds.centerY} );
+    var spinners = new VBox( {spacing: 40, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX, centerY: line.bounds.centerY} );
     this.addChild( spinners );
 
     this.mutate( options );
