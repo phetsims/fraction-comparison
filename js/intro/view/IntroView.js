@@ -19,6 +19,7 @@ define( function( require ) {
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
+  var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
 
   function IntroView( model ) {
 
@@ -28,6 +29,10 @@ define( function( require ) {
     //Representation panel at the bottom center
     var representationPanel = new RepresentationPanel( model.property( 'representation' ), {bottom: this.layoutBounds.maxY - 5, centerX: this.layoutBounds.centerX} );
     this.addChild( representationPanel );
+
+    var numberLineNode = new NumberLineNode( model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' ), model.property( 'numberLineVisible' ),
+      {centerX: this.layoutBounds.centerX, y: 50} );
+    this.addChild( numberLineNode );
 
     this.addChild( new ResetAllButton( model.reset.bind( model ), {
       radius: 24,

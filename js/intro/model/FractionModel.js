@@ -16,6 +16,10 @@ define( function( require ) {
       numerator: 1,
       denominator: 1
     } );
+
+    this.addDerivedProperty( 'fraction', ['numerator', 'denominator'], function( numerator, denominator ) {
+      return numerator / denominator;
+    } );
   }
 
   return inherit( PropertySet, FractionModel );

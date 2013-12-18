@@ -67,5 +67,5 @@ define( function( require ) {
     Panel.call( this, content, options );
   }
 
-  return inherit( ScreenView, RepresentationPanel );
+  return inherit( Panel, RepresentationPanel );
 } );
