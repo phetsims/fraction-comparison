@@ -38,11 +38,11 @@ define( function( require ) {
     this.addChild( representationPanel );
 
     var numberLineNode = new NumberLineNode( model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' ), model.property( 'numberLineVisible' ),
-      {centerX: this.layoutBounds.centerX, y: 44} );
+      {centerX: this.layoutBounds.centerX, bottom: representationPanel.top - 70} );
     this.addChild( numberLineNode );
 
     //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
-    this.addChild( new CheckBox( new Node(), model.property( 'numberLineVisible' ), {left: numberLineNode.bounds.maxX + 10, centerY: numberLineNode.centerY + 6} ) );
+    this.addChild( new CheckBox( new Node(), model.property( 'numberLineVisible' ), {top: numberLineNode.bounds.maxY, centerX: numberLineNode.centerX, scale: 1.5} ) );
 
     this.addChild( new ResetAllButton( model.reset.bind( model ), {
       radius: 24,
@@ -74,17 +74,18 @@ define( function( require ) {
     //Options for both buckets
     //Align using view coordinates
     var bucketOptions = {
-      size: new Dimension2( 200, 50 ),
+      size: new Dimension2( 120, 50 ),
       baseColor: 'gray',
       caption: ''
     };
 
-    var bucketBottom = this.layoutBounds.maxY - 250;
+    var bucketBottom = this.layoutBounds.maxY - 225;
+    var distanceFromBucketToSide = 4;
 
     var leftBucket = new Bucket( bucketOptions );
     var leftBucketHole = new BucketHole( leftBucket, identityTransform );
     var leftBucketFront = new BucketFront( leftBucket, identityTransform );
-    leftBucketFront.left = 10;
+    leftBucketFront.left = distanceFromBucketToSide;
     leftBucketFront.bottom = bucketBottom;
     leftBucketHole.x = leftBucketFront.x;
     leftBucketHole.y = leftBucketFront.y;
@@ -94,7 +95,7 @@ define( function( require ) {
     var rightBucket = new Bucket( bucketOptions );
     var rightBucketHole = new BucketHole( rightBucket, identityTransform );
     var rightBucketFront = new BucketFront( rightBucket, identityTransform );
-    rightBucketFront.right = this.layoutBounds.maxX - 10;
+    rightBucketFront.right = this.layoutBounds.maxX - distanceFromBucketToSide;
     rightBucketFront.bottom = bucketBottom;
     rightBucketHole.x = rightBucketFront.x;
     rightBucketHole.y = rightBucketFront.y;

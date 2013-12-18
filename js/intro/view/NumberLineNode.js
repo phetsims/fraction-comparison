@@ -27,7 +27,7 @@ define( function( require ) {
   function NumberLineNode( leftFractionProperty, rightFractionProperty, visibleProperty, options ) {
     Node.call( this );
 
-    var width = 200;
+    var width = 160;
     var line = new Line( 0, 0, width, 0, {lineWidth: 2, stroke: 'black'} );
 
     this.addChild( line );
