@@ -34,16 +34,18 @@ define( function( require ) {
 
   function UpDownSpinner( valueProperty, min, max, options ) {
 
-    var upShape = new Shape().moveTo( 0, 0 ).lineTo( 15, -10 ).lineTo( 30, 0 );
-    var downShape = new Shape().moveTo( 0, 0 ).lineTo( 15, 10 ).lineTo( 30, 0 );
+    var shapeWidth = 26;
+    var upShape = new Shape().moveTo( 0, 0 ).lineTo( shapeWidth / 2, -10 ).lineTo( shapeWidth, 0 );
+    var downShape = new Shape().moveTo( 0, 0 ).lineTo( shapeWidth / 2, 10 ).lineTo( shapeWidth, 0 );
 
     var upIcon = new Path( upShape, {lineWidth: 5, stroke: 'black', lineCap: 'round'} );
     var downIcon = new Path( downShape, {lineWidth: 5, stroke: 'black', lineCap: 'round'} );
 
+    var radius = 20;
     var upButton = new RoundShinyButton( function() {
       valueProperty.set( Math.min( valueProperty.get() + 1, max ) );
     }, upIcon, {
-      radius: 24,
+      radius: radius,
       touchAreaRadius: 24 * 1.3,
       upFill: new Color( '#fefd53' ),
       overFill: new Color( '#fffe08' ),
@@ -54,7 +56,7 @@ define( function( require ) {
     var downButton = new RoundShinyButton( function() {
       valueProperty.set( Math.max( valueProperty.get() - 1, min ) );
     }, downIcon, {
-      radius: 24,
+      radius: radius,
       touchAreaRadius: 24 * 1.3,
       upFill: new Color( '#fefd53' ),
       overFill: new Color( '#fffe08' ),
@@ -62,7 +64,7 @@ define( function( require ) {
       iconOffsetY: +3
     } );
 
-    VBox.call( this, {spacing: 10, children: [upButton, downButton]} );
+    VBox.call( this, {spacing: 6, children: [upButton, downButton]} );
 
     this.mutate( options );
   }

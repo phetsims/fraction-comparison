@@ -33,7 +33,7 @@ define( function( require ) {
 
   function FractionNode( numeratorProperty, denominatorProperty, options ) {
     Node.call( this );
-    var font = new PhetFont( { size: 128} );
+    var font = new PhetFont( { size: 96} );
     var numeratorNode = new Text( numeratorProperty.get(), { font: font } );
 
     numeratorProperty.link( function( value ) { numeratorNode.text = value + ''; } );
@@ -66,7 +66,7 @@ define( function( require ) {
     var numeratorSpinner = new UpDownSpinner( numeratorProperty, 1, 9 );
     var denominatorSpinner = new UpDownSpinner( denominatorProperty, 1, 9 );
 
-    var spinners = new VBox( {spacing: 40, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX, centerY: line.bounds.centerY} );
+    var spinners = new VBox( {spacing: 30, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX, centerY: line.bounds.centerY} );
     this.addChild( spinners );
 
     this.mutate( options );
