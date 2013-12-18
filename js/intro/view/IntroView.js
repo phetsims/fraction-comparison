@@ -18,6 +18,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
   var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
+  var HorizontalBarContainerNode = require( 'FRACTION_COMPARISON/intro/view/HorizontalBarContainerNode' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -78,7 +79,7 @@ define( function( require ) {
     //Options for both buckets
     //Align using view coordinates
     var bucketOptions = {
-      size: new Dimension2( 120, 50 ),
+      size: new Dimension2( 130, 50 ),
       baseColor: 'gray',
       caption: ''
     };
@@ -105,6 +106,13 @@ define( function( require ) {
     rightBucketHole.y = rightBucketFront.y;
     this.addChild( rightBucketHole );
     this.addChild( rightBucketFront );
+
+    //Containers
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( {left: 10, top: 10, centerY: comparisonRegion.bounds.centerY} );
+    this.addChild( leftHorizontalBarContainerNode );
+
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( {right: this.layoutBounds.maxX - 10, centerY: comparisonRegion.bounds.centerY} );
+    this.addChild( rightHorizontalBarContainerNode );
   }
 
   //TODO: redo layout so things float to the sides (and bottom)
