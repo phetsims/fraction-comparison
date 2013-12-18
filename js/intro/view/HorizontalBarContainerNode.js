@@ -34,7 +34,7 @@ define( function( require ) {
     Node.call( this );
     this.events = new Events();
 
-    var border = new Rectangle( 0, 0, 180, 100, {fill: 'white', stroke: 'black', lineWidth: 1} );
+    var border = new Rectangle( 0, 0, 180, 100, {stroke: 'black', lineWidth: 1} );
     this.addChild( border );
 
     this.contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {fill: color, stroke: 'black', lineWidth: 1} );
