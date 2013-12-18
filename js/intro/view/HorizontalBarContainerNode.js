@@ -27,12 +27,18 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
 
-  function HorizontalBarContainerNode( options ) {
+  function HorizontalBarContainerNode( fractionProperty, color, options ) {
     options = _.extend( {cursor: 'pointer'}, options );
     Node.call( this );
 
     var border = new Rectangle( 0, 0, 180, 100, {fill: 'white', stroke: 'black', lineWidth: 1} );
     this.addChild( border );
+
+    var contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {fill: color, stroke: 'black', lineWidth: 1} );
+    fractionProperty.link( function( value ) {
+      contents.setRectWidth( value * 180 );
+    } );
+    this.addChild( contents );
 
     this.mutate( options );
 

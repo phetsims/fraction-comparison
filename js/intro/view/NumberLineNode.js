@@ -32,9 +32,9 @@ define( function( require ) {
 
     this.addChild( line );
 
-    var leftRectangle = new Rectangle( 0, -20, width, 20, {fill: 'red', lineWidth: 1, stroke: 'black'} );
+    var leftRectangle = new Rectangle( 0, -20, width, 20, {fill: 'blue', lineWidth: 1, stroke: 'black'} );
     this.addChild( leftRectangle );
-    var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: 'blue', lineWidth: 1, stroke: 'black'} );
+    var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: 'green', lineWidth: 1, stroke: 'black'} );
     this.addChild( rightRectangle );
 
     visibleProperty.linkAttribute( leftRectangle, 'visible' );

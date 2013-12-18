@@ -108,10 +108,10 @@ define( function( require ) {
     this.addChild( rightBucketFront );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( {left: 10, top: 10, centerY: comparisonRegion.bounds.centerY} );
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', {left: 10, top: 10, centerY: comparisonRegion.bounds.centerY} );
     this.addChild( leftHorizontalBarContainerNode );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( {right: this.layoutBounds.maxX - 10, centerY: comparisonRegion.bounds.centerY} );
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', {right: this.layoutBounds.maxX - 10, centerY: comparisonRegion.bounds.centerY} );
     this.addChild( rightHorizontalBarContainerNode );
   }
 

@@ -14,7 +14,7 @@ define( function( require ) {
   function FractionModel() {
     PropertySet.call( this, {
       numerator: 1,
-      denominator: 1
+      denominator: 2
     } );
 
     this.addDerivedProperty( 'fraction', ['numerator', 'denominator'], function( numerator, denominator ) {
