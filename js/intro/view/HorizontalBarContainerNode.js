@@ -23,14 +23,20 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
 
   function HorizontalBarContainerNode( options ) {
+    options = _.extend( {cursor: 'pointer'}, options );
     Node.call( this );
 
     var border = new Rectangle( 0, 0, 180, 100, {fill: 'white', stroke: 'black', lineWidth: 1} );
     this.addChild( border );
 
     this.mutate( options );
+
+    this.addInputListener( new NodeDragHandler( this, {} ) );
   }
 
   return inherit( Node, HorizontalBarContainerNode );
