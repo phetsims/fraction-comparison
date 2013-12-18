@@ -44,6 +44,12 @@ define( function( require ) {
       top: 100
     } );
     this.addChild( leftFractionNode );
+
+    var rightFractionNode = new FractionNode( model.rightFractionModel.property( 'numerator' ), model.rightFractionModel.property( 'denominator' ), {
+      centerX: this.layoutBounds.maxX - 100,
+      top: 100
+    } );
+    this.addChild( rightFractionNode );
   }
 
   //TODO: redo layout so things float to the sides (and bottom)

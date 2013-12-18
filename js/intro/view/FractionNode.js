@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // imports
+  var Color = require( 'SCENERY/util/Color' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -24,12 +25,21 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RoundShinyButton = require( 'SCENERY_PHET/RoundShinyButton' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var UpDownSpinner = require( 'FRACTION_COMPARISON/intro/view/UpDownSpinner' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   function FractionNode( numeratorProperty, denominatorProperty, options ) {
     Node.call( this );
     var font = new PhetFont( { size: 128} );
     var numeratorNode = new Text( numeratorProperty.get(), { font: font } );
+
+    numeratorProperty.link( function( value ) { numeratorNode.text = value + ''; } );
+
     var denominatorNode = new Text( denominatorProperty.get(), { font: font } );
+    denominatorProperty.link( function( value ) {denominatorNode.text = value + '';} );
 
 //    var numbers = _.range( 1, 10, 1 );
 //    var numberNodes = numbers.map( function( number ) {
@@ -52,7 +62,11 @@ define( function( require ) {
     this.addChild( numeratorNode );
     this.addChild( denominatorNode );
 
-//    this.addChild( );
+    var numeratorSpinner = new UpDownSpinner( numeratorProperty, 1, 9 );
+    var denominatorSpinner = new UpDownSpinner( denominatorProperty, 1, 9 );
+
+    var spinners = new VBox( {spacing: 40, children: [numeratorSpinner, denominatorSpinner], right: line.bounds.minX, centerY: line.bounds.centerY} );
+    this.addChild( spinners );
 
     this.mutate( options );
   }
