@@ -40,7 +40,7 @@ define( function( require ) {
       crossHatchOverlay.fill = new Pattern( image );
     }, 0, 0, 40, 40 );
 
-    Rectangle.call( this, 0, 0, 40, 40, {fill: 'red'} );
+    Rectangle.call( this, 0, 0, 0, 0, {} );
 
     var update = function() {
       var a = leftHorizontalBarContainerNode.localToGlobalBounds( leftHorizontalBarContainerNode.contents.bounds );
