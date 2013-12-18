@@ -26,23 +26,32 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
+  var Events = require( 'AXON/Events' );
 
   function HorizontalBarContainerNode( fractionProperty, color, options ) {
+    var horizontalBarContainerNode = this;
     options = _.extend( {cursor: 'pointer'}, options );
     Node.call( this );
+    this.events = new Events();
 
     var border = new Rectangle( 0, 0, 180, 100, {fill: 'white', stroke: 'black', lineWidth: 1} );
     this.addChild( border );
 
-    var contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {fill: color, stroke: 'black', lineWidth: 1} );
+    this.contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {fill: color, stroke: 'black', lineWidth: 1} );
     fractionProperty.link( function( value ) {
-      contents.setRectWidth( value * 180 );
+      horizontalBarContainerNode.contents.setRectWidth( value * 180 );
+      horizontalBarContainerNode.events.trigger( 'changed' );
     } );
-    this.addChild( contents );
+    this.addChild( this.contents );
 
     this.mutate( options );
 
-    this.addInputListener( new NodeDragHandler( this, {} ) );
+    this.addInputListener( new NodeDragHandler( this, {startDrag: function() {
+      horizontalBarContainerNode.moveToFront();
+      horizontalBarContainerNode.events.trigger( 'moved-to-front' );
+    }, drag: function() {
+      horizontalBarContainerNode.events.trigger( 'changed' );
+    }} ) );
   }
 
   return inherit( Node, HorizontalBarContainerNode );

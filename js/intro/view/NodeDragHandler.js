@@ -21,6 +21,8 @@ define( function( require ) {
   function NodeDragHandler( node, options ) {
 
     options = _.extend( {
+      startDrag: function() {},
+      drag: function() {},
       endDrag: function() { /* do nothing */ }  // use this to do things at the end of dragging, like 'snapping'
     }, options );
 
@@ -33,6 +35,7 @@ define( function( require ) {
       // note where the drag started
       start: function( event ) {
         startOffset = event.currentTarget.globalToParentPoint( event.pointer.point ).minusXY( node.x, node.y );
+        options.startDrag();
       },
 
       // change the location, adjust for starting offset, constrain to drag bounds
@@ -41,6 +44,7 @@ define( function( require ) {
         var location = parentPoint;
         var constrainedLocation = constrainBounds( location, options.dragBounds );
         node.setTranslation( constrainedLocation );
+        options.drag( event );
       },
 
       end: function( event ) {

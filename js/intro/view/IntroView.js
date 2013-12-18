@@ -19,6 +19,7 @@ define( function( require ) {
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
   var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
   var HorizontalBarContainerNode = require( 'FRACTION_COMPARISON/intro/view/HorizontalBarContainerNode' );
+  var CrossHatchOverlay = require( 'FRACTION_COMPARISON/intro/view/CrossHatchOverlay' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -113,6 +114,9 @@ define( function( require ) {
 
     var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', {right: this.layoutBounds.maxX - 10, centerY: comparisonRegion.bounds.centerY} );
     this.addChild( rightHorizontalBarContainerNode );
+
+    var crossHatchOverlay = new CrossHatchOverlay( leftHorizontalBarContainerNode, rightHorizontalBarContainerNode );
+    this.addChild( crossHatchOverlay );
   }
 
   //TODO: redo layout so things float to the sides (and bottom)
