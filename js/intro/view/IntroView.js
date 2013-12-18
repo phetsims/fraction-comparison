@@ -17,6 +17,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
+  var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -67,6 +68,9 @@ define( function( require ) {
       bottom: representationPanel.bounds.minY
     } );
     this.addChild( rightFractionNode );
+
+    var comparisonRegion = new ComparisonRegion( {top: 10, centerX: this.layoutBounds.centerX} );
+    this.addChild( comparisonRegion );
 
     //Make the buckets right side up
     var identityTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), 1 );
