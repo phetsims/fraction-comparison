@@ -22,6 +22,8 @@ define( function( require ) {
   var CrossHatchOverlay = require( 'FRACTION_COMPARISON/intro/view/CrossHatchOverlay' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
   var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
@@ -96,7 +98,7 @@ define( function( require ) {
     leftBucketHole.x = leftBucketFront.x;
     leftBucketHole.y = leftBucketFront.y;
     this.addChild( leftBucketHole );
-    this.addChild( leftBucketFront );
+
 
     var rightBucket = new Bucket( bucketOptions );
     var rightBucketHole = new BucketHole( rightBucket, identityTransform );
@@ -106,6 +108,50 @@ define( function( require ) {
     rightBucketHole.x = rightBucketFront.x;
     rightBucketHole.y = rightBucketFront.y;
     this.addChild( rightBucketHole );
+
+    //add pieces between the bucket hole and front (z-order)
+    var addPiece = function( fill, x, y ) {
+      var piece = new Rectangle( 0, 0, 60, 100, {translation: new Vector2( x, y ), fill: fill, stroke: 'black', lineWidth: 1, cursor: 'pointer', scale: 0.3} );
+      var tween = null;
+      piece.addInputListener( new NodeDragHandler( piece, {
+        startDrag: function() {
+
+          //TODO: is this more efficient than just pushing another Node layer that the piece can moveToFront in?  The scenery lead (JO) said pushing too many Nodes deep can slow down animation and dragging.
+          //TODO: Or this could be replaced with changing the child order in scenery.Node (not sure if that is supported yet)
+          piece.moveToFront();
+          leftBucketFront.moveToFront();
+          rightBucketFront.moveToFront();
+          if ( tween ) {
+            tween.stop();
+          }
+          tween = new TWEEN.Tween( { scale: 0.5} )
+            .to( { scale: 1 }, 500 )
+            .easing( TWEEN.Easing.Quartic.Out )
+            .onUpdate( function() {
+              piece.setScaleMagnitude( this.scale );
+            } )
+            .start();
+        },
+        drag: function() {
+//        console.log( piece.translation.toString() );
+        },
+        endDrag: function() {
+          if ( tween ) {
+            tween.stop();
+          }
+        }
+      } ) );
+      introView.addChild( piece );
+    };
+    for ( var i = 0; i < 7; i++ ) {
+      addPiece( 'green', 19 + i * 10, 205 );
+    }
+
+    for ( i = 0; i < 7; i++ ) {
+      addPiece( 'blue', 650 + i * 10, 205 );
+    }
+
+    this.addChild( leftBucketFront );
     this.addChild( rightBucketFront );
 
     //Containers
