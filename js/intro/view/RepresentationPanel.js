@@ -29,10 +29,12 @@ define( function( require ) {
     var iconScale = 0.75;
     var representations = ['horizontal-bar', 'vertical-bar', 'circle', 'chocolate', 'different-sized-circles'];
     var icons = {};
+
+    //Have to use mixed [] and dot notation to satisfy jshint
     icons['horizontal-bar'] = new Rectangle( 0, 0, 50 * iconScale, 30 * iconScale, {fill: '#208644', lineWidth: 1, stroke: 'black'} );
     icons['vertical-bar'] = new Rectangle( 0, 0, 14 * iconScale, 50 * iconScale, {fill: 'red', lineWidth: 1, stroke: 'black'} );
-    icons['circle'] = new Circle( 22 * iconScale, {fill: '#145991', lineWidth: 1, stroke: 'black'} );
-    icons['chocolate'] = new Rectangle( 0, 0, 50 * iconScale, 40 * iconScale, {fill: '#563329', lineWidth: 1, stroke: 'black'} );
+    icons.circle = new Circle( 22 * iconScale, {fill: '#145991', lineWidth: 1, stroke: 'black'} );
+    icons.chocolate = new Rectangle( 0, 0, 50 * iconScale, 40 * iconScale, {fill: '#563329', lineWidth: 1, stroke: 'black'} );
     icons['different-sized-circles'] = new Node( {children: [
       new Circle( 20 * iconScale, {fill: '#f0d041', lineWidth: 1, stroke: 'black', x: 26, y: -26} ),
       new Circle( 12 * iconScale, {fill: '#f0d041', lineWidth: 1, stroke: 'black'} )]} );
