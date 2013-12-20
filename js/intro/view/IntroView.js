@@ -19,7 +19,6 @@ define( function( require ) {
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
   var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
   var HorizontalBarContainerNode = require( 'FRACTION_COMPARISON/intro/view/HorizontalBarContainerNode' );
-  var CrossHatchOverlay = require( 'FRACTION_COMPARISON/intro/view/CrossHatchOverlay' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -27,11 +26,6 @@ define( function( require ) {
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
   var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
-
-  var Bucket = require( 'PHETCOMMON/model/Bucket' );
-  var BucketHole = require( 'SCENERY_PHET/bucket/BucketHole' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var BucketFront = require( 'SCENERY_PHET/bucket/BucketFront' );
 
   function IntroView( model ) {
 
@@ -59,8 +53,7 @@ define( function( require ) {
     //To make it possible to drag pieces from the left over pieces in the right, we cannot just make subtrees for the left and right views
     //So model the pieces individually
 
-    var distanceFromBottomToFraction = 0;
-    var distanceFromSideToFraction = 140;
+    var distanceFromSideToFraction = 50;
     var leftFractionNode = new FractionNode( model.leftFractionModel.property( 'numerator' ), model.leftFractionModel.property( 'denominator' ), {
       left: distanceFromSideToFraction,
       bottom: representationPanel.bounds.minY
@@ -76,93 +69,12 @@ define( function( require ) {
     var comparisonRegion = new ComparisonRegion( {top: 10, centerX: this.layoutBounds.centerX} );
     this.addChild( comparisonRegion );
 
-    //Make the buckets right side up
-    var identityTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 0, 0 ), 1 );
-
-    //Options for both buckets
-    //Align using view coordinates
-    var bucketOptions = {
-      size: new Dimension2( 130, 50 ),
-      baseColor: 'gray',
-      caption: ''
-    };
-
-    var bucketBottom = this.layoutBounds.maxY - 225;
-    var distanceFromBucketToSide = 4;
-
-    var leftBucket = new Bucket( bucketOptions );
-    var leftBucketHole = new BucketHole( leftBucket, identityTransform );
-    var leftBucketFront = new BucketFront( leftBucket, identityTransform );
-    leftBucketFront.left = distanceFromBucketToSide;
-    leftBucketFront.bottom = bucketBottom;
-    leftBucketHole.x = leftBucketFront.x;
-    leftBucketHole.y = leftBucketFront.y;
-    this.addChild( leftBucketHole );
-
-
-    var rightBucket = new Bucket( bucketOptions );
-    var rightBucketHole = new BucketHole( rightBucket, identityTransform );
-    var rightBucketFront = new BucketFront( rightBucket, identityTransform );
-    rightBucketFront.right = this.layoutBounds.maxX - distanceFromBucketToSide;
-    rightBucketFront.bottom = bucketBottom;
-    rightBucketHole.x = rightBucketFront.x;
-    rightBucketHole.y = rightBucketFront.y;
-    this.addChild( rightBucketHole );
-
-    //add pieces between the bucket hole and front (z-order)
-    var addPiece = function( fill, x, y ) {
-      var piece = new Rectangle( 0, 0, 60, 100, {translation: new Vector2( x, y ), fill: fill, stroke: 'black', lineWidth: 1, cursor: 'pointer', scale: 0.3} );
-      var tween = null;
-      piece.addInputListener( new NodeDragHandler( piece, {
-        startDrag: function() {
-
-          //TODO: is this more efficient than just pushing another Node layer that the piece can moveToFront in?  The scenery lead (JO) said pushing too many Nodes deep can slow down animation and dragging.
-          //TODO: Or this could be replaced with changing the child order in scenery.Node (not sure if that is supported yet)
-          piece.moveToFront();
-          leftBucketFront.moveToFront();
-          rightBucketFront.moveToFront();
-          if ( tween ) {
-            tween.stop();
-          }
-          tween = new TWEEN.Tween( { scale: 0.5} )
-            .to( { scale: 1 }, 500 )
-            .easing( TWEEN.Easing.Quartic.Out )
-            .onUpdate( function() {
-              piece.setScaleMagnitude( this.scale );
-            } )
-            .start();
-        },
-        drag: function() {
-//        console.log( piece.translation.toString() );
-        },
-        endDrag: function() {
-          if ( tween ) {
-            tween.stop();
-          }
-        }
-      } ) );
-      introView.addChild( piece );
-    };
-    for ( var i = 0; i < 7; i++ ) {
-      addPiece( 'green', 19 + i * 10, 205 );
-    }
-
-    for ( i = 0; i < 7; i++ ) {
-      addPiece( 'blue', 650 + i * 10, 205 );
-    }
-
-    this.addChild( leftBucketFront );
-    this.addChild( rightBucketFront );
-
     //Containers
     var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', {left: 10, top: 10, centerY: comparisonRegion.bounds.centerY} );
     this.addChild( leftHorizontalBarContainerNode );
 
     var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', {right: this.layoutBounds.maxX - 10, centerY: comparisonRegion.bounds.centerY} );
     this.addChild( rightHorizontalBarContainerNode );
-
-    var crossHatchOverlay = new CrossHatchOverlay( leftHorizontalBarContainerNode, rightHorizontalBarContainerNode );
-    this.addChild( crossHatchOverlay );
   }
 
   //TODO: redo layout so things float to the sides (and bottom)
