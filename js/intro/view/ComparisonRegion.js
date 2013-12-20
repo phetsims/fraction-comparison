@@ -27,7 +27,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
 
   function ComparisonRegion( options ) {
-    Rectangle.call( this, 0, 0, 200, 200, 10, 10, {lineStroke: 1, fill: 'white', lineDash: [ 6, 5 ], stroke: 'black'} );
+    var comparisonRegionLength = 220;
+    Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {lineStroke: 1, fill: 'white', lineDash: [ 6, 5 ], stroke: 'black'} );
 
     var textPushButton = new TextPushButton( 'Compare', {rectangleFillUp: new Color( 'yellow' ), centerX: this.bounds.centerX, bottom: this.bottom - 5} );
     this.addChild( textPushButton );
