@@ -23,7 +23,7 @@ define( function( require ) {
 
   inherit( PropertySet, IntroModel, {
     step: function( dt ) {
-
+      //TODO: use dt
     },
     reset: function() {
       PropertySet.prototype.reset.call( this );

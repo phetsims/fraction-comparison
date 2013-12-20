@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // imports
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Screen = require( 'JOIST/Screen' );

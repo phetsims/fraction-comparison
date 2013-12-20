@@ -9,16 +9,10 @@ define( function( require ) {
   'use strict';
 
   // imports
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
   var Panel = require( 'SUN/Panel' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var InOutRadioButton = require( 'SUN/InOutRadioButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
