@@ -23,15 +23,27 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var TextPushButton = require( 'SUN/TextPushButton' );
+  var RectanglePushButton = require( 'SUN/RectanglePushButton' );
   var Color = require( 'SCENERY/util/Color' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   function ComparisonRegion( options ) {
     var comparisonRegionLength = 220;
-    Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {lineStroke: 1, fill: 'white', lineDash: [ 6, 5 ], stroke: 'black'} );
+    Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {lineStroke: 1, fill: 'white'} );
 
-    var textPushButton = new TextPushButton( 'Compare', {rectangleFillUp: new Color( 'yellow' ), centerX: this.bounds.centerX, bottom: this.bottom - 5} );
-    this.addChild( textPushButton );
+    var tailX = 0;
+    var tailY = 0;
+    var tipX = 10;
+    var tipY = 0;
+    var compareButton = new RectanglePushButton( new HBox( {spacing: 5, children: [
+      new ArrowNode( tailX, tailY, tipX, tipY ),
+      new ArrowNode( tailX, tailY, -tipX, tipY )
+    ]} ), {rectangleFillUp: new Color( 'yellow' ), centerX: this.bounds.centerX, bottom: this.bottom - 5} );
+    this.addChild( compareButton );
+
+    var target = new Rectangle( 0, 0, 180, 100, {stroke: 'red', lineWidth: 1, lineDash: [ 6, 5 ], centerX: this.bounds.centerX, top: 59} );
+    this.addChild( target );
+
     this.mutate( options );
   }
 
