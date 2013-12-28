@@ -15,6 +15,10 @@ define( function( require ) {
   var RectanglePushButton = require( 'SUN/RectanglePushButton' );
   var Color = require( 'SCENERY/util/Color' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   function ComparisonRegion( options ) {
     var comparisonRegionLength = 220;
@@ -24,9 +28,32 @@ define( function( require ) {
     var tailY = 0;
     var tipX = 10;
     var tipY = 0;
+
+    var xTip = 20;
+    var yTip = 8;
+    var xControl = 12;
+    var yControl = -5;
+    var leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
+
+    var createArrowhead = function( angle, tail ) {
+      var headWidth = 10;
+      var headHeight = 10;
+      var directionUnitVector = Vector2.createPolar( 1, angle );
+      var orthogonalUnitVector = directionUnitVector.perpendicular();
+      var tip = directionUnitVector.times( headHeight ).plus( tail );
+      return new Path( new Shape().moveToPoint( tail ).
+        lineToPoint( tail.plus( orthogonalUnitVector.times( headWidth / 2 ) ) ).
+        lineToPoint( tip ).
+        lineToPoint( tail.plus( orthogonalUnitVector.times( -headWidth / 2 ) ) ).
+        lineToPoint( tail ).close()
+        , {fill: 'black'} );
+    };
+
+    var rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
+
     var compareButton = new RectanglePushButton( new HBox( {spacing: 5, children: [
-      new ArrowNode( tailX, tailY, tipX, tipY ),
-      new ArrowNode( tailX, tailY, -tipX, tipY )
+      new Node( {children: [leftCurve, createArrowhead( Math.PI / 3, new Vector2( xTip, yTip ) )]} ),
+      new Node( {children: [rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) )]} )
     ]} ), {rectangleFillUp: new Color( 'yellow' ), centerX: this.bounds.centerX, bottom: this.bottom - 5} );
     this.addChild( compareButton );
 
