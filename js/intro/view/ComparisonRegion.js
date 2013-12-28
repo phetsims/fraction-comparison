@@ -20,7 +20,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function ComparisonRegion( options ) {
+  function ComparisonRegion( compareButtonPressed, options ) {
     var comparisonRegionLength = 220;
     Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {lineStroke: 1, fill: 'white'} );
 
@@ -50,6 +50,7 @@ define( function( require ) {
       new Node( {children: [leftCurve, createArrowhead( Math.PI / 3, new Vector2( xTip, yTip ) )]} ),
       new Node( {children: [rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) )]} )
     ]} ), {rectangleFillUp: new Color( 'yellow' ), centerX: this.bounds.centerX, bottom: this.bottom - 5} );
+    compareButton.addListener( compareButtonPressed );
     this.addChild( compareButton );
 
     var target = new Rectangle( 0, 0, 180, 100, {stroke: 'red', lineWidth: 1, lineDash: [ 6, 5 ], centerX: this.bounds.centerX, top: 59} );

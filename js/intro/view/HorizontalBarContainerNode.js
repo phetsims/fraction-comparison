@@ -71,5 +71,10 @@ define( function( require ) {
     } ) );
   }
 
-  return inherit( Node, HorizontalBarContainerNode );
+  return inherit( Node, HorizontalBarContainerNode, {
+    animateToComparison: function() {
+      this.center = this.comparePosition;
+      this.stateProperty.set( 'compare' );
+    }
+  } );
 } );

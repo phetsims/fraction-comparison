@@ -63,7 +63,11 @@ define( function( require ) {
     } );
     this.addChild( rightFractionNode );
 
-    var comparisonRegion = new ComparisonRegion( {top: 10, centerX: this.layoutBounds.centerX} );
+    var compareButtonPressed = function() {
+      leftHorizontalBarContainerNode.animateToComparison();
+      rightHorizontalBarContainerNode.animateToComparison();
+    };
+    var comparisonRegion = new ComparisonRegion( compareButtonPressed, {top: 10, centerX: this.layoutBounds.centerX} );
     this.addChild( comparisonRegion );
 
     //Containers
