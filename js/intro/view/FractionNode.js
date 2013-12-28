@@ -24,26 +24,19 @@ define( function( require ) {
     var font = new PhetFont( { size: 84} );
     var numeratorNode = new Text( numeratorProperty.get(), { font: font } );
 
-    numeratorProperty.link( function( value ) { numeratorNode.text = value + ''; } );
-
-    var denominatorNode = new Text( denominatorProperty.get(), { font: font } );
-    denominatorProperty.link( function( value ) {denominatorNode.text = value + '';} );
-
-    //TODO: use bounding box of max bounds to ensure always to the right?
-//    var numbers = _.range( 1, 10, 1 );
-//    var numberNodes = numbers.map( function( number ) {
-//      return new Text( number + '', {font: font} )
-//    } );
-//    var maxWidth = -1;
-//    var maxHeight = -1;
-//    numberNodes.forEach( function( node ) {
-//      maxWidth = Math.max( maxWidth, node.width );
-//      maxHeight = Math.max( maxHeight, node.height );
-//    } );
-//    this.children = numberNodes;
-
     var line = new Line( 0, 0, 80, 0, {lineWidth: 4, stroke: 'black'} );
     this.addChild( line );
+
+    numeratorProperty.link( function( value ) {
+      numeratorNode.text = value + '';
+      numeratorNode.centerX = line.centerX;
+    } );
+
+    var denominatorNode = new Text( denominatorProperty.get(), { font: font } );
+    denominatorProperty.link( function( value ) {
+      denominatorNode.text = value + '';
+      denominatorNode.centerX = line.centerX;
+    } );
 
     numeratorNode.mutate( {centerX: line.centerX, bottom: line.bounds.minY - 2} );
     denominatorNode.mutate( {centerX: line.centerX, top: line.bounds.maxY - 2} );
@@ -59,7 +52,7 @@ define( function( require ) {
     var numeratorSpinner = new UpDownSpinner( numeratorProperty, numeratorUpEnabledProperty, numeratorDownEnabledProperty );
     var denominatorSpinner = new UpDownSpinner( denominatorProperty, denominatorUpEnabledProperty, denominatorDownEnabledProperty );
 
-    var spinners = new VBox( {spacing: 20, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX, centerY: line.bounds.centerY} );
+    var spinners = new VBox( {spacing: 20, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX + 5, centerY: line.bounds.centerY} );
     this.addChild( spinners );
 
     this.mutate( options );
