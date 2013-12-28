@@ -19,6 +19,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var LeftRightSpinner = require( 'FRACTION_COMPARISON/intro/view/LeftRightSpinner' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
@@ -106,6 +107,20 @@ define( function( require ) {
 
     model.bothCompareProperty.and( leftValueSmallerProperty ).linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
+
+    var leftDivisionsProperty = model.leftFractionModel.property( 'divisions' );
+    var leftDivisionSpinner = new LeftRightSpinner( leftDivisionsProperty,
+      leftDivisionsProperty.greaterThanNumber( 1 ),
+      leftDivisionsProperty.lessThanNumber( 10 )
+      , {centerX: leftHorizontalBarContainerNode.centerX, top: leftHorizontalBarContainerNode.bottom + 6} );
+    this.addChild( leftDivisionSpinner );
+
+    var rightDivisionsProperty = model.rightFractionModel.property( 'divisions' );
+    var rightDivisionSpinner = new LeftRightSpinner( rightDivisionsProperty,
+      rightDivisionsProperty.greaterThanNumber( 1 ),
+      rightDivisionsProperty.lessThanNumber( 10 )
+      , {centerX: rightHorizontalBarContainerNode.centerX, top: rightHorizontalBarContainerNode.bottom + 6} );
+    this.addChild( rightDivisionSpinner );
   }
 
   //TODO: redo layout so things float to the sides (and bottom)
