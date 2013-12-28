@@ -84,7 +84,13 @@ define( function( require ) {
     this.addChild( rightHorizontalBarContainerNode );
 
     var leftDottedLineContainerNode = new Rectangle( 0, 0, 180, 100, {stroke: 'green', lineWidth: 10, lineDash: [20, 20]} );
-    leftDottedLineContainerNode.center = leftHorizontalBarContainerNode.comparePosition;
+    model.leftFractionModel.property( 'fraction' ).link( function( value ) {
+      leftDottedLineContainerNode.setRectWidth( value * 180 );
+    } );
+
+    leftDottedLineContainerNode.left = leftHorizontalBarContainerNode.comparePosition.x - leftHorizontalBarContainerNode.width / 2 - 5;
+    leftDottedLineContainerNode.centerY = leftHorizontalBarContainerNode.comparePosition.y;
+
     var leftValueSmallerProperty = new DerivedProperty( [model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' )], function( leftFraction, rightFraction ) {
       return leftFraction <= rightFraction;
     } );
