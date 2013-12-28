@@ -78,17 +78,33 @@ define( function( require ) {
     this.addChild( comparisonRegion );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', model.leftFractionModel.stateProperty, model.leftFractionModel.divisionsProperty, function( width, height ) {
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', model.leftFractionModel.stateProperty, model.leftFractionModel.divisionsProperty, true, function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-    }, {} );
+    } );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', model.rightFractionModel.stateProperty, model.rightFractionModel.divisionsProperty, function( width, height ) {
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', model.rightFractionModel.stateProperty, model.rightFractionModel.divisionsProperty, true, function( width, height ) {
       return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-    }, {} );
+    } );
+
+    //Show the shadows right behind the originals, and don't let the shadows be moved
+    var leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', model.leftFractionModel.stateProperty, model.leftFractionModel.divisionsProperty, false, function( width, height ) {
+      return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
+    }, function( width, height ) {
+      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+    } );
+
+    var rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', model.rightFractionModel.stateProperty, model.rightFractionModel.divisionsProperty, false, function( width, height ) {
+      return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
+    }, function( width, height ) {
+      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+    } );
+
+    this.addChild( leftHorizontalBarContainerNodeShadow );
+    this.addChild( rightHorizontalBarContainerNodeShadow );
 
     this.addChild( leftHorizontalBarContainerNode );
     this.addChild( rightHorizontalBarContainerNode );

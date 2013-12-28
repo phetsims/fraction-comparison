@@ -28,7 +28,7 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function HorizontalBarContainerNode( fractionProperty, color, stateProperty, divisionsProperty, startPositionFunction, comparePositionFunction, options ) {
+  function HorizontalBarContainerNode( fractionProperty, color, stateProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
     var horizontalBarContainerNode = this;
 
     this.stateProperty = stateProperty;
@@ -63,25 +63,27 @@ define( function( require ) {
     this.comparePosition = comparePositionFunction( this.width, this.height );
 
     this.center = this.startPosition;
-    this.addInputListener( new NodeDragHandler( this, {
-      startDrag: function() {
-        horizontalBarContainerNode.stateProperty.set( 'dragging' );
-      },
-      drag: function() {
-        //TODO: is 'changed' still used now that overlay is gone?
-        horizontalBarContainerNode.events.trigger( 'changed' );
-      },
-      endDrag: function() {
-        //Move to the start position or compare position, whichever is closer.
-        var center = horizontalBarContainerNode.center;
-        var distToStart = horizontalBarContainerNode.startPosition.distance( center );
-        var distToCompare = horizontalBarContainerNode.comparePosition.distance( center );
+    if ( interactive ) {
+      this.addInputListener( new NodeDragHandler( this, {
+        startDrag: function() {
+          horizontalBarContainerNode.stateProperty.set( 'dragging' );
+        },
+        drag: function() {
+          //TODO: is 'changed' still used now that overlay is gone?
+          horizontalBarContainerNode.events.trigger( 'changed' );
+        },
+        endDrag: function() {
+          //Move to the start position or compare position, whichever is closer.
+          var center = horizontalBarContainerNode.center;
+          var distToStart = horizontalBarContainerNode.startPosition.distance( center );
+          var distToCompare = horizontalBarContainerNode.comparePosition.distance( center );
 
-        //TODO: animate continuously instead of jumping
-        horizontalBarContainerNode.center = distToStart < distToCompare ? horizontalBarContainerNode.startPosition : horizontalBarContainerNode.comparePosition;
-        horizontalBarContainerNode.stateProperty.set( distToStart < distToCompare ? 'start' : 'compare' );
-      }
-    } ) );
+          //TODO: animate continuously instead of jumping
+          horizontalBarContainerNode.center = distToStart < distToCompare ? horizontalBarContainerNode.startPosition : horizontalBarContainerNode.comparePosition;
+          horizontalBarContainerNode.stateProperty.set( distToStart < distToCompare ? 'start' : 'compare' );
+        }
+      } ) );
+    }
   }
 
   return inherit( Node, HorizontalBarContainerNode, {
