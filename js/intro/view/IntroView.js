@@ -72,7 +72,6 @@ define( function( require ) {
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     }, {} );
-    this.addChild( leftHorizontalBarContainerNode );
 
     var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', function( width, height ) {
       return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
