@@ -17,6 +17,9 @@ define( function( require ) {
   var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
   var HorizontalBarContainerNode = require( 'FRACTION_COMPARISON/intro/view/HorizontalBarContainerNode' );
   var CheckBox = require( 'SUN/CheckBox' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
   var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
@@ -64,11 +67,28 @@ define( function( require ) {
     this.addChild( comparisonRegion );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', {left: 10, top: 10, centerY: comparisonRegion.bounds.centerY} );
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', function( width, height ) {
+      return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
+    }, function( width, height ) {
+      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+    }, {} );
     this.addChild( leftHorizontalBarContainerNode );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', {right: this.layoutBounds.maxX - 10, centerY: comparisonRegion.bounds.centerY} );
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', function( width, height ) {
+      return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
+    }, function( width, height ) {
+      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+    }, {} );
+
+    this.addChild( leftHorizontalBarContainerNode );
     this.addChild( rightHorizontalBarContainerNode );
+
+    var leftDottedLineContainerNode = new Rectangle( 0, 0, 180, 100, {stroke: 'black', lineWidth: 1, lineDash: [4, 4]} );
+    var leftValueSmallerProperty = new DerivedProperty( [model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' )], function( leftFraction, rightFraction ) {
+      return leftFraction <= rightFraction;
+    } );
+    leftValueSmallerProperty.linkAttribute( leftDottedLineContainerNode, 'visible' );
+    this.addChild( leftDottedLineContainerNode );
   }
 
   //TODO: redo layout so things float to the sides (and bottom)

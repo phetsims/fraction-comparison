@@ -15,7 +15,16 @@ define( function( require ) {
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
   var Events = require( 'AXON/Events' );
 
-  function HorizontalBarContainerNode( fractionProperty, color, options ) {
+  /**
+   *
+   * @param {Property<number>} fractionProperty The value of the fraction
+   * @param {string} color
+   * @param {function} startPositionFunction a function taking args (width,height) to compute the start center of the node
+   * @param {function} comparePositionFunction a function taking args (width,height) to compute the center position of the node when compared
+   * @param options
+   * @constructor
+   */
+  function HorizontalBarContainerNode( fractionProperty, color, startPositionFunction, comparePositionFunction, options ) {
     var horizontalBarContainerNode = this;
     options = _.extend( {cursor: 'pointer'}, options );
     Node.call( this );
@@ -32,10 +41,23 @@ define( function( require ) {
     this.addChild( this.contents );
 
     this.mutate( options );
+    this.startPosition = startPositionFunction( this.width, this.height );
+    this.comparePosition = comparePositionFunction( this.width, this.height );
 
+    this.center = this.startPosition;
     this.addInputListener( new NodeDragHandler( this, {
       drag: function() {
+        //TODO: is 'changed' still used now that overlay is gone?
         horizontalBarContainerNode.events.trigger( 'changed' );
+      },
+      endDrag: function() {
+        //Move to the start position or compare position, whichever is closer.
+        var center = horizontalBarContainerNode.center;
+        var distToStart = horizontalBarContainerNode.startPosition.distance( center );
+        var distToCompare = horizontalBarContainerNode.comparePosition.distance( center );
+
+        //TODO: animate continuously instead of jumping
+        horizontalBarContainerNode.center = distToStart < distToCompare ? horizontalBarContainerNode.startPosition : horizontalBarContainerNode.comparePosition;
       }
     } ) );
   }
