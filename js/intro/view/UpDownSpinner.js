@@ -18,7 +18,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
-  function UpDownSpinner( valueProperty, min, max, options ) {
+  function UpDownSpinner( valueProperty, upEnabledProperty, downEnabledProperty, options ) {
 
     var shapeWidth = 26;
     var upShape = new Shape().moveTo( 0, 0 ).lineTo( shapeWidth / 2, -10 ).lineTo( shapeWidth, 0 );
@@ -29,7 +29,7 @@ define( function( require ) {
 
     var radius = 20;
     var upButton = new RoundShinyButton( function() {
-      valueProperty.set( Math.min( valueProperty.get() + 1, max ) );
+      valueProperty.set( valueProperty.get() + 1 );
     }, upIcon, {
       radius: radius,
       touchAreaRadius: 24 * 1.3,
@@ -38,9 +38,10 @@ define( function( require ) {
       downFill: new Color( '#e9e824' ),
       iconOffsetY: -3
     } );
+    upEnabledProperty.linkAttribute( upButton, 'enabled' );
 
     var downButton = new RoundShinyButton( function() {
-      valueProperty.set( Math.max( valueProperty.get() - 1, min ) );
+      valueProperty.set( valueProperty.get() - 1 );
     }, downIcon, {
       radius: radius,
       touchAreaRadius: 24 * 1.3,
@@ -49,6 +50,7 @@ define( function( require ) {
       downFill: new Color( '#e9e824' ),
       iconOffsetY: +3
     } );
+    downEnabledProperty.linkAttribute( downButton, 'enabled' );
 
     VBox.call( this, {spacing: 6, children: [upButton, downButton]} );
 

@@ -15,6 +15,8 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var UpDownSpinner = require( 'FRACTION_COMPARISON/intro/view/UpDownSpinner' );
+  var Property = require( 'AXON/Property' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   function FractionNode( numeratorProperty, denominatorProperty, options ) {
@@ -49,8 +51,13 @@ define( function( require ) {
     this.addChild( numeratorNode );
     this.addChild( denominatorNode );
 
-    var numeratorSpinner = new UpDownSpinner( numeratorProperty, 1, 9 );
-    var denominatorSpinner = new UpDownSpinner( denominatorProperty, 1, 9 );
+    var numeratorUpEnabledProperty = new DerivedProperty( [numeratorProperty, denominatorProperty], function( numerator, denominator ) { return numerator < denominator; } );
+    var numeratorDownEnabledProperty = new DerivedProperty( [numeratorProperty], function( numerator ) { return numerator > 0; } );
+    var denominatorUpEnabledProperty = new DerivedProperty( [denominatorProperty], function( denominator ) { return denominator < 10;} );
+    var denominatorDownEnabledProperty = new DerivedProperty( [ numeratorProperty, denominatorProperty], function( numerator, denominator ) { return denominator > 1 && numerator < denominator;} );
+
+    var numeratorSpinner = new UpDownSpinner( numeratorProperty, numeratorUpEnabledProperty, numeratorDownEnabledProperty );
+    var denominatorSpinner = new UpDownSpinner( denominatorProperty, denominatorUpEnabledProperty, denominatorDownEnabledProperty );
 
     var spinners = new VBox( {spacing: 20, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX, centerY: line.bounds.centerY} );
     this.addChild( spinners );
