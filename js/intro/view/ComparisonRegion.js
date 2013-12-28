@@ -24,16 +24,10 @@ define( function( require ) {
     var comparisonRegionLength = 220;
     Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {lineStroke: 1, fill: 'white'} );
 
-    var tailX = 0;
-    var tailY = 0;
-    var tipX = 10;
-    var tipY = 0;
-
     var xTip = 20;
     var yTip = 8;
     var xControl = 12;
     var yControl = -5;
-    var leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
 
     var createArrowhead = function( angle, tail ) {
       var headWidth = 10;
@@ -50,6 +44,7 @@ define( function( require ) {
     };
 
     var rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
+    var leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
 
     var compareButton = new RectanglePushButton( new HBox( {spacing: 5, children: [
       new Node( {children: [leftCurve, createArrowhead( Math.PI / 3, new Vector2( xTip, yTip ) )]} ),
