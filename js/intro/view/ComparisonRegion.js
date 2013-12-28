@@ -39,8 +39,8 @@ define( function( require ) {
         lineToPoint( tail.plus( orthogonalUnitVector.times( headWidth / 2 ) ) ).
         lineToPoint( tip ).
         lineToPoint( tail.plus( orthogonalUnitVector.times( -headWidth / 2 ) ) ).
-        lineToPoint( tail ).close()
-        , {fill: 'black'} );
+        lineToPoint( tail ).close(),
+        {fill: 'black'} );
     };
 
     var rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), { stroke: 'black', lineWidth: 3 } );

@@ -111,15 +111,15 @@ define( function( require ) {
     var leftDivisionsProperty = model.leftFractionModel.property( 'divisions' );
     var leftDivisionSpinner = new LeftRightSpinner( leftDivisionsProperty,
       leftDivisionsProperty.greaterThanNumber( 1 ),
-      leftDivisionsProperty.lessThanNumber( 10 )
-      , {centerX: leftHorizontalBarContainerNode.centerX, top: leftHorizontalBarContainerNode.bottom + 6} );
+      leftDivisionsProperty.lessThanNumber( 10 ),
+      {centerX: leftHorizontalBarContainerNode.centerX, top: leftHorizontalBarContainerNode.bottom + 6} );
     this.addChild( leftDivisionSpinner );
 
     var rightDivisionsProperty = model.rightFractionModel.property( 'divisions' );
     var rightDivisionSpinner = new LeftRightSpinner( rightDivisionsProperty,
       rightDivisionsProperty.greaterThanNumber( 1 ),
-      rightDivisionsProperty.lessThanNumber( 10 )
-      , {centerX: rightHorizontalBarContainerNode.centerX, top: rightHorizontalBarContainerNode.bottom + 6} );
+      rightDivisionsProperty.lessThanNumber( 10 ),
+      {centerX: rightHorizontalBarContainerNode.centerX, top: rightHorizontalBarContainerNode.bottom + 6} );
     this.addChild( rightDivisionSpinner );
   }
 
