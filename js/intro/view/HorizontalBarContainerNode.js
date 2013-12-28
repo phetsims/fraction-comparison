@@ -33,12 +33,11 @@ define( function( require ) {
 
     this.mutate( options );
 
-    this.addInputListener( new NodeDragHandler( this, {startDrag: function() {
-      horizontalBarContainerNode.moveToFront();
-      horizontalBarContainerNode.events.trigger( 'moved-to-front' );
-    }, drag: function() {
-      horizontalBarContainerNode.events.trigger( 'changed' );
-    }} ) );
+    this.addInputListener( new NodeDragHandler( this, {
+      drag: function() {
+        horizontalBarContainerNode.events.trigger( 'changed' );
+      }
+    } ) );
   }
 
   return inherit( Node, HorizontalBarContainerNode );
