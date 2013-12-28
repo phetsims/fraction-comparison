@@ -14,6 +14,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
   var Events = require( 'AXON/Events' );
+  var Property = require( 'AXON/Property' );
 
   /**
    *
@@ -26,6 +27,10 @@ define( function( require ) {
    */
   function HorizontalBarContainerNode( fractionProperty, color, startPositionFunction, comparePositionFunction, options ) {
     var horizontalBarContainerNode = this;
+
+    //one of start/drag/animate/compare
+    this.stateProperty = new Property( 'start' );
+
     options = _.extend( {cursor: 'pointer'}, options );
     Node.call( this );
     this.events = new Events();
@@ -46,6 +51,9 @@ define( function( require ) {
 
     this.center = this.startPosition;
     this.addInputListener( new NodeDragHandler( this, {
+      startDrag: function() {
+        horizontalBarContainerNode.stateProperty.set( 'dragging' );
+      },
       drag: function() {
         //TODO: is 'changed' still used now that overlay is gone?
         horizontalBarContainerNode.events.trigger( 'changed' );
@@ -58,6 +66,7 @@ define( function( require ) {
 
         //TODO: animate continuously instead of jumping
         horizontalBarContainerNode.center = distToStart < distToCompare ? horizontalBarContainerNode.startPosition : horizontalBarContainerNode.comparePosition;
+        horizontalBarContainerNode.stateProperty.set( distToStart < distToCompare ? 'start' : 'compare' );
       }
     } ) );
   }

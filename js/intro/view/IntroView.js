@@ -83,11 +83,19 @@ define( function( require ) {
     this.addChild( leftHorizontalBarContainerNode );
     this.addChild( rightHorizontalBarContainerNode );
 
-    var leftDottedLineContainerNode = new Rectangle( 0, 0, 180, 100, {stroke: 'black', lineWidth: 1, lineDash: [4, 4]} );
+    var leftDottedLineContainerNode = new Rectangle( 0, 0, 180, 100, {stroke: 'green', lineWidth: 10, lineDash: [20, 20]} );
+    leftDottedLineContainerNode.center = leftHorizontalBarContainerNode.comparePosition;
     var leftValueSmallerProperty = new DerivedProperty( [model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' )], function( leftFraction, rightFraction ) {
       return leftFraction <= rightFraction;
     } );
-    leftValueSmallerProperty.linkAttribute( leftDottedLineContainerNode, 'visible' );
+
+    var bothCompareProperty = new DerivedProperty( [leftHorizontalBarContainerNode.stateProperty, rightHorizontalBarContainerNode.stateProperty], function( leftState, rightState ) {
+      return leftState === 'compare' && rightState === 'compare';
+    } );
+
+    var showLeftDottedLineProperty = bothCompareProperty.and( leftValueSmallerProperty );
+
+    showLeftDottedLineProperty.linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
   }
 
