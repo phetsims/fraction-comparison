@@ -78,13 +78,13 @@ define( function( require ) {
     this.addChild( comparisonRegion );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', model.leftFractionModel.stateProperty, function( width, height ) {
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', model.leftFractionModel.stateProperty, model.leftFractionModel.divisionsProperty, function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     }, {} );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', model.rightFractionModel.stateProperty, function( width, height ) {
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', model.rightFractionModel.stateProperty, model.rightFractionModel.divisionsProperty, function( width, height ) {
       return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );

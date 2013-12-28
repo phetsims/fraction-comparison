@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
   var Events = require( 'AXON/Events' );
   var Property = require( 'AXON/Property' );
@@ -20,12 +21,14 @@ define( function( require ) {
    *
    * @param {Property<number>} fractionProperty The value of the fraction
    * @param {string} color
+   * @param {Property<string>} stateProperty see docs in FractionModel
+   * @param {NumberProperty} divisionsProperty see docs in FractionModel
    * @param {function} startPositionFunction a function taking args (width,height) to compute the start center of the node
    * @param {function} comparePositionFunction a function taking args (width,height) to compute the center position of the node when compared
    * @param options
    * @constructor
    */
-  function HorizontalBarContainerNode( fractionProperty, color, stateProperty, startPositionFunction, comparePositionFunction, options ) {
+  function HorizontalBarContainerNode( fractionProperty, color, stateProperty, divisionsProperty, startPositionFunction, comparePositionFunction, options ) {
     var horizontalBarContainerNode = this;
 
     this.stateProperty = stateProperty;
@@ -43,6 +46,17 @@ define( function( require ) {
       horizontalBarContainerNode.events.trigger( 'changed' );
     } );
     this.addChild( this.contents );
+
+    //Dotted lines to show divisions
+    var divisionsNode = new Node();
+    divisionsProperty.link( function( divisions ) {
+      var children = [];
+      for ( var i = 1; i < divisions; i++ ) {
+        children.push( new Line( i * 180 / divisions, 0, i * 180 / divisions, 100, {stroke: 'gray', lineDash: [5, 4], lineWidth: 1.5} ) );
+      }
+      divisionsNode.children = children;
+    } );
+    this.addChild( divisionsNode );
 
     this.mutate( options );
     this.startPosition = startPositionFunction( this.width, this.height );
