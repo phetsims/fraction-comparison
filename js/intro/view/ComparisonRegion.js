@@ -20,7 +20,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function ComparisonRegion( compareButtonPressed, options ) {
+  function ComparisonRegion( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
     var comparisonRegionLength = 220;
     Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {lineStroke: 1, fill: 'white'} );
 
@@ -51,7 +51,18 @@ define( function( require ) {
       new Node( {children: [rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) )]} )
     ]} ), {rectangleFillUp: new Color( 'yellow' ), centerX: this.bounds.centerX, bottom: this.bottom - 5} );
     compareButton.addListener( compareButtonPressed );
+
+    var separateButton = new RectanglePushButton( new HBox( {spacing: 5, children: [
+      new Node( {children: [leftCurve, createArrowhead( Math.PI / 3 + Math.PI * 0.5, new Vector2( 0, 0 ) )]} ),
+      new Node( {children: [rightCurve, createArrowhead( Math.PI - Math.PI / 3 - Math.PI / 2, new Vector2( 0, 0 ) )]} )
+    ]} ), {rectangleFillUp: new Color( 'green' ), centerX: this.bounds.centerX, bottom: this.bottom - 5} );
+    separateButton.addListener( separateButtonPressed );
+
+    compareBothProperty.linkAttribute( separateButton, 'visible' );
+    compareBothProperty.derivedNot().linkAttribute( compareButton, 'visible' );
+
     this.addChild( compareButton );
+    this.addChild( separateButton );
 
     var target = new Rectangle( 0, 0, 180, 100, {stroke: 'red', lineWidth: 1, lineDash: [ 6, 5 ], centerX: this.bounds.centerX, top: 59} );
     this.addChild( target );
@@ -59,5 +70,9 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Rectangle, ComparisonRegion );
+  return inherit( Rectangle, ComparisonRegion, {
+    setBothComparedProperty: function( bothComparedProperty ) {
+      this.bothComparedProperty = bothComparedProperty;
+    }
+  } );
 } );

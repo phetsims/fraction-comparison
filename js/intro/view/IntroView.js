@@ -67,17 +67,23 @@ define( function( require ) {
       leftHorizontalBarContainerNode.animateToComparison();
       rightHorizontalBarContainerNode.animateToComparison();
     };
-    var comparisonRegion = new ComparisonRegion( compareButtonPressed, {top: 10, centerX: this.layoutBounds.centerX} );
+
+    var separateButtonPressed = function() {
+      leftHorizontalBarContainerNode.animateToStart();
+      rightHorizontalBarContainerNode.animateToStart();
+    };
+
+    var comparisonRegion = new ComparisonRegion( compareButtonPressed, separateButtonPressed, model.bothCompareProperty, {top: 10, centerX: this.layoutBounds.centerX} );
     this.addChild( comparisonRegion );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', function( width, height ) {
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel.property( 'fraction' ), 'green', model.leftFractionModel.stateProperty, function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     }, {} );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', function( width, height ) {
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel.property( 'fraction' ), 'blue', model.rightFractionModel.stateProperty, function( width, height ) {
       return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
@@ -98,13 +104,7 @@ define( function( require ) {
       return leftFraction <= rightFraction;
     } );
 
-    var bothCompareProperty = new DerivedProperty( [leftHorizontalBarContainerNode.stateProperty, rightHorizontalBarContainerNode.stateProperty], function( leftState, rightState ) {
-      return leftState === 'compare' && rightState === 'compare';
-    } );
-
-    var showLeftDottedLineProperty = bothCompareProperty.and( leftValueSmallerProperty );
-
-    showLeftDottedLineProperty.linkAttribute( leftDottedLineContainerNode, 'visible' );
+    model.bothCompareProperty.and( leftValueSmallerProperty ).linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
   }
 

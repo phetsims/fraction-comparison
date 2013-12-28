@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   var PropertySet = require( 'AXON/PropertySet' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -18,6 +19,10 @@ define( function( require ) {
     PropertySet.call( this, {
       numberLineVisible: false,
       representation: 'horizontal-bar'
+    } );
+
+    this.bothCompareProperty = new DerivedProperty( [this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty], function( leftState, rightState ) {
+      return leftState === 'compare' && rightState === 'compare';
     } );
   }
 

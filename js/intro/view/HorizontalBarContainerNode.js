@@ -25,11 +25,10 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function HorizontalBarContainerNode( fractionProperty, color, startPositionFunction, comparePositionFunction, options ) {
+  function HorizontalBarContainerNode( fractionProperty, color, stateProperty, startPositionFunction, comparePositionFunction, options ) {
     var horizontalBarContainerNode = this;
 
-    //one of start/drag/animate/compare
-    this.stateProperty = new Property( 'start' );
+    this.stateProperty = stateProperty;
 
     options = _.extend( {cursor: 'pointer'}, options );
     Node.call( this );
@@ -75,6 +74,10 @@ define( function( require ) {
     animateToComparison: function() {
       this.center = this.comparePosition;
       this.stateProperty.set( 'compare' );
+    },
+    animateToStart: function() {
+      this.center = this.startPosition;
+      this.stateProperty.set( 'start' );
     }
   } );
 } );
