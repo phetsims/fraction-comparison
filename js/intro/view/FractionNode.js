@@ -14,7 +14,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var UpDownSpinner = require( 'FRACTION_COMPARISON/intro/view/UpDownSpinner' );
+  var UpDownSpinner = require( 'SCENERY_PHET/UpDownSpinner' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var VBox = require( 'SCENERY/nodes/VBox' );

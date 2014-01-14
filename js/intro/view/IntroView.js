@@ -19,7 +19,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var LeftRightSpinner = require( 'FRACTION_COMPARISON/intro/view/LeftRightSpinner' );
+  var LeftRightSpinner = require( 'SCENERY_PHET/LeftRightSpinner' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
