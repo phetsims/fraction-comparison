@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Node for up/down buttons for each numerator/denominator.
+ * Node for up/down buttons.  See also LeftRightSpinner.
  *
  * TODO: press to hold
  *

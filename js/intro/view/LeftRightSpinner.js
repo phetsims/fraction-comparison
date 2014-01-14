@@ -1,10 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Node for up/down buttons for each numerator/denominator.
+ * Node for up/down buttons.  See also UpDownSpinner.
  *
  * TODO: press to hold
- * TODO: Share code with UpDownSpinner
  *
  * @author Sam Reid
  */
