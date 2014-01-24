@@ -15,7 +15,6 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
   var Events = require( 'AXON/Events' );
-  var Property = require( 'AXON/Property' );
 
   /**
    *

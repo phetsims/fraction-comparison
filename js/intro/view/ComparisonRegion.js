@@ -14,7 +14,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RectanglePushButton = require( 'SUN/RectanglePushButton' );
   var Color = require( 'SCENERY/util/Color' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
