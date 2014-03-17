@@ -78,6 +78,11 @@ define( function( require ) {
       } );
     }
 
+    //For the "left behind" pieces, show semi-transparent so it gives the impression that it is just a "shadow", see #19
+    if ( !interactive ) {
+      this.opacity = 0.6;
+    }
+
     this.mutate( options );
     this.startPosition = startPositionFunction( this.width, this.height );
     this.comparePosition = comparePositionFunction( this.width, this.height );
