@@ -10,13 +10,14 @@ define( function( require ) {
 
   // imports
   var inherit = require( 'PHET_CORE/inherit' );
-  var RectanglePushButton = require( 'SUN/RectanglePushButton' );
   var Color = require( 'SCENERY/util/Color' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var RectangularPushButton = require( 'SUN/experimental/buttons/RectangularPushButton' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function CompareSeparateButton( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
     Node.call( this );
@@ -43,16 +44,29 @@ define( function( require ) {
     var rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
     var leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
 
-    var compareButton = new RectanglePushButton( new HBox( {spacing: 5, children: [
+    var compareIcon = new HBox( {spacing: 5, children: [
       new Node( {children: [leftCurve, createArrowhead( Math.PI / 3, new Vector2( xTip, yTip ) )]} ),
       new Node( {children: [rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) )]} )
-    ]} ), {rectangleFillUp: new Color( 'yellow' )} );
-    compareButton.addListener( compareButtonPressed );
-
-    var separateButton = new RectanglePushButton( new HBox( {spacing: 5, children: [
+    ]} );
+    var separateIcon = new HBox( {spacing: 5, children: [
       new Node( {children: [leftCurve, createArrowhead( Math.PI / 3 + Math.PI * 0.5, new Vector2( 0, 0 ) )]} ),
       new Node( {children: [rightCurve, createArrowhead( Math.PI - Math.PI / 3 - Math.PI / 2, new Vector2( 0, 0 ) )]} )
-    ]} ), {rectangleFillUp: new Color( 'green' )} );
+    ]} );
+
+    var maxWidth = Math.max( compareIcon.width, separateIcon.width );
+    var maxHeight = Math.max( compareIcon.height, separateIcon.height );
+
+    var compareButton = new RectangularPushButton( new Rectangle( 0, 0, maxWidth, maxHeight, {
+      children: [compareIcon.mutate( {centerX: maxWidth / 2, centerY: maxHeight / 2} )]
+    } ), {baseColor: new Color( 255, 255, 0 ),
+      disabledBaseColor: new Color( 220, 220, 220 )} );
+    compareButton.addListener( compareButtonPressed );
+
+    var separateButton = new RectangularPushButton( new Rectangle( 0, 0, maxWidth, maxHeight, {
+      children: [separateIcon.mutate( {centerX: maxWidth / 2, centerY: maxHeight / 2} )]
+
+    } ), {baseColor: new Color( 255, 255, 0 ),
+      disabledBaseColor: new Color( 220, 220, 220 )} );
     separateButton.addListener( separateButtonPressed );
 
     compareBothProperty.linkAttribute( separateButton, 'visible' );
