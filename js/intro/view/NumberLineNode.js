@@ -61,15 +61,11 @@ define( function( require ) {
     //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right, since the font bounds are wonky.
     var fractionNodeScale = 0.15;
     var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, top: labelTop} );
-    leftFractionModel.property( 'fraction' ).link( function() {
-      leftFractionNode.centerX = leftFractionModel.fraction * width;
-    } );
+    leftFractionModel.property( 'fraction' ).link( function() { leftFractionNode.centerX = leftFractionModel.fraction * width; } );
     this.addChild( leftFractionNode );
 
     var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, top: labelTop} );
-    rightFractionModel.property( 'fraction' ).link( function() {
-      rightFractionNode.centerX = rightFractionModel.fraction * width;
-    } );
+    rightFractionModel.property( 'fraction' ).link( function() { rightFractionNode.centerX = rightFractionModel.fraction * width; } );
     this.addChild( rightFractionNode );
 
     this.mutate( options );
