@@ -27,7 +27,8 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function HorizontalBarContainerNode( fractionProperty, color, stateProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
+  function HorizontalBarContainerNode( fractionModel, color, stateProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
+    var fractionProperty = fractionModel.property( 'fraction' );
     var horizontalBarContainerNode = this;
 
     this.stateProperty = stateProperty;
@@ -46,7 +47,20 @@ define( function( require ) {
     } );
     this.addChild( this.contents );
 
-    //Dotted lines to show divisions
+    //Solid lines to show pieces
+    var pieceDivisions = new Node();
+    fractionModel.multilink( ['numerator', 'denominator'], function( numerator, denominator ) {
+      var children = [];
+      for ( var i = 1; i < numerator; i++ ) {
+        var x = i * 180 / denominator;
+        children.push( new Line( x, 0, x, 100, {stroke: 'black', lineWidth: 1} ) );
+      }
+      pieceDivisions.children = children;
+
+    } );
+    this.addChild( pieceDivisions );
+
+    //Dotted lines to show user-selected divisions
     var divisionsNode = new Node();
     divisionsProperty.link( function( divisions ) {
       var children = [];
