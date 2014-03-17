@@ -50,16 +50,23 @@ define( function( require ) {
       lines.push( segment );
     }
 
-    this.addChild( new Text( '0', {centerX: lines[0].centerX, top: lines[0].bounds.maxY, font: new PhetFont( { size: 18} )} ) );
-    this.addChild( new Text( '1', {centerX: lines[lines.length - 1].centerX, top: lines[lines.length - 1].bounds.maxY, font: new PhetFont( { size: 18} )} ) );
+    var labelTop = lines[0].bounds.maxY;
 
-    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: 0.24, top: 12} );
+    var zeroLabel = new Text( '0', {centerX: lines[0].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
+    var oneLabel = new Text( '1', {centerX: lines[lines.length - 1].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
+
+    this.addChild( zeroLabel );
+    this.addChild( oneLabel );
+
+    //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right, since the font bounds are wonky.
+    var fractionNodeScale = 0.15;
+    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, top: labelTop} );
     leftFractionModel.property( 'fraction' ).link( function() {
       leftFractionNode.centerX = leftFractionModel.fraction * width;
     } );
     this.addChild( leftFractionNode );
 
-    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: 0.24, top: 12} );
+    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, top: labelTop} );
     rightFractionModel.property( 'fraction' ).link( function() {
       rightFractionNode.centerX = rightFractionModel.fraction * width;
     } );
