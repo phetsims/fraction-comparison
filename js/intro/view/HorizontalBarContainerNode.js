@@ -71,6 +71,13 @@ define( function( require ) {
     } );
     this.addChild( divisionsNode );
 
+    //Only show the separator lines if the user is not dragging/comparing the object (i.e. it is at its start location)
+    if ( interactive ) {
+      this.stateProperty.link( function( state ) {
+        divisionsNode.visible = state === 'start';
+      } );
+    }
+
     this.mutate( options );
     this.startPosition = startPositionFunction( this.width, this.height );
     this.comparePosition = comparePositionFunction( this.width, this.height );
