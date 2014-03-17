@@ -34,7 +34,7 @@ define( function( require ) {
     var representationPanel = new RepresentationPanel( model.property( 'representation' ), {bottom: this.layoutBounds.maxY - 5, centerX: this.layoutBounds.centerX} );
     this.addChild( representationPanel );
 
-    var numberLineNode = new NumberLineNode( model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' ), model.property( 'numberLineVisible' ),
+    var numberLineNode = new NumberLineNode( model.leftFractionModel, model.rightFractionModel, model.property( 'numberLineVisible' ),
       {centerX: this.layoutBounds.centerX, bottom: representationPanel.top - 70} );
     this.addChild( numberLineNode );
 

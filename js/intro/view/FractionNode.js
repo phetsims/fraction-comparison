@@ -19,6 +19,13 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   function FractionNode( numeratorProperty, denominatorProperty, options ) {
+
+    options = _.extend( {
+
+      //By default the fraction node is interactive, which means it has up/down spinners
+      //Those spinners can be removed if the fraction node will be used as a label for underneath the number line
+      interactive: true}, options );
+
     Node.call( this );
     var font = new PhetFont( { size: 84} );
     var numeratorNode = new Text( numeratorProperty.get(), { font: font } );
@@ -43,16 +50,18 @@ define( function( require ) {
     this.addChild( numeratorNode );
     this.addChild( denominatorNode );
 
-    var numeratorUpEnabledProperty = new DerivedProperty( [numeratorProperty, denominatorProperty], function( numerator, denominator ) { return numerator < denominator; } );
-    var numeratorDownEnabledProperty = new DerivedProperty( [numeratorProperty], function( numerator ) { return numerator > 0; } );
-    var denominatorUpEnabledProperty = new DerivedProperty( [denominatorProperty], function( denominator ) { return denominator < 10;} );
-    var denominatorDownEnabledProperty = new DerivedProperty( [ numeratorProperty, denominatorProperty], function( numerator, denominator ) { return denominator > 1 && numerator < denominator;} );
+    if ( options.interactive ) {
+      var numeratorUpEnabledProperty = new DerivedProperty( [numeratorProperty, denominatorProperty], function( numerator, denominator ) { return numerator < denominator; } );
+      var numeratorDownEnabledProperty = new DerivedProperty( [numeratorProperty], function( numerator ) { return numerator > 0; } );
+      var denominatorUpEnabledProperty = new DerivedProperty( [denominatorProperty], function( denominator ) { return denominator < 10;} );
+      var denominatorDownEnabledProperty = new DerivedProperty( [ numeratorProperty, denominatorProperty], function( numerator, denominator ) { return denominator > 1 && numerator < denominator;} );
 
-    var numeratorSpinner = new UpDownSpinner( numeratorProperty, numeratorUpEnabledProperty, numeratorDownEnabledProperty );
-    var denominatorSpinner = new UpDownSpinner( denominatorProperty, denominatorUpEnabledProperty, denominatorDownEnabledProperty );
+      var numeratorSpinner = new UpDownSpinner( numeratorProperty, numeratorUpEnabledProperty, numeratorDownEnabledProperty );
+      var denominatorSpinner = new UpDownSpinner( denominatorProperty, denominatorUpEnabledProperty, denominatorDownEnabledProperty );
 
-    var spinners = new VBox( {spacing: 20, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX + 5, centerY: line.bounds.centerY} );
-    this.addChild( spinners );
+      var spinners = new VBox( {spacing: 20, children: [numeratorSpinner, denominatorSpinner], left: line.bounds.maxX + 5, centerY: line.bounds.centerY} );
+      this.addChild( spinners );
+    }
 
     this.mutate( options );
   }

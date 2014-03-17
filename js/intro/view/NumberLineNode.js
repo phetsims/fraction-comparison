@@ -15,9 +15,13 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
 
-  function NumberLineNode( leftFractionProperty, rightFractionProperty, visibleProperty, options ) {
+  function NumberLineNode( leftFractionModel, rightFractionModel, visibleProperty, options ) {
     Node.call( this );
+
+    var leftFractionProperty = leftFractionModel.property( 'fraction' );
+    var rightFractionProperty = rightFractionModel.property( 'fraction' );
 
     var width = 300;
     var line = new Line( 0, 0, width, 0, {lineWidth: 2, stroke: 'black'} );
@@ -48,6 +52,18 @@ define( function( require ) {
 
     this.addChild( new Text( '0', {centerX: lines[0].centerX, top: lines[0].bounds.maxY, font: new PhetFont( { size: 18} )} ) );
     this.addChild( new Text( '1', {centerX: lines[lines.length - 1].centerX, top: lines[lines.length - 1].bounds.maxY, font: new PhetFont( { size: 18} )} ) );
+
+    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: 0.24, top: 12} );
+    leftFractionModel.property( 'fraction' ).link( function() {
+      leftFractionNode.centerX = leftFractionModel.fraction * width;
+    } );
+    this.addChild( leftFractionNode );
+
+    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: 0.24, top: 12} );
+    rightFractionModel.property( 'fraction' ).link( function() {
+      rightFractionNode.centerX = rightFractionModel.fraction * width;
+    } );
+    this.addChild( rightFractionNode );
 
     this.mutate( options );
   }
