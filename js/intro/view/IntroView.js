@@ -39,7 +39,7 @@ define( function( require ) {
     this.addChild( numberLineNode );
 
     //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
-    this.addChild( new CheckBox( new Node(), model.property( 'numberLineVisible' ), {top: numberLineNode.bounds.maxY + 20, centerX: numberLineNode.centerX, scale: 1.15} ) );
+    this.addChild( new CheckBox( new Node(), model.property( 'numberLineVisible' ), {top: numberLineNode.bounds.maxY + 7, centerX: numberLineNode.centerX, scale: 1.15} ) );
 
     this.addChild( new ResetAllButton( model.reset.bind( model ), {
       radius: 24,
