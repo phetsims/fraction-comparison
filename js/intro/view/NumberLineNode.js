@@ -58,7 +58,7 @@ define( function( require ) {
     this.addChild( zeroLabel );
     this.addChild( oneLabel );
 
-    //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right, since the font bounds are wonky.
+    //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right since the font bounds are wonky, so just use a heuristic scale factor
     var fractionNodeScale = 0.15;
     var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, top: labelTop} );
     leftFractionModel.property( 'fraction' ).link( function() { leftFractionNode.centerX = leftFractionModel.fraction * width; } );
