@@ -41,24 +41,27 @@ define( function( require ) {
     rightFractionProperty.link( function( rightFraction ) { rightRectangle.setRectWidth( rightFraction * width ); } );
 
     var linesNode = new Node( {pickable: false} );
-    var greatestCommonDivisorProperty = new DerivedProperty( [leftFractionModel.property( 'denominator' ), rightFractionModel.property( 'denominator' )],
-      function( leftDenominator, rightDenominator ) {
-        return NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
-      } );
     this.addChild( linesNode );
-    greatestCommonDivisorProperty.link( function( greatestCommonDivisor ) {
-      var lines = [];
-      var maxTickIndex = greatestCommonDivisor;
-      for ( var i = 0; i <= maxTickIndex; i++ ) {
-        var distance = i / maxTickIndex * width;
-        var lineHeight = (i === 0 || i === maxTickIndex) ? 16 :
-                         8;
-        var segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: (i === 0 || i === maxTickIndex) ? 1.5 : 1, stroke: 'black'} );
-        lines.push( segment );
-      }
 
-      linesNode.children = lines;
-    } );
+    //When tick spacing or labeled ticks change, update the ticks
+    new DerivedProperty( [leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
+        rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' )],
+      function( leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
+        var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
+        var lines = [];
+        var maxTickIndex = leastCommonDenominator;
+        for ( var i = 0; i <= maxTickIndex; i++ ) {
+          var distance = i / maxTickIndex * width;
+          var matchesLeft = Math.abs( i / maxTickIndex - leftNumerator / leftDenominator ) < 1E-6;
+          var matchesRight = Math.abs( i / maxTickIndex - rightNumerator / rightDenominator ) < 1E-6;
+          var lineHeight = (i === 0 || i === maxTickIndex || matchesLeft || matchesRight) ? 16 :
+                           8;
+          var segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: (i === 0 || i === maxTickIndex) ? 1.5 : 1, stroke: 'black'} );
+          lines.push( segment );
+        }
+
+        linesNode.children = lines;
+      } );
 
     var labelTop = linesNode.children[0].bounds.maxY;
 
