@@ -16,6 +16,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   function NumberLineNode( leftFractionModel, rightFractionModel, visibleProperty, options ) {
     Node.call( this );
@@ -39,21 +40,30 @@ define( function( require ) {
     leftFractionProperty.link( function( leftFraction ) { leftRectangle.setRectWidth( leftFraction * width ); } );
     rightFractionProperty.link( function( rightFraction ) { rightRectangle.setRectWidth( rightFraction * width ); } );
 
-    var lines = [];
-    for ( var i = 0; i <= 12; i++ ) {
-      var distance = i / 12 * width;
-      var lineHeight = i === 0 ? 16 :
-                       i === 12 ? 16 :
-                       8;
-      var segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: (i === 0 || i === 12) ? 1.5 : 1, stroke: 'black'} );
-      this.addChild( segment );
-      lines.push( segment );
-    }
+    var linesNode = new Node( {pickable: false} );
+    var greatestCommonDivisorProperty = new DerivedProperty( [leftFractionModel.property( 'denominator' ), rightFractionModel.property( 'denominator' )],
+      function( leftDenominator, rightDenominator ) {
+        return NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
+      } );
+    this.addChild( linesNode );
+    greatestCommonDivisorProperty.link( function( greatestCommonDivisor ) {
+      var lines = [];
+      var maxTickIndex = greatestCommonDivisor;
+      for ( var i = 0; i <= maxTickIndex; i++ ) {
+        var distance = i / maxTickIndex * width;
+        var lineHeight = (i === 0 || i === maxTickIndex) ? 16 :
+                         8;
+        var segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: (i === 0 || i === maxTickIndex) ? 1.5 : 1, stroke: 'black'} );
+        lines.push( segment );
+      }
 
-    var labelTop = lines[0].bounds.maxY;
+      linesNode.children = lines;
+    } );
 
-    var zeroLabel = new Text( '0', {centerX: lines[0].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
-    var oneLabel = new Text( '1', {centerX: lines[lines.length - 1].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
+    var labelTop = linesNode.children[0].bounds.maxY;
+
+    var zeroLabel = new Text( '0', {centerX: linesNode.children[0].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
+    var oneLabel = new Text( '1', {centerX: linesNode.children[linesNode.children.length - 1].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
 
     this.addChild( zeroLabel );
     this.addChild( oneLabel );
@@ -71,5 +81,11 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, NumberLineNode );
+  return inherit( Node, NumberLineNode, {},
+
+    //statics
+    {
+      leastCommonDenominator: function( a, b ) { return a * b / NumberLineNode.greatestCommonDenominator( a, b ); },
+      greatestCommonDenominator: function gcd( a, b ) { return b ? gcd( b, a % b ) : Math.abs( a ); }
+    } );
 } );
