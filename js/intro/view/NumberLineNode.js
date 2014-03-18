@@ -29,9 +29,11 @@ define( function( require ) {
 
     this.addChild( line );
 
-    var leftRectangle = new Rectangle( 0, -20, width, 20, {fill: '#61c9e4', lineWidth: 1, stroke: 'black'} );
+    var leftFill = '#61c9e4';
+    var rightFill = '#dc528d';
+    var leftRectangle = new Rectangle( 0, -20, width, 20, {fill: leftFill, lineWidth: 1, stroke: 'black'} );
     this.addChild( leftRectangle );
-    var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: '#dc528d', lineWidth: 1, stroke: 'black'} );
+    var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: rightFill, lineWidth: 1, stroke: 'black'} );
     this.addChild( rightRectangle );
 
     visibleProperty.linkAttribute( leftRectangle, 'visible' );
@@ -43,6 +45,14 @@ define( function( require ) {
     var linesNode = new Node( {pickable: false} );
     this.addChild( linesNode );
 
+    //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right since the font bounds are wonky, so just use a heuristic scale factor
+    var fractionNodeScale = 0.15;
+    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: leftFill, top: 8} );
+    this.addChild( leftFractionNode );
+
+    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: rightFill, top: 8} );
+    this.addChild( rightFractionNode );
+
     //When tick spacing or labeled ticks change, update the ticks
     DerivedProperty.create( [leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
         rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' )],
@@ -50,6 +60,8 @@ define( function( require ) {
         var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
         var lines = [];
         var maxTickIndex = leastCommonDenominator;
+        var leftTickCenterX = null;
+        var rightTickCenterX = null;
         for ( var i = 0; i <= maxTickIndex; i++ ) {
           var distance = i / maxTickIndex * width;
           var matchesLeft = Math.abs( i / maxTickIndex - leftNumerator / leftDenominator ) < 1E-6;
@@ -58,11 +70,51 @@ define( function( require ) {
                            8;
 
           var matchesEndPoint = i === 0 || i === maxTickIndex;
-          var segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: matchesEndPoint ? 1.5 : 1, stroke: 'black'} );
-          lines.push( segment );
-        }
 
+          var segment = null;
+          if ( matchesEndPoint && !matchesLeft && !matchesRight ) {
+            segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1.5, stroke: 'black'} );
+            lines.push( segment );
+          }
+          else if ( !matchesEndPoint && matchesLeft && !matchesRight ) {
+            segment = new Line( distance, -lineHeight / 2, distance, 0, {lineWidth: 1, stroke: 'black'} );
+            lines.push( segment );
+
+            segment = new Line( distance, 0, distance, lineHeight / 2, {lineWidth: 1, stroke: leftFill} );
+            lines.push( segment );
+
+            leftTickCenterX = distance;
+          }
+          else if ( !matchesEndPoint && !matchesLeft && !matchesRight ) {
+            segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1, stroke: 'black'} );
+            lines.push( segment );
+          }
+          else if ( !matchesEndPoint && !matchesLeft && matchesRight ) {
+            segment = new Line( distance, -lineHeight / 2, distance, 0, {lineWidth: 1, stroke: 'black'} );
+            lines.push( segment );
+
+            segment = new Line( distance, 0, distance, lineHeight / 2, {lineWidth: 1, stroke: rightFill} );
+            lines.push( segment );
+
+            rightTickCenterX = distance;
+          }
+          else if ( !matchesEndPoint && matchesLeft && matchesRight ) {
+            segment = new Line( distance, -lineHeight / 2, distance, 0, {lineWidth: 1, stroke: 'black'} );
+            lines.push( segment );
+
+            segment = new Line( distance, 0, distance - lineHeight / 2, lineHeight / 2, {lineWidth: 1, stroke: leftFill} );
+            lines.push( segment );
+
+            segment = new Line( distance, 0, distance + lineHeight / 2, lineHeight / 2, {lineWidth: 1, stroke: rightFill} );
+            lines.push( segment );
+
+            leftTickCenterX = distance - lineHeight / 2;
+            rightTickCenterX = distance + lineHeight / 2;
+          }
+        }
         linesNode.children = lines;
+        leftFractionNode.centerX = leftTickCenterX;
+        rightFractionNode.centerX = rightTickCenterX;
       } );
 
     var labelTop = linesNode.children[0].bounds.maxY;
@@ -72,16 +124,6 @@ define( function( require ) {
 
     this.addChild( zeroLabel );
     this.addChild( oneLabel );
-
-    //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right since the font bounds are wonky, so just use a heuristic scale factor
-    var fractionNodeScale = 0.15;
-    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, top: labelTop} );
-    leftFractionModel.property( 'fraction' ).link( function() { leftFractionNode.centerX = leftFractionModel.fraction * width; } );
-    this.addChild( leftFractionNode );
-
-    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, top: labelTop} );
-    rightFractionModel.property( 'fraction' ).link( function() { rightFractionNode.centerX = rightFractionModel.fraction * width; } );
-    this.addChild( rightFractionNode );
 
     this.mutate( options );
   }

@@ -22,15 +22,16 @@ define( function( require ) {
 
     options = _.extend( {
 
+      fill: 'black',
       //By default the fraction node is interactive, which means it has up/down spinners
       //Those spinners can be removed if the fraction node will be used as a label for underneath the number line
       interactive: true}, options );
 
     Node.call( this );
     var font = new PhetFont( { size: 84} );
-    var numeratorNode = new Text( numeratorProperty.get(), { font: font } );
+    var numeratorNode = new Text( numeratorProperty.get(), { font: font, fill: options.fill } );
 
-    var line = new Line( 0, 0, 80, 0, {lineWidth: 4, stroke: 'black'} );
+    var line = new Line( 0, 0, 80, 0, {lineWidth: 4, stroke: options.fill} );
     this.addChild( line );
 
     numeratorProperty.link( function( value ) {
@@ -38,7 +39,7 @@ define( function( require ) {
       numeratorNode.centerX = line.centerX;
     } );
 
-    var denominatorNode = new Text( denominatorProperty.get(), { font: font } );
+    var denominatorNode = new Text( denominatorProperty.get(), { font: font, fill: options.fill} );
     denominatorProperty.link( function( value ) {
       denominatorNode.text = value + '';
       denominatorNode.centerX = line.centerX;
