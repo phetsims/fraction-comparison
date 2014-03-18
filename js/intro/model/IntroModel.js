@@ -24,6 +24,11 @@ define( function( require ) {
     this.bothCompareProperty = new DerivedProperty( [this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty], function( leftState, rightState ) {
       return leftState === 'compare' && rightState === 'compare';
     } );
+
+    //Boolean Property that indicates whether either of the left/right shapes is in the center, used to hide the center target region
+    this.eitherCompareProperty = new DerivedProperty( [this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty], function( leftState, rightState ) {
+      return leftState === 'compare' || rightState === 'compare';
+    } );
   }
 
   inherit( PropertySet, IntroModel, {

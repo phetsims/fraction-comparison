@@ -13,7 +13,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var CompareSeparateButton = require( 'FRACTION_COMPARISON/intro/view/CompareSeparateButton' );
 
-  function ComparisonRegion( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
+  function ComparisonRegion( compareButtonPressed, separateButtonPressed, compareBothProperty, eitherCompareProperty, options ) {
     var comparisonRegionLength = 220;
     Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {lineStroke: 1, fill: 'white'} );
 
@@ -21,6 +21,8 @@ define( function( require ) {
 
     var target = new Rectangle( 0, 0, 180, 100, {stroke: 'red', lineWidth: 1, lineDash: [ 6, 5 ], centerX: this.bounds.centerX, top: 59} );
     this.addChild( target );
+
+    eitherCompareProperty.derivedNot().linkAttribute( target, 'visible' );
 
     this.mutate( options );
   }

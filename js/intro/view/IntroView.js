@@ -74,7 +74,7 @@ define( function( require ) {
       rightHorizontalBarContainerNode.animateToStart();
     };
 
-    var comparisonRegion = new ComparisonRegion( compareButtonPressed, separateButtonPressed, model.bothCompareProperty, {top: 10, centerX: this.layoutBounds.centerX} );
+    var comparisonRegion = new ComparisonRegion( compareButtonPressed, separateButtonPressed, model.bothCompareProperty, model.eitherCompareProperty, {top: 10, centerX: this.layoutBounds.centerX} );
     this.addChild( comparisonRegion );
 
     //Containers
