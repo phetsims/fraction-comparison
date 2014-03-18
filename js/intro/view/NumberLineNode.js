@@ -61,26 +61,26 @@ define( function( require ) {
     DerivedProperty.multilink( [leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
         rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' )],
       function( leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
+        var lineHeight = 16;
         var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
         var lines = [];
         var maxTickIndex = leastCommonDenominator;
         for ( var i = 0; i <= maxTickIndex; i++ ) {
           var distance = i / maxTickIndex * width;
-          var lineHeight = 16;
 
           lines.push( new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1.5, stroke: 'black'} ) );
         }
         linesNode.children = lines;
 
         //Update the left/right fraction nodes for the fraction value and the colored tick mark
-        var leftXOffset = leftNumerator == 0 || leftNumerator === leftDenominator ? lineHeight :
+        var leftXOffset = leftNumerator === 0 || leftNumerator === leftDenominator ? lineHeight :
                           Math.abs( leftNumerator / leftDenominator - rightNumerator / rightDenominator ) < 1E-6 ? lineHeight * 0.8 :
                           0;
         var leftCenterX = width * leftNumerator / leftDenominator - leftXOffset;
         leftFractionNode.centerX = leftCenterX;
         leftFractionNodeTickMark.setLine( leftCenterX, leftFractionNode.top, width * leftNumerator / leftDenominator, leftFractionNode.top - fractionTop );
 
-        var rightXOffset = rightNumerator == 0 || rightNumerator === rightDenominator ? lineHeight :
+        var rightXOffset = rightNumerator === 0 || rightNumerator === rightDenominator ? lineHeight :
                            Math.abs( rightNumerator / rightDenominator - leftNumerator / leftDenominator ) < 1E-6 ? lineHeight * 0.8 :
                            0;
         var rightCenterX = width * rightNumerator / rightDenominator + rightXOffset;
