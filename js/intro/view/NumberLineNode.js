@@ -49,72 +49,40 @@ define( function( require ) {
     var fractionNodeScale = 0.15;
     var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: leftFill, top: 8} );
     this.addChild( leftFractionNode );
+    var leftFractionNodeTickMark = new Line( 0, 0, 0, 0, {lineWidth: 1.5, stroke: leftFill} );
+    this.addChild( leftFractionNodeTickMark );
 
     var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: rightFill, top: 8} );
     this.addChild( rightFractionNode );
+    var rightFractionNodeTickMark = new Line( 0, 0, 0, 0, {lineWidth: 1.5, stroke: rightFill} );
+    this.addChild( rightFractionNodeTickMark );
 
     //When tick spacing or labeled ticks change, update the ticks
+    //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem
     DerivedProperty.multilink( [leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
         rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' )],
       function( leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
         var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
         var lines = [];
         var maxTickIndex = leastCommonDenominator;
-        var leftTickCenterX = null;
-        var rightTickCenterX = null;
         for ( var i = 0; i <= maxTickIndex; i++ ) {
           var distance = i / maxTickIndex * width;
-          var matchesLeft = Math.abs( i / maxTickIndex - leftNumerator / leftDenominator ) < 1E-6;
-          var matchesRight = Math.abs( i / maxTickIndex - rightNumerator / rightDenominator ) < 1E-6;
-          var lineHeight = (i === 0 || i === maxTickIndex || matchesLeft || matchesRight) ? 16 :
-                           8;
+          var lineHeight = 16;
 
-          var matchesEndPoint = i === 0 || i === maxTickIndex;
-
-          var segment = null;
-          if ( matchesEndPoint && !matchesLeft && !matchesRight ) {
-            segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1.5, stroke: 'black'} );
-            lines.push( segment );
-          }
-          else if ( !matchesEndPoint && matchesLeft && !matchesRight ) {
-            segment = new Line( distance, -lineHeight / 2, distance, 0, {lineWidth: 1, stroke: 'black'} );
-            lines.push( segment );
-
-            segment = new Line( distance, 0, distance, lineHeight / 2, {lineWidth: 1, stroke: leftFill} );
-            lines.push( segment );
-
-            leftTickCenterX = distance;
-          }
-          else if ( !matchesEndPoint && !matchesLeft && !matchesRight ) {
-            segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1, stroke: 'black'} );
-            lines.push( segment );
-          }
-          else if ( !matchesEndPoint && !matchesLeft && matchesRight ) {
-            segment = new Line( distance, -lineHeight / 2, distance, 0, {lineWidth: 1, stroke: 'black'} );
-            lines.push( segment );
-
-            segment = new Line( distance, 0, distance, lineHeight / 2, {lineWidth: 1, stroke: rightFill} );
-            lines.push( segment );
-
-            rightTickCenterX = distance;
-          }
-          else if ( !matchesEndPoint && matchesLeft && matchesRight ) {
-            segment = new Line( distance, -lineHeight / 2, distance, 0, {lineWidth: 1, stroke: 'black'} );
-            lines.push( segment );
-
-            segment = new Line( distance, 0, distance - lineHeight / 2, lineHeight / 2, {lineWidth: 1, stroke: leftFill} );
-            lines.push( segment );
-
-            segment = new Line( distance, 0, distance + lineHeight / 2, lineHeight / 2, {lineWidth: 1, stroke: rightFill} );
-            lines.push( segment );
-
-            leftTickCenterX = distance - lineHeight / 2;
-            rightTickCenterX = distance + lineHeight / 2;
-          }
+          lines.push( new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1.5, stroke: 'black'} ) );
         }
         linesNode.children = lines;
-        leftFractionNode.centerX = leftTickCenterX;
-        rightFractionNode.centerX = rightTickCenterX;
+
+        //Update the left/right fraction nodes for the fraction value and the colored tick mark
+        var showLeftValueAngled = Math.abs( leftNumerator / leftDenominator - rightNumerator / rightDenominator ) < 1E-6 || (leftNumerator == 0) || (leftNumerator === leftDenominator);
+        var leftCenterX = width * leftNumerator / leftDenominator + (showLeftValueAngled ? -lineHeight / 2 : 0);
+        leftFractionNode.centerX = leftCenterX;
+        leftFractionNodeTickMark.setLine( leftCenterX, leftFractionNode.top, width * leftNumerator / leftDenominator, leftFractionNode.top - 8 );
+
+        var showRightValueAngled = Math.abs( leftNumerator / leftDenominator - rightNumerator / rightDenominator ) < 1E-6 || (rightNumerator == 0) || (rightNumerator === rightDenominator);
+        var rightCenterX = width * rightNumerator / rightDenominator + (showRightValueAngled ? +lineHeight / 2 : 0);
+        rightFractionNode.centerX = rightCenterX;
+        rightFractionNodeTickMark.setLine( rightCenterX, rightFractionNode.top, width * rightNumerator / rightDenominator, rightFractionNode.top - 8 );
       } );
 
     var labelTop = linesNode.children[0].bounds.maxY;
