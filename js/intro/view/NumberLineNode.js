@@ -56,7 +56,9 @@ define( function( require ) {
           var matchesRight = Math.abs( i / maxTickIndex - rightNumerator / rightDenominator ) < 1E-6;
           var lineHeight = (i === 0 || i === maxTickIndex || matchesLeft || matchesRight) ? 16 :
                            8;
-          var segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: (i === 0 || i === maxTickIndex) ? 1.5 : 1, stroke: 'black'} );
+
+          var matchesEndPoint = i === 0 || i === maxTickIndex;
+          var segment = new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: matchesEndPoint ? 1.5 : 1, stroke: 'black'} );
           lines.push( segment );
         }
 
