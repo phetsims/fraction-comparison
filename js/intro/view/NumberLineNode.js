@@ -47,13 +47,14 @@ define( function( require ) {
 
     //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right since the font bounds are wonky, so just use a heuristic scale factor
     var fractionNodeScale = 0.22;
-    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: leftFill, top: 8} );
+    var fractionTop = 14;
+    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: leftFill, top: fractionTop} );
     this.addChild( leftFractionNode );
     var coloredTickStroke = 2;
     var leftFractionNodeTickMark = new Line( 0, 0, 0, 0, {lineWidth: coloredTickStroke, stroke: leftFill} );
     this.addChild( leftFractionNodeTickMark );
 
-    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: rightFill, top: 8} );
+    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: rightFill, top: fractionTop} );
     this.addChild( rightFractionNode );
     var rightFractionNodeTickMark = new Line( 0, 0, 0, 0, {lineWidth: coloredTickStroke, stroke: rightFill} );
     this.addChild( rightFractionNodeTickMark );
@@ -75,16 +76,19 @@ define( function( require ) {
         linesNode.children = lines;
 
         //Update the left/right fraction nodes for the fraction value and the colored tick mark
-        var offsetX = lineHeight * 0.8;
-        var showLeftValueAngled = Math.abs( leftNumerator / leftDenominator - rightNumerator / rightDenominator ) < 1E-6 || (leftNumerator == 0) || (leftNumerator === leftDenominator);
-        var leftCenterX = width * leftNumerator / leftDenominator + (showLeftValueAngled ? -offsetX : 0);
+        var leftXOffset = leftNumerator == 0 || leftNumerator === leftDenominator ? lineHeight :
+                          Math.abs( leftNumerator / leftDenominator - rightNumerator / rightDenominator ) < 1E-6 ? lineHeight * 0.8 :
+                          0;
+        var leftCenterX = width * leftNumerator / leftDenominator - leftXOffset;
         leftFractionNode.centerX = leftCenterX;
-        leftFractionNodeTickMark.setLine( leftCenterX, leftFractionNode.top, width * leftNumerator / leftDenominator, leftFractionNode.top - 8 );
+        leftFractionNodeTickMark.setLine( leftCenterX, leftFractionNode.top, width * leftNumerator / leftDenominator, leftFractionNode.top - fractionTop );
 
-        var showRightValueAngled = Math.abs( leftNumerator / leftDenominator - rightNumerator / rightDenominator ) < 1E-6 || (rightNumerator == 0) || (rightNumerator === rightDenominator);
-        var rightCenterX = width * rightNumerator / rightDenominator + (showRightValueAngled ? offsetX : 0);
+        var rightXOffset = rightNumerator == 0 || rightNumerator === rightDenominator ? lineHeight :
+                           Math.abs( rightNumerator / rightDenominator - leftNumerator / leftDenominator ) < 1E-6 ? lineHeight * 0.8 :
+                           0;
+        var rightCenterX = width * rightNumerator / rightDenominator + rightXOffset;
         rightFractionNode.centerX = rightCenterX;
-        rightFractionNodeTickMark.setLine( rightCenterX, rightFractionNode.top, width * rightNumerator / rightDenominator, rightFractionNode.top - 8 );
+        rightFractionNodeTickMark.setLine( rightCenterX, rightFractionNode.top, width * rightNumerator / rightDenominator, rightFractionNode.top - fractionTop );
       } );
 
     var labelTop = linesNode.children[0].bounds.maxY;
