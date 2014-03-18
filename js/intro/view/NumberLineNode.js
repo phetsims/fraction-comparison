@@ -54,7 +54,7 @@ define( function( require ) {
     this.addChild( rightFractionNode );
 
     //When tick spacing or labeled ticks change, update the ticks
-    DerivedProperty.create( [leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
+    DerivedProperty.multilink( [leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
         rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' )],
       function( leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
         var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
