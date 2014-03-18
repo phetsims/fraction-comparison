@@ -36,9 +36,6 @@ define( function( require ) {
     var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: rightFill, lineWidth: 1, stroke: 'black'} );
     this.addChild( rightRectangle );
 
-    visibleProperty.linkAttribute( leftRectangle, 'visible' );
-    visibleProperty.linkAttribute( rightRectangle, 'visible' );
-
     leftFractionProperty.link( function( leftFraction ) { leftRectangle.setRectWidth( leftFraction * width ); } );
     rightFractionProperty.link( function( rightFraction ) { rightRectangle.setRectWidth( rightFraction * width ); } );
 
@@ -98,6 +95,14 @@ define( function( require ) {
 
     this.addChild( zeroLabel );
     this.addChild( oneLabel );
+
+    //Only show certain properties when the number line check box is selected
+    visibleProperty.linkAttribute( leftRectangle, 'visible' );
+    visibleProperty.linkAttribute( rightRectangle, 'visible' );
+    visibleProperty.linkAttribute( leftFractionNode, 'visible' );
+    visibleProperty.linkAttribute( rightFractionNode, 'visible' );
+    visibleProperty.linkAttribute( leftFractionNodeTickMark, 'visible' );
+    visibleProperty.linkAttribute( rightFractionNodeTickMark, 'visible' );
 
     this.mutate( options );
   }
