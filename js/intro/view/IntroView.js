@@ -138,6 +138,19 @@ define( function( require ) {
       rightDivisionsProperty.lessThanNumber( 10 ),
       {centerX: rightHorizontalBarContainerNode.centerX, top: rightHorizontalBarContainerNode.bottom + 6} );
     this.addChild( rightDivisionSpinner );
+
+    //Move the containers to the start locations on "reset all", see #30
+    model.leftFractionModel.property( 'state' ).link( function( state ) {
+      if ( state === 'start' ) {
+        leftHorizontalBarContainerNode.animateToStart();
+      }
+    } );
+
+    model.rightFractionModel.property( 'state' ).link( function( state ) {
+      if ( state === 'start' ) {
+        rightHorizontalBarContainerNode.animateToStart();
+      }
+    } );
   }
 
   //TODO: redo layout so things float to the sides (and bottom)
