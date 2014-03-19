@@ -86,6 +86,16 @@ define( function( require ) {
         var rightCenterX = width * rightNumerator / rightDenominator + rightXOffset;
         rightFractionNode.centerX = rightCenterX;
         rightFractionNodeTickMark.setLine( rightCenterX, rightFractionNode.top, width * rightNumerator / rightDenominator, rightFractionNode.top - fractionTop );
+
+        //Handle overlapping number labels, see https://github.com/phetsims/fraction-comparison/issues/31
+        if ( leftFractionNode.bounds.intersectsBounds( rightFractionNode.bounds ) && Math.abs( rightNumerator / rightDenominator - leftNumerator / leftDenominator ) > 1E-6 ) {
+          var overlapAmount = leftFractionModel.fraction > rightFractionModel.fraction ?
+                              leftFractionNode.bounds.minX - rightFractionNode.bounds.maxX + 2 :
+                              leftFractionNode.bounds.maxX - rightFractionNode.bounds.minX + 2;
+
+          leftFractionNode.translate( -overlapAmount / 2 / fractionNodeScale, 0 );
+          rightFractionNode.translate( +overlapAmount / 2 / fractionNodeScale, 0 );
+        }
       } );
 
     var labelTop = linesNode.children[0].bounds.maxY;
