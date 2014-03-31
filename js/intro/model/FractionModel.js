@@ -17,8 +17,10 @@ define( function( require ) {
       numerator: 1,
       denominator: 2,
 
-      //one of start/drag/animate/compare
-      state: 'start'
+      //one of start/drag/compare
+      state: 'start',
+
+      animating: false
     } );
 
     //Currently no support for creating NumberProperty through PropertySet constructor (should there be?), so create it manually here

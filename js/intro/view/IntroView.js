@@ -78,26 +78,26 @@ define( function( require ) {
     this.addChild( comparisonRegion );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.stateProperty, model.leftFractionModel.divisionsProperty, true, function( width, height ) {
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.property( 'state' ), model.leftFractionModel.property( 'animating' ), model.leftFractionModel.property( 'divisions' ), true, function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.stateProperty, model.rightFractionModel.divisionsProperty, true, function( width, height ) {
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.property( 'state' ), model.rightFractionModel.property( 'animating' ), model.rightFractionModel.property( 'divisions' ), true, function( width, height ) {
       return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
     //Show the shadows right behind the originals, and don't let the shadows be moved
-    var leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.stateProperty, model.leftFractionModel.divisionsProperty, false, function( width, height ) {
+    var leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.property( 'state' ), model.leftFractionModel.property( 'animating' ), model.leftFractionModel.property( 'divisions' ), false, function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
-    var rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.stateProperty, model.rightFractionModel.divisionsProperty, false, function( width, height ) {
+    var rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.property( 'state' ), model.rightFractionModel.property( 'animating' ), model.rightFractionModel.property( 'divisions' ), false, function( width, height ) {
       return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
@@ -109,6 +109,7 @@ define( function( require ) {
     this.addChild( leftHorizontalBarContainerNode );
     this.addChild( rightHorizontalBarContainerNode );
 
+    //The dotted line to show if the "underneath" (z-order) value is too small to see.
     var lineWidth = 3;
     var leftDottedLineContainerNode = new Rectangle( 0, 0, 180, 100, {stroke: '#61c9e4', lineWidth: lineWidth, lineDash: [11, 7]} );
     model.leftFractionModel.property( 'fraction' ).link( function( value ) {
@@ -122,7 +123,9 @@ define( function( require ) {
       return leftFraction <= rightFraction;
     } );
 
-    model.bothCompareProperty.and( leftValueSmallerProperty ).linkAttribute( leftDottedLineContainerNode, 'visible' );
+    //Only show the dotted line for the "underneath" shape after animation is complete
+    var eitherAnimating = model.leftFractionModel.property( 'animating' ).or( model.rightFractionModel.property( 'animating' ) );
+    model.bothCompareProperty.and( leftValueSmallerProperty ).and( eitherAnimating.derivedNot() ).linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
 
     var leftDivisionsProperty = model.leftFractionModel.property( 'divisions' );

@@ -28,11 +28,12 @@ define( function( require ) {
    * @param options
    * @constructor
    */
-  function HorizontalBarContainerNode( fractionModel, color, stateProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
+  function HorizontalBarContainerNode( fractionModel, color, stateProperty, animatingProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
     var fractionProperty = fractionModel.property( 'fraction' );
     var horizontalBarContainerNode = this;
 
     this.stateProperty = stateProperty;
+    this.animatingProperty = animatingProperty;
 
     options = _.extend( {cursor: 'pointer'}, options );
     Node.call( this );
@@ -120,20 +121,24 @@ define( function( require ) {
 
   return inherit( Node, HorizontalBarContainerNode, {
     animateToComparison: function() {
+      this.animatingProperty.value = true;
       var horizontalBarContainerNode = this;
       new TWEEN.Tween( {x: this.center.x, y: this.center.y} )
         .to( {x: this.comparePosition.x, y: this.comparePosition.y }, 500 )
         .easing( TWEEN.Easing.Cubic.InOut )
         .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
+        .onComplete( function() {horizontalBarContainerNode.animatingProperty.value = false;} )
         .start();
       this.stateProperty.set( 'compare' );
     },
     animateToStart: function() {
+      this.animatingProperty.value = true;
       var horizontalBarContainerNode = this;
       new TWEEN.Tween( {x: this.center.x, y: this.center.y} )
         .to( {x: this.startPosition.x, y: this.startPosition.y }, 500 )
         .easing( TWEEN.Easing.Cubic.InOut )
         .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
+        .onComplete( function() {horizontalBarContainerNode.animatingProperty.value = false;} )
         .start();
       this.stateProperty.set( 'start' );
     }
