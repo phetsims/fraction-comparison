@@ -27,9 +27,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Rectangle, ComparisonRegion, {
-    setBothComparedProperty: function( bothComparedProperty ) {
-      this.bothComparedProperty = bothComparedProperty;
-    }
-  } );
+  return inherit( Rectangle, ComparisonRegion );
 } );

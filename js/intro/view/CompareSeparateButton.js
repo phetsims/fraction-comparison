@@ -1,7 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * The region where fractions can be dragged to be compared, in the center top of the screen.
+ * Button that will bring the left/right shapes to the center, or move them back to their homes.
+ * One class is used to render both buttons since it is like a toggle button, and so the size won't change when toggling.
  *
  * @author Sam Reid
  */
@@ -78,9 +79,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, CompareSeparateButton, {
-    setBothComparedProperty: function( bothComparedProperty ) {
-      this.bothComparedProperty = bothComparedProperty;
-    }
-  } );
+  return inherit( Node, CompareSeparateButton );
 } );
