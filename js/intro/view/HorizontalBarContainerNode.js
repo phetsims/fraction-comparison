@@ -15,6 +15,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
   var Events = require( 'AXON/Events' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    *
@@ -119,11 +120,21 @@ define( function( require ) {
 
   return inherit( Node, HorizontalBarContainerNode, {
     animateToComparison: function() {
-      this.center = this.comparePosition;
+      var horizontalBarContainerNode = this;
+      new TWEEN.Tween( {x: this.center.x, y: this.center.y} )
+        .to( {x: this.comparePosition.x, y: this.comparePosition.y }, 500 )
+        .easing( TWEEN.Easing.Cubic.InOut )
+        .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
+        .start();
       this.stateProperty.set( 'compare' );
     },
     animateToStart: function() {
-      this.center = this.startPosition;
+      var horizontalBarContainerNode = this;
+      new TWEEN.Tween( {x: this.center.x, y: this.center.y} )
+        .to( {x: this.startPosition.x, y: this.startPosition.y }, 500 )
+        .easing( TWEEN.Easing.Cubic.InOut )
+        .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
+        .start();
       this.stateProperty.set( 'start' );
     }
   } );
