@@ -111,9 +111,12 @@ define( function( require ) {
           var distToStart = horizontalBarContainerNode.startPosition.distance( center );
           var distToCompare = horizontalBarContainerNode.comparePosition.distance( center );
 
-          //TODO: animate continuously instead of jumping
-          horizontalBarContainerNode.center = distToStart < distToCompare ? horizontalBarContainerNode.startPosition : horizontalBarContainerNode.comparePosition;
-          horizontalBarContainerNode.stateProperty.set( distToStart < distToCompare ? 'start' : 'compare' );
+          if ( distToStart < distToCompare ) {
+            horizontalBarContainerNode.animateToStart()
+          }
+          else {
+            horizontalBarContainerNode.animateToComparison();
+          }
         }
       } ) );
     }
