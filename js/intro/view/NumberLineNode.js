@@ -36,8 +36,8 @@ define( function( require ) {
     var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: rightFill, lineWidth: 1, stroke: 'black'} );
     this.addChild( rightRectangle );
 
-    leftFractionProperty.link( function( leftFraction ) { leftRectangle.setRectWidth( leftFraction * width ); } );
-    rightFractionProperty.link( function( rightFraction ) { rightRectangle.setRectWidth( rightFraction * width ); } );
+    leftFractionProperty.times( width ).linkAttribute( leftRectangle, 'rectWidth' );
+    rightFractionProperty.times( width ).linkAttribute( rightRectangle, 'rectWidth' );
 
     var linesNode = new Node( {pickable: false} );
     this.addChild( linesNode );
