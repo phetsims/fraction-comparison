@@ -22,6 +22,7 @@ define( function( require ) {
     var target = new Rectangle( 0, 0, 180, 100, {stroke: 'red', lineWidth: 1, lineDash: [ 6, 5 ], centerX: this.bounds.centerX, top: 59} );
     this.addChild( target );
 
+    //Only show the target region if both shapes are not in the compare region
     eitherCompareProperty.derivedNot().linkAttribute( target, 'visible' );
 
     this.mutate( options );
