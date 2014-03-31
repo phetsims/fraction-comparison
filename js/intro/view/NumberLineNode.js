@@ -58,9 +58,9 @@ define( function( require ) {
 
     //When tick spacing or labeled ticks change, update the ticks
     //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem
-    DerivedProperty.multilink( [leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
+    DerivedProperty.multilink( [visibleProperty, leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
         rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' )],
-      function( leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
+      function( visible, leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
         var lineHeight = 16;
         var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
         var lines = [];
@@ -68,7 +68,9 @@ define( function( require ) {
         for ( var i = 0; i <= maxTickIndex; i++ ) {
           var distance = i / maxTickIndex * width;
 
-          lines.push( new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1.5, stroke: 'black'} ) );
+          if ( visible || i === 0 || i === maxTickIndex ) {
+            lines.push( new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1.5, stroke: 'black'} ) );
+          }
         }
         linesNode.children = lines;
 
