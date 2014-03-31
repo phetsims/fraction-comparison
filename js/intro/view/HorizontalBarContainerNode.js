@@ -112,7 +112,7 @@ define( function( require ) {
           var distToCompare = horizontalBarContainerNode.comparePosition.distance( center );
 
           if ( distToStart < distToCompare ) {
-            horizontalBarContainerNode.animateToStart()
+            horizontalBarContainerNode.animateToStart();
           }
           else {
             horizontalBarContainerNode.animateToComparison();
