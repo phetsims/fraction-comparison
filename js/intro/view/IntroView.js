@@ -11,7 +11,7 @@ define( function( require ) {
   // imports
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ResetAllButtonDeprecated = require( 'SCENERY_PHET/ResetAllButtonDeprecated' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
   var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
@@ -41,7 +41,7 @@ define( function( require ) {
     //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
     this.addChild( new CheckBox( new Node(), model.property( 'numberLineVisible' ), {top: numberLineNode.bounds.maxY + 7, centerX: numberLineNode.centerX, scale: 1.15} ) );
 
-    this.addChild( new ResetAllButton( model.reset.bind( model ), {
+    this.addChild( new ResetAllButtonDeprecated( model.reset.bind( model ), {
       radius: 24,
       touchAreaRadius: 24 * 1.3,
       right: this.layoutBounds.maxX - 2,
