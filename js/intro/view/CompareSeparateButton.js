@@ -17,7 +17,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var RectangularPushButton = require( 'SUN/experimental/buttons/RectangularPushButton' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function CompareSeparateButton( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
@@ -57,18 +57,23 @@ define( function( require ) {
     var maxWidth = Math.max( compareIcon.width, separateIcon.width );
     var maxHeight = Math.max( compareIcon.height, separateIcon.height );
 
-    var compareButton = new RectangularPushButton( new Rectangle( 0, 0, maxWidth, maxHeight, {
-      children: [compareIcon.mutate( {centerX: maxWidth / 2, centerY: maxHeight / 2} )]
-    } ), {baseColor: new Color( 255, 255, 0 ),
-      disabledBaseColor: new Color( 220, 220, 220 )} );
-    compareButton.addListener( compareButtonPressed );
+    var compareButton = new RectangularPushButton( {
+      content: new Rectangle( 0, 0, maxWidth, maxHeight, {
+        children: [compareIcon.mutate( {centerX: maxWidth / 2, centerY: maxHeight / 2} )]
+      } ),
+      baseColor: new Color( 255, 255, 0 ),
+      disabledBaseColor: new Color( 220, 220, 220 ),
+      listener: compareButtonPressed
+    } );
 
-    var separateButton = new RectangularPushButton( new Rectangle( 0, 0, maxWidth, maxHeight, {
-      children: [separateIcon.mutate( {centerX: maxWidth / 2, centerY: maxHeight / 2} )]
-
-    } ), {baseColor: new Color( 255, 255, 0 ),
-      disabledBaseColor: new Color( 220, 220, 220 )} );
-    separateButton.addListener( separateButtonPressed );
+    var separateButton = new RectangularPushButton( {
+      content: new Rectangle( 0, 0, maxWidth, maxHeight, {
+        children: [separateIcon.mutate( {centerX: maxWidth / 2, centerY: maxHeight / 2} )]
+      } ),
+      baseColor: new Color( 255, 255, 0 ),
+      disabledBaseColor: new Color( 220, 220, 220 ),
+      listener: separateButtonPressed
+    } );
 
     compareBothProperty.linkAttribute( separateButton, 'visible' );
     compareBothProperty.derivedNot().linkAttribute( compareButton, 'visible' );
