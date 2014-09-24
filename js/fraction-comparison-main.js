@@ -22,7 +22,7 @@ define( function( require ) {
     credits: {
       leadDesign: 'Karina Hensberry',
       softwareDevelopment: 'Sam Reid',
-      designTeam: 'Karina Hensberry, Bryce Gruneich, Ariel Paul, Trish Loeblein, Kathy Perkins',
+      team: 'Bryce Gruneich, Trish Loeblein, Ariel Paul, Kathy Perkins',
       graphicArts: 'Sharon Siman-Tov'
     }
   };
