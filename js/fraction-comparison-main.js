@@ -20,7 +20,7 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-      leadDesign: 'Karina Hensberry',
+      leadDesign: 'Karina K. R. Hensberry',
       softwareDevelopment: 'Sam Reid',
       team: 'Bryce Gruneich, Trish Loeblein, Ariel Paul, Kathy Perkins',
       graphicArts: 'Sharon Siman-Tov'
