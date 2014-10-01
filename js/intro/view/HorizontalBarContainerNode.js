@@ -25,7 +25,7 @@ define( function( require ) {
    * @param {NumberProperty} divisionsProperty see docs in FractionModel
    * @param {function} startPositionFunction a function taking args (width,height) to compute the start center of the node
    * @param {function} comparePositionFunction a function taking args (width,height) to compute the center position of the node when compared
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function HorizontalBarContainerNode( fractionModel, color, stateProperty, animatingProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
