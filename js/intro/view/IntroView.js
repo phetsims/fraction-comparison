@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // imports
+  var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -28,7 +29,7 @@ define( function( require ) {
   function IntroView( model ) {
 
     var introView = this;
-    ScreenView.call( introView, { renderer: 'svg' } );
+    ScreenView.call( introView, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
 
     //Representation panel at the bottom center
     var representationPanel = new RepresentationPanel( model.property( 'representation' ), {bottom: this.layoutBounds.maxY - 5, centerX: this.layoutBounds.centerX} );
