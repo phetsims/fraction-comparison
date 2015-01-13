@@ -24,7 +24,7 @@ define( function( require ) {
       new Text( 'hello' ),
       function() { return new IntroModel(); },
       function( model ) { return new IntroView( model, ModelViewTransform2.createIdentity() ); },
-      {backgroundColor: '#e1f1f1'}
+      { backgroundColor: '#e1f1f1' }
     );
   }
 

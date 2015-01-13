@@ -16,7 +16,7 @@ define( function( require ) {
   var simTitle = require( 'string!FRACTION_COMPARISON/fraction-comparison.name' );
 
 //  var screens = [ new IntroScreen(), new GameScreen( {practice: false} ), new GameScreen( {practice: true} )];
-  var screens = [ new IntroScreen()];
+  var screens = [ new IntroScreen() ];
 
   var simOptions = {
     credits: {

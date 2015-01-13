@@ -28,7 +28,7 @@ define( function( require ) {
     this.divisionsProperty = new NumberProperty( 1 );
     this.addGetter( 'divisions' );
 
-    this.addDerivedProperty( 'fraction', ['numerator', 'denominator'], function( numerator, denominator ) {
+    this.addDerivedProperty( 'fraction', [ 'numerator', 'denominator' ], function( numerator, denominator ) {
       return numerator / denominator;
     } );
   }

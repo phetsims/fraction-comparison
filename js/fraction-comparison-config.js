@@ -8,7 +8,7 @@
  */
 require.config( {
 
-  deps: ['fraction-comparison-main'],
+  deps: [ 'fraction-comparison-main' ],
 
   paths: {
 

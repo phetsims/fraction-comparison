@@ -35,14 +35,14 @@ define( function( require ) {
     this.stateProperty = stateProperty;
     this.animatingProperty = animatingProperty;
 
-    options = _.extend( {cursor: 'pointer'}, options );
+    options = _.extend( { cursor: 'pointer' }, options );
     Node.call( this );
     this.events = new Events();
 
-    var border = new Rectangle( 0, 0, 180, 100, {stroke: 'black', lineWidth: 1} );
+    var border = new Rectangle( 0, 0, 180, 100, { stroke: 'black', lineWidth: 1 } );
     this.addChild( border );
 
-    this.contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {fill: color, stroke: 'black', lineWidth: 1} );
+    this.contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, { fill: color, stroke: 'black', lineWidth: 1 } );
     fractionProperty.link( function( value ) {
       horizontalBarContainerNode.contents.setRectWidth( value * 180 );
       horizontalBarContainerNode.events.trigger( 'changed' );
@@ -51,11 +51,11 @@ define( function( require ) {
 
     //Solid lines to show pieces
     var pieceDivisions = new Node();
-    fractionModel.multilink( ['numerator', 'denominator'], function( numerator, denominator ) {
+    fractionModel.multilink( [ 'numerator', 'denominator' ], function( numerator, denominator ) {
       var children = [];
       for ( var i = 1; i < numerator; i++ ) {
         var x = i * 180 / denominator;
-        children.push( new Line( x, 0, x, 100, {stroke: 'black', lineWidth: 1} ) );
+        children.push( new Line( x, 0, x, 100, { stroke: 'black', lineWidth: 1 } ) );
       }
       pieceDivisions.children = children;
 
@@ -67,7 +67,7 @@ define( function( require ) {
     divisionsProperty.link( function( divisions ) {
       var children = [];
       for ( var i = 1; i < divisions; i++ ) {
-        children.push( new Line( i * 180 / divisions, 0, i * 180 / divisions, 100, {stroke: 'gray', lineDash: [5, 4], lineWidth: 1.5} ) );
+        children.push( new Line( i * 180 / divisions, 0, i * 180 / divisions, 100, { stroke: 'gray', lineDash: [ 5, 4 ], lineWidth: 1.5 } ) );
       }
       divisionsNode.children = children;
     } );
@@ -126,8 +126,8 @@ define( function( require ) {
     animateToComparison: function() {
       this.animatingProperty.value = true;
       var horizontalBarContainerNode = this;
-      new TWEEN.Tween( {x: this.center.x, y: this.center.y} )
-        .to( {x: this.comparePosition.x, y: this.comparePosition.y }, 500 )
+      new TWEEN.Tween( { x: this.center.x, y: this.center.y } )
+        .to( { x: this.comparePosition.x, y: this.comparePosition.y }, 500 )
         .easing( TWEEN.Easing.Cubic.InOut )
         .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
         .onComplete( function() {horizontalBarContainerNode.animatingProperty.value = false;} )
@@ -137,8 +137,8 @@ define( function( require ) {
     animateToStart: function() {
       this.animatingProperty.value = true;
       var horizontalBarContainerNode = this;
-      new TWEEN.Tween( {x: this.center.x, y: this.center.y} )
-        .to( {x: this.startPosition.x, y: this.startPosition.y }, 500 )
+      new TWEEN.Tween( { x: this.center.x, y: this.center.y } )
+        .to( { x: this.startPosition.x, y: this.startPosition.y }, 500 )
         .easing( TWEEN.Easing.Cubic.InOut )
         .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
         .onComplete( function() {horizontalBarContainerNode.animatingProperty.value = false;} )

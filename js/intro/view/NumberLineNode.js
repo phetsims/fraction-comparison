@@ -25,41 +25,51 @@ define( function( require ) {
     var rightFractionProperty = rightFractionModel.property( 'fraction' );
 
     var width = 300;
-    var line = new Line( 0, 0, width, 0, {lineWidth: 2, stroke: 'black'} );
+    var line = new Line( 0, 0, width, 0, { lineWidth: 2, stroke: 'black' } );
 
     this.addChild( line );
 
     var leftFill = '#61c9e4';
     var rightFill = '#dc528d';
-    var leftRectangle = new Rectangle( 0, -20, width, 20, {fill: leftFill, lineWidth: 1, stroke: 'black'} );
+    var leftRectangle = new Rectangle( 0, -20, width, 20, { fill: leftFill, lineWidth: 1, stroke: 'black' } );
     this.addChild( leftRectangle );
-    var rightRectangle = new Rectangle( 0, -40, width, 20, {fill: rightFill, lineWidth: 1, stroke: 'black'} );
+    var rightRectangle = new Rectangle( 0, -40, width, 20, { fill: rightFill, lineWidth: 1, stroke: 'black' } );
     this.addChild( rightRectangle );
 
     leftFractionProperty.times( width ).linkAttribute( leftRectangle, 'rectWidth' );
     rightFractionProperty.times( width ).linkAttribute( rightRectangle, 'rectWidth' );
 
-    var linesNode = new Node( {pickable: false} );
+    var linesNode = new Node( { pickable: false } );
     this.addChild( linesNode );
 
     //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right since the font bounds are wonky, so just use a heuristic scale factor
     var fractionNodeScale = 0.22;
     var fractionTop = 14;
-    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: leftFill, top: fractionTop} );
+    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {
+      interactive: false,
+      scale: fractionNodeScale,
+      fill: leftFill,
+      top: fractionTop
+    } );
     this.addChild( leftFractionNode );
     var coloredTickStroke = 2;
-    var leftFractionNodeTickMark = new Line( 0, 0, 0, 0, {lineWidth: coloredTickStroke, stroke: leftFill} );
+    var leftFractionNodeTickMark = new Line( 0, 0, 0, 0, { lineWidth: coloredTickStroke, stroke: leftFill } );
     this.addChild( leftFractionNodeTickMark );
 
-    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {interactive: false, scale: fractionNodeScale, fill: rightFill, top: fractionTop} );
+    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {
+      interactive: false,
+      scale: fractionNodeScale,
+      fill: rightFill,
+      top: fractionTop
+    } );
     this.addChild( rightFractionNode );
-    var rightFractionNodeTickMark = new Line( 0, 0, 0, 0, {lineWidth: coloredTickStroke, stroke: rightFill} );
+    var rightFractionNodeTickMark = new Line( 0, 0, 0, 0, { lineWidth: coloredTickStroke, stroke: rightFill } );
     this.addChild( rightFractionNodeTickMark );
 
     //When tick spacing or labeled ticks change, update the ticks
     //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem
-    DerivedProperty.multilink( [visibleProperty, leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
-        rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' )],
+    DerivedProperty.multilink( [ visibleProperty, leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
+        rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ) ],
       function( visible, leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
         var lineHeight = 16;
         var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
@@ -69,7 +79,7 @@ define( function( require ) {
           var distance = i / maxTickIndex * width;
 
           if ( visible || i === 0 || i === maxTickIndex ) {
-            lines.push( new Line( distance, -lineHeight / 2, distance, lineHeight / 2, {lineWidth: 1.5, stroke: 'black'} ) );
+            lines.push( new Line( distance, -lineHeight / 2, distance, lineHeight / 2, { lineWidth: 1.5, stroke: 'black' } ) );
           }
         }
         linesNode.children = lines;
@@ -100,10 +110,14 @@ define( function( require ) {
         }
       } );
 
-    var labelTop = linesNode.children[0].bounds.maxY;
+    var labelTop = linesNode.children[ 0 ].bounds.maxY;
 
-    var zeroLabel = new Text( '0', {centerX: linesNode.children[0].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
-    var oneLabel = new Text( '1', {centerX: linesNode.children[linesNode.children.length - 1].centerX, top: labelTop, font: new PhetFont( { size: 26} )} );
+    var zeroLabel = new Text( '0', { centerX: linesNode.children[ 0 ].centerX, top: labelTop, font: new PhetFont( { size: 26 } ) } );
+    var oneLabel = new Text( '1', {
+      centerX: linesNode.children[ linesNode.children.length - 1 ].centerX,
+      top: labelTop,
+      font: new PhetFont( { size: 26 } )
+    } );
 
     this.addChild( zeroLabel );
     this.addChild( oneLabel );
