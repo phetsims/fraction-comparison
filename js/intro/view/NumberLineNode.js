@@ -16,7 +16,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Property = require( 'AXON/Property' );
 
   function NumberLineNode( leftFractionModel, rightFractionModel, visibleProperty, options ) {
     Node.call( this );
@@ -68,7 +68,7 @@ define( function( require ) {
 
     //When tick spacing or labeled ticks change, update the ticks
     //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem
-    DerivedProperty.multilink( [ visibleProperty, leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
+    Property.multilink( [ visibleProperty, leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
         rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ) ],
       function( visible, leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
         var lineHeight = 16;
