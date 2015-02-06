@@ -43,7 +43,7 @@ define( function( require ) {
     this.addChild( numberLineNode );
 
     //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
-    this.addChild( new CheckBox( new Node(), model.property( 'numberLineVisible' ), {
+    this.addChild( new CheckBox( new Rectangle( 0, 0, 0, 0 ), model.property( 'numberLineVisible' ), {
       top: numberLineNode.bounds.maxY + 7,
       centerX: numberLineNode.centerX,
       scale: 1.15
@@ -123,7 +123,11 @@ define( function( require ) {
 
     //The dotted line to show if the "underneath" (z-order) value is too small to see.
     var lineWidth = 3;
-    var leftDottedLineContainerNode = new Rectangle( 0, 0, 180, 100, { stroke: '#61c9e4', lineWidth: lineWidth, lineDash: [ 11, 7 ] } );
+    var leftDottedLineContainerNode = new Rectangle( 0, 0, 180, 100, {
+      stroke: '#61c9e4',
+      lineWidth: lineWidth,
+      lineDash: [ 11, 7 ]
+    } );
     model.leftFractionModel.property( 'fraction' ).link( function( value ) {
       leftDottedLineContainerNode.setRectWidth( value * 180 );
     } );
