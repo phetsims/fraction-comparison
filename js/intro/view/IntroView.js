@@ -11,7 +11,6 @@ define( function( require ) {
   // imports
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
