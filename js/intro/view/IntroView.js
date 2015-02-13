@@ -139,7 +139,12 @@ define( function( require ) {
     } );
 
     //Only show the dotted line for the "underneath" shape after animation is complete
-    var eitherAnimating = model.leftFractionModel.property( 'animating' ).or( model.rightFractionModel.property( 'animating' ) );
+    var eitherAnimating = new DerivedProperty(
+      [model.leftFractionModel.property( 'animating' ), model.rightFractionModel.property( 'animating' )],
+      function( leftAnimating, rightAnimating ) { 
+        return leftAnimating || rightAnimating;
+      } );
+
     model.bothCompareProperty.and( leftValueSmallerProperty ).and( eitherAnimating.derivedNot() ).linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
 
