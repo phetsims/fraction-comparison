@@ -145,7 +145,11 @@ define( function( require ) {
         return leftAnimating || rightAnimating;
       } );
 
-    model.bothCompareProperty.and( leftValueSmallerProperty ).and( eitherAnimating.derivedNot() ).linkAttribute( leftDottedLineContainerNode, 'visible' );
+    var leftDottedLineContainerVisibleProperty = new DerivedProperty( [model.bothCompareProperty, leftValueSmallerProperty, eitherAnimating],
+      function( bothCompare, leftValueSmaller, eitherAnimating ) {
+        return bothCompare && leftValueSmaller && !eitherAnimating;
+      } );
+    leftDottedLineContainerVisibleProperty.linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
 
     var leftDivisionsProperty = model.leftFractionModel.property( 'divisions' );

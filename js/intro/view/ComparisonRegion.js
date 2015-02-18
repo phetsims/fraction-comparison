@@ -26,7 +26,9 @@ define( function( require ) {
     this.addChild( target );
 
     //Only show the target region if both shapes are not in the compare region
-    eitherCompareProperty.derivedNot().linkAttribute( target, 'visible' );
+    eitherCompareProperty.link( function( eitherCompare ) {
+      target.visible = !eitherCompare;
+    } );
 
     this.mutate( options );
   }

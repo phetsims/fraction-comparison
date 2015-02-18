@@ -80,7 +80,9 @@ define( function( require ) {
     } );
 
     compareBothProperty.linkAttribute( separateButton, 'visible' );
-    compareBothProperty.derivedNot().linkAttribute( compareButton, 'visible' );
+    compareBothProperty.link( function( compareBoth ) {
+      compareButton.visible = !compareBoth;
+    } );
 
     this.addChild( compareButton );
     this.addChild( separateButton );
