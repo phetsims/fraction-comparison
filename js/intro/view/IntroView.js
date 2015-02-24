@@ -141,7 +141,7 @@ define( function( require ) {
     //Only show the dotted line for the "underneath" shape after animation is complete
     var eitherAnimating = new DerivedProperty(
       [model.leftFractionModel.property( 'animating' ), model.rightFractionModel.property( 'animating' )],
-      function( leftAnimating, rightAnimating ) { 
+      function( leftAnimating, rightAnimating ) {
         return leftAnimating || rightAnimating;
       } );
 
