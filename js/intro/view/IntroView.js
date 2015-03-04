@@ -28,7 +28,7 @@ define( function( require ) {
   function IntroView( model ) {
 
     var introView = this;
-    ScreenView.call( introView, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
+    ScreenView.call( introView, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
 
     //Representation panel at the bottom center
     var representationPanel = new RepresentationPanel( model.property( 'representation' ), {
