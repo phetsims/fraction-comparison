@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   var PropertySet = require( 'AXON/PropertySet' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function FractionModel() {
@@ -23,9 +23,9 @@ define( function( require ) {
       animating: false
     } );
 
-    //Currently no support for creating NumberProperty through PropertySet constructor (should there be?), so create it manually here
+    //Currently no support for creating Property through PropertySet constructor (should there be?), so create it manually here
     //And give it the same interface as other gettable properties
-    this.divisionsProperty = new NumberProperty( 1 );
+    this.divisionsProperty = new Property( 1 );
     this.addGetter( 'divisions' );
 
     this.addDerivedProperty( 'fraction', [ 'numerator', 'denominator' ], function( numerator, denominator ) {
