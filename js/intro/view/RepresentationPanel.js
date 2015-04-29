@@ -12,59 +12,43 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var InOutRadioButton = require( 'SUN/InOutRadioButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+
+  // constants
+  var ICON_SCALE = 0.75;
 
   function RepresentationPanel( representationProperty, options ) {
-    options = _.extend( { fill: '#efe8e1' }, options );
 
-    var iconScale = 0.75;
-    var representations = [ 'horizontal-bar', 'vertical-bar', 'circle', 'chocolate', 'different-sized-circles' ];
-    var icons = {};
+    options = _.extend( {
+      fill: '#efe8e1',
+      xMargin: 10,
+      yMargin: 7
+    }, options );
 
-    //Have to use mixed [] and dot notation to satisfy jshint
-    icons[ 'horizontal-bar' ] = new Rectangle( 0, 0, 50 * iconScale, 30 * iconScale, { fill: '#208644', lineWidth: 1, stroke: 'black' } );
-    icons[ 'vertical-bar' ] = new Rectangle( 0, 0, 14 * iconScale, 50 * iconScale, { fill: 'red', lineWidth: 1, stroke: 'black' } );
-    icons.circle = new Circle( 22 * iconScale, { fill: '#145991', lineWidth: 1, stroke: 'black' } );
-    icons.chocolate = new Rectangle( 0, 0, 50 * iconScale, 40 * iconScale, { fill: '#563329', lineWidth: 1, stroke: 'black' } );
-    icons[ 'different-sized-circles' ] = new Node( {
-      children: [
-        new Circle( 20 * iconScale, { fill: '#f0d041', lineWidth: 1, stroke: 'black', x: 26, y: -26 } ),
-        new Circle( 12 * iconScale, { fill: '#f0d041', lineWidth: 1, stroke: 'black' } ) ]
+    var content = new RadioButtonGroup( representationProperty, [
+      { value: 'horizontal-bar', node: new Rectangle( 0, 0, 50 * ICON_SCALE, 30 * ICON_SCALE, { fill: '#208644', lineWidth: 1, stroke: 'black' } ) },
+      { value: 'vertical-bar', node: new Rectangle( 0, 0, 14 * ICON_SCALE, 50 * ICON_SCALE, { fill: 'red', lineWidth: 1, stroke: 'black' } ) },
+      { value: 'circle', node: new Circle( 22 * ICON_SCALE, { fill: '#145991', lineWidth: 1, stroke: 'black' } ) },
+      { value: 'chocolate', node: new Rectangle( 0, 0, 50 * ICON_SCALE, 40 * ICON_SCALE, { fill: '#563329', lineWidth: 1, stroke: 'black' } ) },
+      {
+        value: 'different-sized-circles',
+        node: new Node( {
+          children: [
+            new Circle( 20 * ICON_SCALE, { fill: '#f0d041', lineWidth: 1, stroke: 'black', x: 26, y: -26 } ),
+            new Circle( 12 * ICON_SCALE, { fill: '#f0d041', lineWidth: 1, stroke: 'black' } )
+          ]
+        } )
+      }
+    ], {
+      // RadioButtonGroup options
+      orientation: 'horizontal',
+      baseColor: 'white',
+      cornerRadius: 10,
+      spacing: 12
     } );
 
-    var maxWidth = -1;
-    var maxHeight = -1;
-    representations.forEach( function( representation ) {
-      maxWidth = Math.max( maxWidth, icons[ representation ].width );
-      maxHeight = Math.max( maxHeight, icons[ representation ].height );
-    } );
-    console.log( maxWidth, maxHeight );
-
-    function paddedNode( content, width, height ) {
-      content.centerX = width / 2;
-      content.centerY = height / 2;
-      return new Node( {
-        children: [
-          new Rectangle( 0, 0, width, height ),
-          content
-        ]
-      } );
-    }
-
-    var widthWithPadding = maxWidth + 2;
-    var heightWithPadding = maxHeight + 2;
-
-    var children = representations.map( function( representation ) {
-      return new InOutRadioButton( representationProperty, representation, paddedNode( icons[ representation ], widthWithPadding, heightWithPadding ) );
-    } );
-
-    var content = new HBox( {
-      spacing: 20,
-      children: children
-    } );
     Panel.call( this, content, options );
   }
 
