@@ -2,6 +2,7 @@
   "name": "fraction-comparison",
   "version": "1.0.0-dev.11",
   "license": "GPLv3",
+  "requirejsNamespace": "FRACTION_COMPARISON",
   "simTitleStringKey": "FRACTION_COMPARISON/fraction-comparison.name",
   "phetLibs": [
     "fraction-comparison"
