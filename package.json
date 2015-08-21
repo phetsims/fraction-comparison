@@ -15,7 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "FRACTION_COMPARISON",
-    "simTitleStringKey": "FRACTION_COMPARISON/fraction-comparison.name",
     "preload": [
       "../sherpa/lib/Tween-r12.js"
     ]
