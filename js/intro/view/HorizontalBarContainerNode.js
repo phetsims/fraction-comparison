@@ -80,12 +80,6 @@ define( function( require ) {
       } );
     }
 
-    this.stateProperty.link( function( state ) {
-      if ( state === 'start' ) {
-
-      }
-    } );
-
     //For the "left behind" pieces, show semi-transparent so it gives the impression that it is just a "shadow", see #19
     if ( !interactive ) {
       this.opacity = 0.6;
