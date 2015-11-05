@@ -13,9 +13,8 @@ define( function( require ) {
   var IntroScreen = require( 'FRACTION_COMPARISON/intro/IntroScreen' );
 
   // strings
-  var simTitle = require( 'string!FRACTION_COMPARISON/fraction-comparison.title' );
+  var fractionComparisonTitleString = require( 'string!FRACTION_COMPARISON/fraction-comparison.title' );
 
-//  var screens = [ new IntroScreen(), new GameScreen( {practice: false} ), new GameScreen( {practice: true} )];
   var screens = [ new IntroScreen() ];
 
   var simOptions = {
@@ -28,7 +27,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, screens, simOptions );
+    var sim = new Sim( fractionComparisonTitleString, screens, simOptions );
     sim.start();
   } );
 } );
