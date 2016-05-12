@@ -8,6 +8,8 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -32,6 +34,8 @@ define( function( require ) {
       return numerator / denominator;
     } );
   }
+
+  fractionComparison.register( 'FractionModel', FractionModel );
 
   return inherit( PropertySet, FractionModel );
 } );

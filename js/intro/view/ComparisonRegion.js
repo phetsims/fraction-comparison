@@ -8,7 +8,8 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var CompareSeparateButton = require( 'FRACTION_COMPARISON/intro/view/CompareSeparateButton' );
@@ -32,6 +33,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  fractionComparison.register( 'ComparisonRegion', ComparisonRegion );
 
   return inherit( Rectangle, ComparisonRegion );
 } );

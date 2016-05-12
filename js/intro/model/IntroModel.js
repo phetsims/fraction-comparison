@@ -8,6 +8,8 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var PropertySet = require( 'AXON/PropertySet' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
@@ -30,6 +32,8 @@ define( function( require ) {
       return leftState === 'compare' || rightState === 'compare';
     } );
   }
+
+  fractionComparison.register( 'IntroModel', IntroModel );
 
   inherit( PropertySet, IntroModel, {
     step: function() {

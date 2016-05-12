@@ -8,7 +8,8 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Screen = require( 'JOIST/Screen' );
@@ -27,6 +28,8 @@ define( function( require ) {
       { backgroundColor: '#e1f1f1' }
     );
   }
+
+  fractionComparison.register( 'IntroScreen', IntroScreen );
 
   return inherit( Screen, IntroScreen );
 } );

@@ -13,7 +13,8 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -52,6 +53,8 @@ define( function( require ) {
       }
     } );
   }
+
+  fractionComparison.register( 'NodeDragHandler', NodeDragHandler );
 
   inherit( SimpleDragHandler, NodeDragHandler );
 

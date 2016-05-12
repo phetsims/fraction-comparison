@@ -8,7 +8,8 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -179,6 +180,8 @@ define( function( require ) {
       }
     } );
   }
+
+  fractionComparison.register( 'IntroView', IntroView );
 
   //TODO: redo layout so things float to the sides (and bottom)
   return inherit( ScreenView, IntroView );
