@@ -28,8 +28,8 @@ define( function( require ) {
 
   function IntroView( model ) {
 
-    var introView = this;
-    ScreenView.call( introView, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
+    var self = this;
+    ScreenView.call( self, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
 
     //Representation panel at the bottom center
     var representationPanel = new RepresentationPanel( model.property( 'representation' ), {
@@ -93,26 +93,26 @@ define( function( require ) {
     var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.property( 'state' ), model.leftFractionModel.property( 'animating' ), model.leftFractionModel.property( 'divisions' ), true, function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
-      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
     var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.property( 'state' ), model.rightFractionModel.property( 'animating' ), model.rightFractionModel.property( 'divisions' ), true, function( width, height ) {
-      return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
+      return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
-      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
     //Show the shadows right behind the originals, and don't let the shadows be moved
     var leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.property( 'state' ), model.leftFractionModel.property( 'animating' ), model.leftFractionModel.property( 'divisions' ), false, function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
-      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
     var rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.property( 'state' ), model.rightFractionModel.property( 'animating' ), model.rightFractionModel.property( 'divisions' ), false, function( width, height ) {
-      return new Vector2( introView.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
+      return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
-      return new Vector2( introView.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
     this.addChild( leftHorizontalBarContainerNodeShadow );

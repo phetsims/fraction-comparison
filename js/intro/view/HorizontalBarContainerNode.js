@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function HorizontalBarContainerNode( fractionModel, color, stateProperty, animatingProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
     var fractionProperty = fractionModel.property( 'fraction' );
-    var horizontalBarContainerNode = this;
+    var self = this;
 
     this.stateProperty = stateProperty;
     this.animatingProperty = animatingProperty;
@@ -49,8 +49,8 @@ define( function( require ) {
       lineWidth: 1
     } );
     fractionProperty.link( function( value ) {
-      horizontalBarContainerNode.contents.setRectWidth( value * 180 );
-      horizontalBarContainerNode.events.trigger( 'changed' );
+      self.contents.setRectWidth( value * 180 );
+      self.events.trigger( 'changed' );
     } );
     this.addChild( this.contents );
 
@@ -102,23 +102,23 @@ define( function( require ) {
     if ( interactive ) {
       this.addInputListener( new NodeDragHandler( this, {
         startDrag: function() {
-          horizontalBarContainerNode.stateProperty.set( 'dragging' );
+          self.stateProperty.set( 'dragging' );
         },
         drag: function() {
           //TODO: is 'changed' still used now that overlay is gone?
-          horizontalBarContainerNode.events.trigger( 'changed' );
+          self.events.trigger( 'changed' );
         },
         endDrag: function() {
           //Move to the start position or compare position, whichever is closer.
-          var center = horizontalBarContainerNode.center;
-          var distToStart = horizontalBarContainerNode.startPosition.distance( center );
-          var distToCompare = horizontalBarContainerNode.comparePosition.distance( center );
+          var center = self.center;
+          var distToStart = self.startPosition.distance( center );
+          var distToCompare = self.comparePosition.distance( center );
 
           if ( distToStart < distToCompare ) {
-            horizontalBarContainerNode.animateToStart();
+            self.animateToStart();
           }
           else {
-            horizontalBarContainerNode.animateToComparison();
+            self.animateToComparison();
           }
         }
       } ) );
@@ -130,23 +130,23 @@ define( function( require ) {
   return inherit( Node, HorizontalBarContainerNode, {
     animateToComparison: function() {
       this.animatingProperty.value = true;
-      var horizontalBarContainerNode = this;
+      var self = this;
       new TWEEN.Tween( { x: this.center.x, y: this.center.y } )
         .to( { x: this.comparePosition.x, y: this.comparePosition.y }, 500 )
         .easing( TWEEN.Easing.Cubic.InOut )
-        .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
-        .onComplete( function() {horizontalBarContainerNode.animatingProperty.value = false;} )
+        .onUpdate( function() { self.center = new Vector2( this.x, this.y ); } )
+        .onComplete( function() {self.animatingProperty.value = false;} )
         .start( phet.joist.elapsedTime );
       this.stateProperty.set( 'compare' );
     },
     animateToStart: function() {
       this.animatingProperty.value = true;
-      var horizontalBarContainerNode = this;
+      var self = this;
       new TWEEN.Tween( { x: this.center.x, y: this.center.y } )
         .to( { x: this.startPosition.x, y: this.startPosition.y }, 500 )
         .easing( TWEEN.Easing.Cubic.InOut )
-        .onUpdate( function() { horizontalBarContainerNode.center = new Vector2( this.x, this.y ); } )
-        .onComplete( function() {horizontalBarContainerNode.animatingProperty.value = false;} )
+        .onUpdate( function() { self.center = new Vector2( this.x, this.y ); } )
+        .onComplete( function() {self.animatingProperty.value = false;} )
         .start( phet.joist.elapsedTime );
       this.stateProperty.set( 'start' );
     }
