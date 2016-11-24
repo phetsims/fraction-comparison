@@ -15,12 +15,14 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var IntroModel = require( 'FRACTION_COMPARISON/intro/model/IntroModel' );
   var IntroView = require( 'FRACTION_COMPARISON/intro/view/IntroView' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   function IntroScreen() {
     Screen.call( this,
       function() { return new IntroModel(); },
       function( model ) { return new IntroView( model, ModelViewTransform2.createIdentity() ); },
-      { backgroundColor: '#e1f1f1' }
+      { backgroundColorProperty: new Property( Color.toColor( '#e1f1f1' ) ) }
     );
   }
 
