@@ -16,8 +16,8 @@ define( function( require ) {
 
   /**
    *
-   * @param {Function} compareButtonPressed
-   * @param {Function} separateButtonPressed
+   * @param {function} compareButtonPressed
+   * @param {function} separateButtonPressed
    * @param {Property.<boolean>} compareBothProperty
    * @param {Property.<boolean>} eitherCompareProperty
    * @param {Object} [options]
