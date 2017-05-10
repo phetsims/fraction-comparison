@@ -10,9 +10,9 @@ define( function( require ) {
 
   // modules
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  var CompareSeparateButton = require( 'FRACTION_COMPARISON/intro/view/CompareSeparateButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var CompareSeparateButton = require( 'FRACTION_COMPARISON/intro/view/CompareSeparateButton' );
 
   /**
    *

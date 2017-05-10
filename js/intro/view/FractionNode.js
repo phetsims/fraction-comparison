@@ -10,13 +10,13 @@ define( function( require ) {
 
   // modules
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var UpDownSpinner = require( 'SCENERY_PHET/UpDownSpinner' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var UpDownSpinner = require( 'SCENERY_PHET/UpDownSpinner' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   /**

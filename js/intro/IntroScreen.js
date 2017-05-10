@@ -11,11 +11,11 @@ define( function( require ) {
   // modules
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Screen = require( 'JOIST/Screen' );
   var IntroModel = require( 'FRACTION_COMPARISON/intro/model/IntroModel' );
   var IntroView = require( 'FRACTION_COMPARISON/intro/view/IntroView' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
 
   function IntroScreen() {
     Screen.call( this,
