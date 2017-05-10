@@ -47,8 +47,7 @@ define( function( require ) {
       // change the location, adjust for starting offset, constrain to drag bounds
       drag: function( event ) {
         var parentPoint = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( startOffset );
-        var location = parentPoint;
-        var constrainedLocation = constrainBounds( location, options.dragBounds );
+        var constrainedLocation = constrainBounds( parentPoint, options.dragBounds );
         node.setTranslation( constrainedLocation );
         options.drag( event );
       },
@@ -60,8 +59,6 @@ define( function( require ) {
   }
 
   fractionComparison.register( 'NodeDragHandler', NodeDragHandler );
-
-  inherit( SimpleDragHandler, NodeDragHandler );
 
   /**
    * Constrains a point to some bounds.
@@ -79,5 +76,5 @@ define( function( require ) {
     }
   };
 
-  return NodeDragHandler;
+  return inherit( SimpleDragHandler, NodeDragHandler );
 } );
