@@ -14,7 +14,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
-  var Property = require( 'AXON/Property' );
+  var StringProperty = require( 'AXON/StringProperty' );
 
   // constants
   var VALID_STATE_VALUES = [ 'start', 'dragging', 'compare' ];
@@ -37,7 +37,7 @@ define( function( require ) {
     this.numeratorProperty = new NumberProperty( 1 );
 
     // @public {Property.<string>} one of start/drag/compare
-    this.stateProperty = new Property( 'start' );
+    this.stateProperty = new StringProperty( 'start' );
 
     // @public {Property.<number>}
     this.fractionProperty = new DerivedProperty( [ this.numeratorProperty, this.denominatorProperty ],

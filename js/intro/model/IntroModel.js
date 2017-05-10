@@ -14,7 +14,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var StringProperty = require( 'AXON/StringProperty' );
 
   // constant
   var VALID_REPRESENTATION_VALUES = [
@@ -32,7 +32,7 @@ define( function( require ) {
     this.numberLineVisibleProperty = new BooleanProperty( false );
 
     // @public {Property.<string>}
-    this.representationProperty = new Property( 'horizontal-bar' );
+    this.representationProperty = new StringProperty( 'horizontal-bar' );
 
     // @public
     this.leftFractionModel = new FractionModel();
