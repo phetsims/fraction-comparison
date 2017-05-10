@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   // constant
   var VALID_REPRESENTATION_VALUES = [
