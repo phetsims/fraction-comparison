@@ -36,7 +36,7 @@ define( function( require ) {
     // @public {Property.<number>}
     this.numeratorProperty = new NumberProperty( 1 );
 
-    // @public {Property.<string>} one of start/drag/compare
+    // @public {Property.<string>} one of start/dragging/compare
     this.stateProperty = new StringProperty( 'start' );
 
     // @public {Property.<number>}
