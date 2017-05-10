@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
-  var Events = require( 'AXON/Events' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -49,7 +48,6 @@ define( function( require ) {
 
     options = _.extend( { cursor: 'pointer' }, options );
     Node.call( this );
-    this.events = new Events();
 
     var border = new Rectangle( 0, 0, 180, 100, { stroke: 'black', lineWidth: 1 } );
     this.addChild( border );
@@ -62,7 +60,7 @@ define( function( require ) {
 
     fractionProperty.link( function( value ) {
       self.contents.setRectWidth( value * 180 );
-      self.events.trigger( 'changed' );
+      self.changedEmitter.emit();
     } );
     this.addChild( this.contents );
 
@@ -116,10 +114,6 @@ define( function( require ) {
       this.addInputListener( new NodeDragHandler( this, {
         startDrag: function() {
           self.stateProperty.set( 'dragging' );
-        },
-        drag: function() {
-          //TODO: is 'changed' still used now that overlay is gone?
-          self.events.trigger( 'changed' );
         },
         endDrag: function() {
           //Move to the start position or compare position, whichever is closer.
