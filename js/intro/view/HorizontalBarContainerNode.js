@@ -15,6 +15,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -25,7 +26,7 @@ define( function( require ) {
    * @param {Property.<string>} stateProperty - see docs in FractionModel
    * @param {Property.<string>} animatingProperty
    * @param {Property.<number>} divisionsProperty - see docs in FractionModel
-   * @param {Property.<boolean>} interactive
+   * @param {boolean} interactive
    * @param {function} startPositionFunction - a function taking args (width,height) to compute the start center of the node
    * @param {function} comparePositionFunction - a function taking args (width,height) to compute the center position of the node when compared
    * @param {Object} [options]
@@ -40,7 +41,7 @@ define( function( require ) {
                                        startPositionFunction,
                                        comparePositionFunction,
                                        options ) {
-    var fractionProperty = fractionModel.property( 'fraction' );
+    var fractionProperty = fractionModel.fractionProperty;
     var self = this;
 
     this.stateProperty = stateProperty;
@@ -58,6 +59,7 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 1
     } );
+
     fractionProperty.link( function( value ) {
       self.contents.setRectWidth( value * 180 );
       self.events.trigger( 'changed' );
@@ -66,15 +68,16 @@ define( function( require ) {
 
     //Solid lines to show pieces
     var pieceDivisions = new Node();
-    fractionModel.multilink( [ 'numerator', 'denominator' ], function( numerator, denominator ) {
-      var children = [];
-      for ( var i = 1; i < numerator; i++ ) {
-        var x = i * 180 / denominator;
-        children.push( new Line( x, 0, x, 100, { stroke: 'black', lineWidth: 1 } ) );
-      }
-      pieceDivisions.children = children;
+    Property.multilink( [ fractionModel.numeratorProperty, fractionModel.denominatorProperty ],
+      function( numerator, denominator ) {
+        var children = [];
+        for ( var i = 1; i < numerator; i++ ) {
+          var x = i * 180 / denominator;
+          children.push( new Line( x, 0, x, 100, { stroke: 'black', lineWidth: 1 } ) );
+        }
+        pieceDivisions.children = children;
 
-    } );
+      } );
     this.addChild( pieceDivisions );
 
     //Dotted lines to show user-selected divisions
@@ -95,7 +98,7 @@ define( function( require ) {
     //Only show the separator lines if the user is not dragging/comparing the object (i.e. it is at its start location)
     if ( interactive ) {
       this.stateProperty.link( function( state ) {
-        divisionsNode.visible = state === 'start';
+        divisionsNode.visible = (state === 'start');
       } );
     }
 
@@ -138,6 +141,9 @@ define( function( require ) {
   fractionComparison.register( 'HorizontalBarContainerNode', HorizontalBarContainerNode );
 
   return inherit( Node, HorizontalBarContainerNode, {
+    /**
+     * @public
+     */
     animateToComparison: function() {
       this.animatingProperty.value = true;
       var self = this;
@@ -149,6 +155,9 @@ define( function( require ) {
         .start( phet.joist.elapsedTime );
       this.stateProperty.set( 'compare' );
     },
+    /**
+     * @public
+     */
     animateToStart: function() {
       this.animatingProperty.value = true;
       var self = this;

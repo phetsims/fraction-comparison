@@ -61,10 +61,18 @@ define( function( require ) {
     this.addChild( denominatorNode );
 
     if ( options.interactive ) {
-      var numeratorUpEnabledProperty = new DerivedProperty( [ numeratorProperty, denominatorProperty ], function( numerator, denominator ) { return numerator < denominator; } );
-      var numeratorDownEnabledProperty = new DerivedProperty( [ numeratorProperty ], function( numerator ) { return numerator > 0; } );
-      var denominatorUpEnabledProperty = new DerivedProperty( [ denominatorProperty ], function( denominator ) { return denominator < 10;} );
-      var denominatorDownEnabledProperty = new DerivedProperty( [ numeratorProperty, denominatorProperty ], function( numerator, denominator ) { return denominator > 1 && numerator < denominator;} );
+      var numeratorUpEnabledProperty = new DerivedProperty(
+        [ numeratorProperty, denominatorProperty ],
+        function( numerator, denominator ) { return numerator < denominator; } );
+      var numeratorDownEnabledProperty = new DerivedProperty(
+        [ numeratorProperty ],
+        function( numerator ) { return numerator > 0; } );
+      var denominatorUpEnabledProperty = new DerivedProperty(
+        [ denominatorProperty ],
+        function( denominator ) { return denominator < 10;} );
+      var denominatorDownEnabledProperty = new DerivedProperty(
+        [ numeratorProperty, denominatorProperty ],
+        function( numerator, denominator ) { return denominator > 1 && numerator < denominator;} );
 
       var numeratorSpinner = new UpDownSpinner( numeratorProperty, numeratorUpEnabledProperty, numeratorDownEnabledProperty );
       var denominatorSpinner = new UpDownSpinner( denominatorProperty, denominatorUpEnabledProperty, denominatorDownEnabledProperty );

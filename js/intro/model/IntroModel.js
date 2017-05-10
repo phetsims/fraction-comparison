@@ -13,40 +13,63 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+
+  // constant
+  var VALID_REPRESENTATION_VALUES = [
+    'horizontal-bar',
+    'circle',
+    'chocolate',
+    'different-sized-circles' ];
 
   /**
    * @constructor
    */
   function IntroModel() {
-    this.leftFractionModel = new FractionModel();
-    this.rightFractionModel = new FractionModel();
-    PropertySet.call( this, {
-      numberLineVisible: false,
-      representation: 'horizontal-bar'
-    } );
 
     // @public {Property.<boolean>}
-    this.bothCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ], function( leftState, rightState ) {
-      return leftState === 'compare' && rightState === 'compare';
-    } );
+    this.numberLineVisibleProperty = new BooleanProperty( false );
+
+    // @public {Property.<string>}
+    this.representationProperty = new Property( 'horizontal-bar' );
+
+    // @public
+    this.leftFractionModel = new FractionModel();
+
+    // @public
+    this.rightFractionModel = new FractionModel();
+
+    // @public {Property.<boolean>}
+    this.bothCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ],
+      function( leftState, rightState ) {
+        return leftState === 'compare' && rightState === 'compare';
+      } );
 
     //Boolean Property that indicates whether either of the left/right shapes is in the center, used to hide the center target region
     // @public {Property.<boolean>}
-    this.eitherCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ], function( leftState, rightState ) {
-      return leftState === 'compare' || rightState === 'compare';
+    this.eitherCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ],
+      function( leftState, rightState ) {
+        return leftState === 'compare' || rightState === 'compare';
+      } );
+
+    // check for validity of representation, present for the lifetime of the sim
+    this.representationProperty.link( function( representation ) {
+      assert && assert( _.includes( VALID_REPRESENTATION_VALUES, representation ), 'invalid representation: ' + representation );
     } );
+
   }
 
   fractionComparison.register( 'IntroModel', IntroModel );
 
-  inherit( PropertySet, IntroModel, {
+  inherit( Object, IntroModel, {
     /**
      * Resets the model
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.numberLineVisibleProperty.reset();
+      this.representationProperty.reset();
       this.leftFractionModel.reset();
       this.rightFractionModel.reset();
     }

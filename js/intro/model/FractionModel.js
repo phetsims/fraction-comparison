@@ -10,35 +10,60 @@ define( function( require ) {
 
   // modules
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+
+  // constants
+  var VALID_STATE_VALUES = [ 'start', 'dragging', 'compare' ];
 
   /**
    * @constructor
    */
   function FractionModel() {
-    PropertySet.call( this, {
-      numerator: 1,
-      denominator: 2,
 
-      //one of start/drag/compare
-      state: 'start',
+    // @public {Property.<boolean>}
+    this.animatingProperty = new BooleanProperty( false );
 
-      animating: false
-    } );
+    // @public {Property.<number>}
+    this.divisionsProperty = new NumberProperty( 1 );
 
-    //Currently no support for creating Property through PropertySet constructor (should there be?), so create it manually here
-    //And give it the same interface as other gettable properties
-    this.divisionsProperty = new Property( 1 );
-    this.addGetter( 'divisions' );
+    // @public {Property.<number>}
+    this.denominatorProperty = new NumberProperty( 2 );
 
-    this.addDerivedProperty( 'fraction', [ 'numerator', 'denominator' ], function( numerator, denominator ) {
-      return numerator / denominator;
+    // @public {Property.<number>}
+    this.numeratorProperty = new NumberProperty( 1 );
+
+    // @public {Property.<string>} one of start/drag/compare
+    this.stateProperty = new Property( 'start' );
+
+    // @public {Property.<number>}
+    this.fractionProperty = new DerivedProperty( [ this.numeratorProperty, this.denominatorProperty ],
+      function( numerator, denominator ) {
+        return numerator / denominator;
+      } );
+
+    // check for the validity of the sate, present for the lifetime of the sim
+    this.stateProperty.link( function( state ) {
+      assert && assert( _.includes( VALID_STATE_VALUES, state ), 'invalid state: ' + state );
     } );
   }
 
   fractionComparison.register( 'FractionModel', FractionModel );
 
-  return inherit( PropertySet, FractionModel );
+  return inherit( Object, FractionModel, {
+    /**
+     * Resets
+     * @public
+     */
+    reset: function() {
+      this.numeratorProperty.reset();
+      this.denominatorProperty.reset();
+      this.stateProperty.reset();
+      this.animatingProperty.reset();
+      this.divisionsProperty.reset();
+    }
+  } );
 } );

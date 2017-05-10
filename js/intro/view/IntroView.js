@@ -36,18 +36,18 @@ define( function( require ) {
     ScreenView.call( self, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
 
     //Representation panel at the bottom center
-    var representationPanel = new RepresentationPanel( model.property( 'representation' ), {
+    var representationPanel = new RepresentationPanel( model.representationProperty, {
       bottom: this.layoutBounds.maxY - 5,
       centerX: this.layoutBounds.centerX
     } );
     this.addChild( representationPanel );
 
-    var numberLineNode = new NumberLineNode( model.leftFractionModel, model.rightFractionModel, model.property( 'numberLineVisible' ),
+    var numberLineNode = new NumberLineNode( model.leftFractionModel, model.rightFractionModel, model.numberLineVisibleProperty,
       { centerX: this.layoutBounds.centerX, bottom: representationPanel.top - 70 } );
     this.addChild( numberLineNode );
 
     //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
-    this.addChild( new CheckBox( new Rectangle( 0, 0, 0, 0 ), model.property( 'numberLineVisible' ), {
+    this.addChild( new CheckBox( new Rectangle( 0, 0, 0, 0 ), model.numberLineVisibleProperty, {
       top: numberLineNode.bounds.maxY + 7,
       centerX: numberLineNode.centerX,
       scale: 1.15
@@ -65,16 +65,18 @@ define( function( require ) {
     //So model the pieces individually
 
     var distanceFromSideToFraction = 50;
-    var leftFractionNode = new FractionNode( model.leftFractionModel.property( 'numerator' ), model.leftFractionModel.property( 'denominator' ), {
-      left: distanceFromSideToFraction,
-      bottom: representationPanel.bounds.minY
-    } );
+    var leftFractionNode = new FractionNode( model.leftFractionModel.numeratorProperty,
+      model.leftFractionModel.denominatorProperty, {
+        left: distanceFromSideToFraction,
+        bottom: representationPanel.bounds.minY
+      } );
     this.addChild( leftFractionNode );
 
-    var rightFractionNode = new FractionNode( model.rightFractionModel.property( 'numerator' ), model.rightFractionModel.property( 'denominator' ), {
-      right: this.layoutBounds.maxX - distanceFromSideToFraction,
-      bottom: representationPanel.bounds.minY
-    } );
+    var rightFractionNode = new FractionNode( model.rightFractionModel.numeratorProperty,
+      model.rightFractionModel.denominatorProperty, {
+        right: this.layoutBounds.maxX - distanceFromSideToFraction,
+        bottom: representationPanel.bounds.minY
+      } );
     this.addChild( rightFractionNode );
 
     var compareButtonPressed = function() {
@@ -97,9 +99,9 @@ define( function( require ) {
     var leftHorizontalBarContainerNode = new HorizontalBarContainerNode(
       model.leftFractionModel,
       '#61c9e4',
-      model.leftFractionModel.property( 'state' ),
-      model.leftFractionModel.property( 'animating' ),
-      model.leftFractionModel.property( 'divisions' ),
+      model.leftFractionModel.stateProperty,
+      model.leftFractionModel.animatingProperty,
+      model.leftFractionModel.divisionsProperty,
       true,
       function( width, height ) {
         return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
@@ -110,9 +112,9 @@ define( function( require ) {
     var rightHorizontalBarContainerNode = new HorizontalBarContainerNode(
       model.rightFractionModel,
       '#dc528d',
-      model.rightFractionModel.property( 'state' ),
-      model.rightFractionModel.property( 'animating' ),
-      model.rightFractionModel.property( 'divisions' ),
+      model.rightFractionModel.stateProperty,
+      model.rightFractionModel.animatingProperty,
+      model.rightFractionModel.divisionsProperty,
       true,
       function( width, height ) {
         return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
@@ -124,28 +126,28 @@ define( function( require ) {
     var leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode(
       model.leftFractionModel,
       '#61c9e4',
-      model.leftFractionModel.property( 'state' ),
-      model.leftFractionModel.property( 'animating' ),
-      model.leftFractionModel.property( 'divisions' ),
+      model.leftFractionModel.stateProperty,
+      model.leftFractionModel.animatingProperty,
+      model.leftFractionModel.divisionsProperty,
       false,
       function( width, height ) {
-      return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
-    }, function( width, height ) {
-      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-    } );
+        return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
+      }, function( width, height ) {
+        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      } );
 
     var rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode(
       model.rightFractionModel,
       '#dc528d',
-      model.rightFractionModel.property( 'state' ),
-      model.rightFractionModel.property( 'animating' ),
-      model.rightFractionModel.property( 'divisions' ),
+      model.rightFractionModel.stateProperty,
+      model.rightFractionModel.animatingProperty,
+      model.rightFractionModel.divisionsProperty,
       false,
       function( width, height ) {
-      return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
-    }, function( width, height ) {
-      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-    } );
+        return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
+      }, function( width, height ) {
+        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      } );
 
     this.addChild( leftHorizontalBarContainerNodeShadow );
     this.addChild( rightHorizontalBarContainerNodeShadow );
@@ -160,20 +162,21 @@ define( function( require ) {
       lineWidth: lineWidth,
       lineDash: [ 11, 7 ]
     } );
-    model.leftFractionModel.property( 'fraction' ).link( function( value ) {
+    model.leftFractionModel.fractionProperty.link( function( value ) {
       leftDottedLineContainerNode.setRectWidth( value * 180 );
     } );
 
     leftDottedLineContainerNode.left = leftHorizontalBarContainerNode.comparePosition.x - leftHorizontalBarContainerNode.width / 2 - 1;
     leftDottedLineContainerNode.centerY = leftHorizontalBarContainerNode.comparePosition.y;
 
-    var leftValueSmallerProperty = new DerivedProperty( [ model.leftFractionModel.property( 'fraction' ), model.rightFractionModel.property( 'fraction' ) ], function( leftFraction, rightFraction ) {
-      return leftFraction <= rightFraction;
-    } );
+    var leftValueSmallerProperty = new DerivedProperty( [ model.leftFractionModel.fractionProperty, model.rightFractionModel.fractionProperty ],
+      function( leftFraction, rightFraction ) {
+        return leftFraction <= rightFraction;
+      } );
 
     //Only show the dotted line for the "underneath" shape after animation is complete
     var eitherAnimating = new DerivedProperty(
-      [ model.leftFractionModel.property( 'animating' ), model.rightFractionModel.property( 'animating' ) ],
+      [ model.leftFractionModel.animatingProperty, model.rightFractionModel.animatingProperty ],
       function( leftAnimating, rightAnimating ) {
         return leftAnimating || rightAnimating;
       } );
@@ -185,14 +188,14 @@ define( function( require ) {
     leftDottedLineContainerVisibleProperty.linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
 
-    var leftDivisionsProperty = model.leftFractionModel.property( 'divisions' );
+    var leftDivisionsProperty = model.leftFractionModel.divisionsProperty;
     var leftDivisionSpinner = new LeftRightSpinner( leftDivisionsProperty,
       new DerivedProperty( [ leftDivisionsProperty ], function( leftDivisions ) { return leftDivisions > 1; } ),
       new DerivedProperty( [ leftDivisionsProperty ], function( leftDivisions ) { return leftDivisions < 10; } ),
       { centerX: leftHorizontalBarContainerNode.centerX, top: leftHorizontalBarContainerNode.bottom + 6 } );
     this.addChild( leftDivisionSpinner );
 
-    var rightDivisionsProperty = model.rightFractionModel.property( 'divisions' );
+    var rightDivisionsProperty = model.rightFractionModel.divisionsProperty;
     var rightDivisionSpinner = new LeftRightSpinner( rightDivisionsProperty,
       new DerivedProperty( [ rightDivisionsProperty ], function( rightDivisions ) { return rightDivisions > 1; } ),
       new DerivedProperty( [ rightDivisionsProperty ], function( rightDivisions ) { return rightDivisions < 10; } ),
@@ -200,13 +203,13 @@ define( function( require ) {
     this.addChild( rightDivisionSpinner );
 
     //Move the containers to the start locations on "reset all", see #30
-    model.leftFractionModel.property( 'state' ).link( function( state ) {
+    model.leftFractionModel.stateProperty.link( function( state ) {
       if ( state === 'start' ) {
         leftHorizontalBarContainerNode.animateToStart();
       }
     } );
 
-    model.rightFractionModel.property( 'state' ).link( function( state ) {
+    model.rightFractionModel.stateProperty.link( function( state ) {
       if ( state === 'start' ) {
         rightHorizontalBarContainerNode.animateToStart();
       }

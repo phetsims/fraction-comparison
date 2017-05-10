@@ -31,8 +31,8 @@ define( function( require ) {
   function NumberLineNode( leftFractionModel, rightFractionModel, visibleProperty, options ) {
     Node.call( this );
 
-    var leftFractionProperty = leftFractionModel.property( 'fraction' );
-    var rightFractionProperty = rightFractionModel.property( 'fraction' );
+    var leftFractionProperty = leftFractionModel.fractionProperty;
+    var rightFractionProperty = rightFractionModel.fractionProperty;
 
     var width = 300;
     var line = new Line( 0, 0, width, 0, { lineWidth: 2, stroke: 'black' } );
@@ -60,7 +60,7 @@ define( function( require ) {
     //Create the fraction nodes, and size them to be about the same size as the 0/1 labels.  Cannot use maths to get the scaling exactly right since the font bounds are wonky, so just use a heuristic scale factor
     var fractionNodeScale = 0.22;
     var fractionTop = 14;
-    var leftFractionNode = new FractionNode( leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ), {
+    var leftFractionNode = new FractionNode( leftFractionModel.numeratorProperty, leftFractionModel.denominatorProperty, {
       interactive: false,
       scale: fractionNodeScale,
       fill: leftFill,
@@ -71,7 +71,7 @@ define( function( require ) {
     var leftFractionNodeTickMark = new Line( 0, 0, 0, 0, { lineWidth: coloredTickStroke, stroke: leftFill } );
     this.addChild( leftFractionNodeTickMark );
 
-    var rightFractionNode = new FractionNode( rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ), {
+    var rightFractionNode = new FractionNode( rightFractionModel.numeratorProperty, rightFractionModel.denominatorProperty, {
       interactive: false,
       scale: fractionNodeScale,
       fill: rightFill,
@@ -83,8 +83,11 @@ define( function( require ) {
 
     //When tick spacing or labeled ticks change, update the ticks
     //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem
-    Property.multilink( [ visibleProperty, leftFractionModel.property( 'numerator' ), leftFractionModel.property( 'denominator' ),
-        rightFractionModel.property( 'numerator' ), rightFractionModel.property( 'denominator' ) ],
+    Property.multilink( [ visibleProperty,
+        leftFractionModel.numeratorProperty,
+        leftFractionModel.denominatorProperty,
+        rightFractionModel.numeratorProperty,
+        rightFractionModel.denominatorProperty ],
       function( visible, leftNumerator, leftDenominator, rightNumerator, rightDenominator ) {
         var lineHeight = 16;
         var leastCommonDenominator = NumberLineNode.leastCommonDenominator( leftDenominator, rightDenominator );
@@ -100,14 +103,14 @@ define( function( require ) {
         linesNode.children = lines;
 
         //Update the left/right fraction nodes for the fraction value and the colored tick mark
-        var leftXOffset = leftNumerator === 0 || leftNumerator === leftDenominator ? lineHeight :
+        var leftXOffset = (leftNumerator === 0 || leftNumerator === leftDenominator ) ? lineHeight :
                           Math.abs( leftNumerator / leftDenominator - rightNumerator / rightDenominator ) < 1E-6 ? lineHeight * 0.8 :
                           0;
         var leftCenterX = width * leftNumerator / leftDenominator - leftXOffset;
         leftFractionNode.centerX = leftCenterX;
         leftFractionNodeTickMark.setLine( leftCenterX, leftFractionNode.top, width * leftNumerator / leftDenominator, leftFractionNode.top - fractionTop );
 
-        var rightXOffset = rightNumerator === 0 || rightNumerator === rightDenominator ? lineHeight :
+        var rightXOffset = (rightNumerator === 0 || rightNumerator === rightDenominator) ? lineHeight :
                            Math.abs( rightNumerator / rightDenominator - leftNumerator / leftDenominator ) < 1E-6 ? lineHeight * 0.8 :
                            0;
         var rightCenterX = width * rightNumerator / rightDenominator + rightXOffset;
@@ -116,7 +119,7 @@ define( function( require ) {
 
         //Handle overlapping number labels, see https://github.com/phetsims/fraction-comparison/issues/31
         if ( leftFractionNode.bounds.intersectsBounds( rightFractionNode.bounds ) && Math.abs( rightNumerator / rightDenominator - leftNumerator / leftDenominator ) > 1E-6 ) {
-          var overlapAmount = leftFractionModel.fraction > rightFractionModel.fraction ?
+          var overlapAmount = (leftFractionModel.fraction > rightFractionModel.fraction) ?
                               leftFractionNode.bounds.minX - rightFractionNode.bounds.maxX + 2 :
                               leftFractionNode.bounds.maxX - rightFractionNode.bounds.minX + 2;
 
