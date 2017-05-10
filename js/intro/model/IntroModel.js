@@ -19,6 +19,7 @@ define( function( require ) {
   // constant
   var VALID_REPRESENTATION_VALUES = [
     'horizontal-bar',
+    'vertical-bar',
     'circle',
     'chocolate',
     'different-sized-circles' ];
