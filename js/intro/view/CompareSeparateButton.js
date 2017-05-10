@@ -36,20 +36,6 @@ define( function( require ) {
     var xControl = 12;
     var yControl = -5;
 
-    var createArrowhead = function( angle, tail ) {
-      var headWidth = 10;
-      var headHeight = 10;
-      var directionUnitVector = Vector2.createPolar( 1, angle );
-      var orthogonalUnitVector = directionUnitVector.perpendicular();
-      var tip = directionUnitVector.times( headHeight ).plus( tail );
-      return new Path( new Shape().moveToPoint( tail ).
-          lineToPoint( tail.plus( orthogonalUnitVector.times( headWidth / 2 ) ) ).
-          lineToPoint( tip ).
-          lineToPoint( tail.plus( orthogonalUnitVector.times( -headWidth / 2 ) ) ).
-          lineToPoint( tail ).close(),
-        { fill: 'black' } );
-    };
-
     var rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
     var leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
 
@@ -59,6 +45,7 @@ define( function( require ) {
         new Node( { children: [ rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) ) ] } )
       ]
     } );
+
     var separateIcon = new HBox( {
       spacing: 5, children: [
         new Node( { children: [ leftCurve, createArrowhead( Math.PI / 3 + Math.PI * 0.5, new Vector2( 0, 0 ) ) ] } ),
@@ -97,6 +84,26 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  /**
+   * Arrowhead factory
+   * @param {number} angle - in radians
+   * @param {Vector2} tail
+   * @returns {Path}
+   */
+  var createArrowhead = function( angle, tail ) {
+    var headWidth = 10;
+    var headHeight = 10;
+    var directionUnitVector = Vector2.createPolar( 1, angle );
+    var orthogonalUnitVector = directionUnitVector.perpendicular();
+    var tip = directionUnitVector.times( headHeight ).plus( tail );
+    return new Path( new Shape().moveToPoint( tail ).
+      lineToPoint( tail.plus( orthogonalUnitVector.times( headWidth / 2 ) ) ).
+      lineToPoint( tip ).
+      lineToPoint( tail.plus( orthogonalUnitVector.times( -headWidth / 2 ) ) ).
+      lineToPoint( tail ).close(),
+      { fill: 'black' } );
+  };
 
   fractionComparison.register( 'CompareSeparateButton', CompareSeparateButton );
 
