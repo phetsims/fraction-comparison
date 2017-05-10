@@ -33,7 +33,7 @@ define( function( require ) {
   function IntroView( model ) {
 
     var self = this;
-    ScreenView.call( self, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
+    ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
 
     //Representation panel at the bottom center
     var representationPanel = new RepresentationPanel( model.representationProperty, {
