@@ -20,6 +20,12 @@ define( function( require ) {
   // constants
   var ICON_SCALE = 0.75;
 
+  /**
+   *
+   * @param {Property.<string>} representationProperty
+   * @param {Object} [options]
+   * @constructor
+   */
   function RepresentationPanel( representationProperty, options ) {
 
     options = _.extend( {

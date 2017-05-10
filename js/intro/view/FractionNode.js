@@ -19,6 +19,13 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
+  /**
+   *
+   * @param {Property.<number>} numeratorProperty
+   * @param {Property.<number>} denominatorProperty
+   * @param {Object} [options]
+   * @constructor
+   */
   function FractionNode( numeratorProperty, denominatorProperty, options ) {
 
     options = _.extend( {

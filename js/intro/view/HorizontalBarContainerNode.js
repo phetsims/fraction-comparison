@@ -20,16 +20,26 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<number>} fractionProperty The value of the fraction
+   * @param {FractionModel} fractionModel
    * @param {string} color
-   * @param {Property<string>} stateProperty see docs in FractionModel
-   * @param {Property<number>} divisionsProperty see docs in FractionModel
-   * @param {function} startPositionFunction a function taking args (width,height) to compute the start center of the node
-   * @param {function} comparePositionFunction a function taking args (width,height) to compute the center position of the node when compared
+   * @param {Property.<string>} stateProperty - see docs in FractionModel
+   * @param {Property.<string>} animatingProperty
+   * @param {Property.<number>} divisionsProperty - see docs in FractionModel
+   * @param {Property.<boolean>} interactive
+   * @param {function} startPositionFunction - a function taking args (width,height) to compute the start center of the node
+   * @param {function} comparePositionFunction - a function taking args (width,height) to compute the center position of the node when compared
    * @param {Object} [options]
    * @constructor
    */
-  function HorizontalBarContainerNode( fractionModel, color, stateProperty, animatingProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
+  function HorizontalBarContainerNode( fractionModel,
+                                       color,
+                                       stateProperty,
+                                       animatingProperty,
+                                       divisionsProperty,
+                                       interactive,
+                                       startPositionFunction,
+                                       comparePositionFunction,
+                                       options ) {
     var fractionProperty = fractionModel.property( 'fraction' );
     var self = this;
 

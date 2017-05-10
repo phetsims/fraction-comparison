@@ -14,6 +14,15 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var CompareSeparateButton = require( 'FRACTION_COMPARISON/intro/view/CompareSeparateButton' );
 
+  /**
+   *
+   * @param {Function} compareButtonPressed
+   * @param {Function} separateButtonPressed
+   * @param {Property.<boolean>} compareBothProperty
+   * @param {Property.<boolean>} eitherCompareProperty
+   * @param {Object} [options]
+   * @constructor
+   */
   function ComparisonRegion( compareButtonPressed, separateButtonPressed, compareBothProperty, eitherCompareProperty, options ) {
     var comparisonRegionLength = 220;
     Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, { lineStroke: 1, fill: 'white' } );

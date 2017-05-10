@@ -21,6 +21,13 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
+  /**
+   * @param {Function} compareButtonPressed
+   * @param {Function} separateButtonPressed
+   * @param {Property.<boolean>} compareBothProperty
+   * @param {Object} [options]
+   * @constructor
+   */
   function CompareSeparateButton( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
     Node.call( this );
     options = options || {};

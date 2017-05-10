@@ -15,6 +15,9 @@ define( function( require ) {
   var FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  /**
+   * @constructor
+   */
   function IntroModel() {
     this.leftFractionModel = new FractionModel();
     this.rightFractionModel = new FractionModel();
@@ -23,11 +26,13 @@ define( function( require ) {
       representation: 'horizontal-bar'
     } );
 
+    // @public {Property.<boolean>}
     this.bothCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ], function( leftState, rightState ) {
       return leftState === 'compare' && rightState === 'compare';
     } );
 
     //Boolean Property that indicates whether either of the left/right shapes is in the center, used to hide the center target region
+    // @public {Property.<boolean>}
     this.eitherCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ], function( leftState, rightState ) {
       return leftState === 'compare' || rightState === 'compare';
     } );
@@ -36,9 +41,10 @@ define( function( require ) {
   fractionComparison.register( 'IntroModel', IntroModel );
 
   inherit( PropertySet, IntroModel, {
-    step: function() {
-      //TODO: use dt
-    },
+    /**
+     * Resets the model
+     * @public
+     */
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.leftFractionModel.reset();

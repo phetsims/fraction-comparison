@@ -26,6 +26,10 @@ define( function( require ) {
   var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
   var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
 
+  /***
+   * @param {IntroModel} model
+   * @constructor
+   */
   function IntroView( model ) {
 
     var self = this;
@@ -53,7 +57,7 @@ define( function( require ) {
       listener: model.reset.bind( model ),
       radius: 24,
       touchAreaRadius: 24 * 1.3,
-      right:  this.layoutBounds.maxX - 2,
+      right: this.layoutBounds.maxX - 2,
       bottom: this.layoutBounds.maxY - 2
     } ) );
 
@@ -90,26 +94,54 @@ define( function( require ) {
     this.addChild( comparisonRegion );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.property( 'state' ), model.leftFractionModel.property( 'animating' ), model.leftFractionModel.property( 'divisions' ), true, function( width, height ) {
-      return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
-    }, function( width, height ) {
-      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-    } );
+    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode(
+      model.leftFractionModel,
+      '#61c9e4',
+      model.leftFractionModel.property( 'state' ),
+      model.leftFractionModel.property( 'animating' ),
+      model.leftFractionModel.property( 'divisions' ),
+      true,
+      function( width, height ) {
+        return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
+      }, function( width, height ) {
+        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      } );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.property( 'state' ), model.rightFractionModel.property( 'animating' ), model.rightFractionModel.property( 'divisions' ), true, function( width, height ) {
-      return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
-    }, function( width, height ) {
-      return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-    } );
+    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode(
+      model.rightFractionModel,
+      '#dc528d',
+      model.rightFractionModel.property( 'state' ),
+      model.rightFractionModel.property( 'animating' ),
+      model.rightFractionModel.property( 'divisions' ),
+      true,
+      function( width, height ) {
+        return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
+      }, function( width, height ) {
+        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
+      } );
 
     //Show the shadows right behind the originals, and don't let the shadows be moved
-    var leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.leftFractionModel, '#61c9e4', model.leftFractionModel.property( 'state' ), model.leftFractionModel.property( 'animating' ), model.leftFractionModel.property( 'divisions' ), false, function( width, height ) {
+    var leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode(
+      model.leftFractionModel,
+      '#61c9e4',
+      model.leftFractionModel.property( 'state' ),
+      model.leftFractionModel.property( 'animating' ),
+      model.leftFractionModel.property( 'divisions' ),
+      false,
+      function( width, height ) {
       return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
     } );
 
-    var rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode( model.rightFractionModel, '#dc528d', model.rightFractionModel.property( 'state' ), model.rightFractionModel.property( 'animating' ), model.rightFractionModel.property( 'divisions' ), false, function( width, height ) {
+    var rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode(
+      model.rightFractionModel,
+      '#dc528d',
+      model.rightFractionModel.property( 'state' ),
+      model.rightFractionModel.property( 'animating' ),
+      model.rightFractionModel.property( 'divisions' ),
+      false,
+      function( width, height ) {
       return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
     }, function( width, height ) {
       return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
@@ -141,12 +173,12 @@ define( function( require ) {
 
     //Only show the dotted line for the "underneath" shape after animation is complete
     var eitherAnimating = new DerivedProperty(
-      [model.leftFractionModel.property( 'animating' ), model.rightFractionModel.property( 'animating' )],
+      [ model.leftFractionModel.property( 'animating' ), model.rightFractionModel.property( 'animating' ) ],
       function( leftAnimating, rightAnimating ) {
         return leftAnimating || rightAnimating;
       } );
 
-    var leftDottedLineContainerVisibleProperty = new DerivedProperty( [model.bothCompareProperty, leftValueSmallerProperty, eitherAnimating],
+    var leftDottedLineContainerVisibleProperty = new DerivedProperty( [ model.bothCompareProperty, leftValueSmallerProperty, eitherAnimating ],
       function( bothCompare, leftValueSmaller, eitherAnimating ) {
         return bothCompare && leftValueSmaller && !eitherAnimating;
       } );
@@ -155,15 +187,15 @@ define( function( require ) {
 
     var leftDivisionsProperty = model.leftFractionModel.property( 'divisions' );
     var leftDivisionSpinner = new LeftRightSpinner( leftDivisionsProperty,
-      new DerivedProperty( [leftDivisionsProperty], function( leftDivisions ) { return leftDivisions > 1; } ),
-      new DerivedProperty( [leftDivisionsProperty], function( leftDivisions ) { return leftDivisions < 10; } ),
+      new DerivedProperty( [ leftDivisionsProperty ], function( leftDivisions ) { return leftDivisions > 1; } ),
+      new DerivedProperty( [ leftDivisionsProperty ], function( leftDivisions ) { return leftDivisions < 10; } ),
       { centerX: leftHorizontalBarContainerNode.centerX, top: leftHorizontalBarContainerNode.bottom + 6 } );
     this.addChild( leftDivisionSpinner );
 
     var rightDivisionsProperty = model.rightFractionModel.property( 'divisions' );
     var rightDivisionSpinner = new LeftRightSpinner( rightDivisionsProperty,
-      new DerivedProperty( [rightDivisionsProperty], function( rightDivisions ) { return rightDivisions > 1; } ),
-      new DerivedProperty( [rightDivisionsProperty], function( rightDivisions ) { return rightDivisions < 10; } ),
+      new DerivedProperty( [ rightDivisionsProperty ], function( rightDivisions ) { return rightDivisions > 1; } ),
+      new DerivedProperty( [ rightDivisionsProperty ], function( rightDivisions ) { return rightDivisions < 10; } ),
       { centerX: rightHorizontalBarContainerNode.centerX, top: rightHorizontalBarContainerNode.bottom + 6 } );
     this.addChild( rightDivisionSpinner );
 

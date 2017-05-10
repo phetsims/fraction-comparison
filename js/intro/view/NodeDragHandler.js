@@ -19,6 +19,11 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  /**
+   * @param {Node} node
+   * @param {Object} [options]
+   * @constructor
+   */
   function NodeDragHandler( node, options ) {
 
     options = _.extend( {

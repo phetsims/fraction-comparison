@@ -14,6 +14,9 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  /**
+   * @constructor
+   */
   function FractionModel() {
     PropertySet.call( this, {
       numerator: 1,

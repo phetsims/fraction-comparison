@@ -20,6 +20,14 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
 
+  /**
+   *
+   * @param {FractionModel} leftFractionModel
+   * @param {FractionModel} rightFractionModel
+   * @param {Property.<boolean>} visibleProperty
+   * @param {Object} [options]
+   * @constructor
+   */
   function NumberLineNode( leftFractionModel, rightFractionModel, visibleProperty, options ) {
     Node.call( this );
 
@@ -38,11 +46,11 @@ define( function( require ) {
     var rightRectangle = new Rectangle( 0, -40, width, 20, { fill: rightFill, lineWidth: 1, stroke: 'black' } );
     this.addChild( rightRectangle );
 
-    new DerivedProperty( [leftFractionProperty], function( leftFraction ) {
+    new DerivedProperty( [ leftFractionProperty ], function( leftFraction ) {
       return leftFraction * width;
     } ).linkAttribute( leftRectangle, 'rectWidth' );
 
-    new DerivedProperty( [rightFractionProperty], function( rightFraction ) {
+    new DerivedProperty( [ rightFractionProperty ], function( rightFraction ) {
       return rightFraction * width;
     } ).linkAttribute( rightRectangle, 'rectWidth' );
 
@@ -146,7 +154,24 @@ define( function( require ) {
 
     //statics
     {
-      leastCommonDenominator: function( a, b ) { return a * b / NumberLineNode.greatestCommonDenominator( a, b ); },
-      greatestCommonDenominator: function gcd( a, b ) { return b ? gcd( b, a % b ) : Math.abs( a ); }
+      /**
+       * Returns the least common denominator of a and b
+       * @param {number} a
+       * @param {number} b
+       * @returns {number}
+       */
+      leastCommonDenominator: function( a, b ) {
+        return a * b / NumberLineNode.greatestCommonDenominator( a, b );
+      },
+      /**
+       * Returns the greatest common denominator of a and b
+       * @param {number} a
+       * @param {number} b
+       * @returns {number}
+       */
+      greatestCommonDenominator: function gcd( a, b ) {
+        assert && assert( Number.isInteger( a ) && Number.isInteger( b ) );
+        return b ? gcd( b, a % b ) : Math.abs( a );
+      }
     } );
 } );
