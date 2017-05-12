@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var StringProperty = require( 'AXON/StringProperty' );
 
-  // constant
+  // constants
   var VALID_REPRESENTATION_VALUES = [
     'horizontal-bar',
     'vertical-bar',
@@ -41,14 +41,14 @@ define( function( require ) {
     // @public
     this.rightFractionModel = new FractionModel();
 
-    // @public {Property.<boolean>}
+    // @public (read-only)  {Property.<boolean>}
     this.bothCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ],
       function( leftState, rightState ) {
         return leftState === 'compare' && rightState === 'compare';
       } );
 
     //Boolean Property that indicates whether either of the left/right shapes is in the center, used to hide the center target region
-    // @public {Property.<boolean>}
+    // @public (read-only) {Property.<boolean>}
     this.eitherCompareProperty = new DerivedProperty( [ this.leftFractionModel.stateProperty, this.rightFractionModel.stateProperty ],
       function( leftState, rightState ) {
         return leftState === 'compare' || rightState === 'compare';
