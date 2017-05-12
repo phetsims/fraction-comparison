@@ -60,7 +60,6 @@ define( function( require ) {
 
     fractionProperty.link( function( value ) {
       self.contents.setRectWidth( value * 180 );
-      self.changedEmitter.emit();
     } );
     this.addChild( this.contents );
 
