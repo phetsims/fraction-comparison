@@ -8,9 +8,9 @@
 define( function( require ) {
   'use strict';
 
+  var IntroScreen = require( 'FRACTION_COMPARISON/intro/IntroScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
-  var IntroScreen = require( 'FRACTION_COMPARISON/intro/IntroScreen' );
 
   // strings
   var fractionComparisonTitleString = require( 'string!FRACTION_COMPARISON/fraction-comparison.title' );

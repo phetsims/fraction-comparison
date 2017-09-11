@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var StringProperty = require( 'AXON/StringProperty' );

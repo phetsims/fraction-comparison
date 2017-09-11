@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );

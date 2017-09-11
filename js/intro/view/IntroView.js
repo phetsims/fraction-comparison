@@ -9,22 +9,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var CheckBox = require( 'SUN/CheckBox' );
   var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
   var HorizontalBarContainerNode = require( 'FRACTION_COMPARISON/intro/view/HorizontalBarContainerNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var LeftRightSpinner = require( 'SCENERY_PHET/LeftRightSpinner' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
   var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
+  var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
 
   /***
    * @param {IntroModel} model
