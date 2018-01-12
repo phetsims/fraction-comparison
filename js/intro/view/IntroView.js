@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
@@ -47,7 +47,7 @@ define( function( require ) {
     this.addChild( numberLineNode );
 
     //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
-    this.addChild( new CheckBox( new Rectangle( 0, 0, 0, 0 ), model.numberLineVisibleProperty, {
+    this.addChild( new Checkbox( new Rectangle( 0, 0, 0, 0 ), model.numberLineVisibleProperty, {
       top: numberLineNode.bounds.maxY + 7,
       centerX: numberLineNode.centerX,
       scale: 1.15
