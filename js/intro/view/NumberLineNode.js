@@ -140,7 +140,7 @@ define( function( require ) {
     this.addChild( zeroLabel );
     this.addChild( oneLabel );
 
-    //Only show certain properties when the number line check box is selected
+    //Only show certain properties when the number line checkbox is selected
     visibleProperty.linkAttribute( leftRectangle, 'visible' );
     visibleProperty.linkAttribute( rightRectangle, 'visible' );
     visibleProperty.linkAttribute( leftFractionNode, 'visible' );
