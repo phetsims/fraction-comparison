@@ -9,6 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Animation = require( 'TWIXT/Animation' );
+  var Easing = require( 'TWIXT/Easing' );
   var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -16,7 +18,6 @@ define( function( require ) {
   var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    *
@@ -95,7 +96,7 @@ define( function( require ) {
     //Only show the separator lines if the user is not dragging/comparing the object (i.e. it is at its start location)
     if ( interactive ) {
       this.stateProperty.link( function( state ) {
-        divisionsNode.visible = (state === 'start');
+        divisionsNode.visible = ( state === 'start' );
       } );
     }
 
@@ -140,12 +141,25 @@ define( function( require ) {
     animateToComparison: function() {
       this.animatingProperty.value = true;
       var self = this;
-      new TWEEN.Tween( { x: this.center.x, y: this.center.y } )
-        .to( { x: this.comparePosition.x, y: this.comparePosition.y }, 500 )
-        .easing( TWEEN.Easing.Cubic.InOut )
-        .onUpdate( function() { self.center = new Vector2( this.x, this.y ); } )
-        .onComplete( function() {self.animatingProperty.value = false;} )
-        .start( phet.joist.elapsedTime );
+      var positionProperty = new Property( this.center );
+      var animation = new Animation( {
+        duration: 0.5,
+        targets: [ {
+          property: positionProperty,
+          easing: Easing.CUBIC_IN_OUT,
+          to: this.comparePosition
+        } ]
+      } );
+      var listener = function( position ) {
+        self.center = position;
+      };
+      positionProperty.link( listener );
+      animation.finishEmitter.addListener( function() {
+        self.animatingProperty.value = false;
+        positionProperty.unlink( listener );
+        positionProperty.dispose();
+      } );
+      animation.start();
       this.stateProperty.set( 'compare' );
     },
     /**
@@ -154,12 +168,25 @@ define( function( require ) {
     animateToStart: function() {
       this.animatingProperty.value = true;
       var self = this;
-      new TWEEN.Tween( { x: this.center.x, y: this.center.y } )
-        .to( { x: this.startPosition.x, y: this.startPosition.y }, 500 )
-        .easing( TWEEN.Easing.Cubic.InOut )
-        .onUpdate( function() { self.center = new Vector2( this.x, this.y ); } )
-        .onComplete( function() {self.animatingProperty.value = false;} )
-        .start( phet.joist.elapsedTime );
+      var positionProperty = new Property( this.center );
+      var animation = new Animation( {
+        duration: 0.5,
+        targets: [ {
+          property: positionProperty,
+          easing: Easing.CUBIC_IN_OUT,
+          to: this.startPosition
+        } ]
+      } );
+      var listener = function( position ) {
+        self.center = position;
+      };
+      positionProperty.link( listener );
+      animation.finishEmitter.addListener( function() {
+        self.animatingProperty.value = false;
+        positionProperty.unlink( listener );
+        positionProperty.dispose();
+      } );
+      animation.start();
       this.stateProperty.set( 'start' );
     }
   } );

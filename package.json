@@ -11,6 +11,11 @@
   },
   "phet": {
     "requirejsNamespace": "FRACTION_COMPARISON",
+    "phetLibs": [
+      "twixt",
+      "vegas",
+      "vibe"
+    ],
     "preload": [
       "../sherpa/lib/Tween-r12.js"
     ],
