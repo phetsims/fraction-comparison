@@ -56,7 +56,6 @@ define( function( require ) {
     this.addChild( new ResetAllButton( {
       listener: model.reset.bind( model ),
       radius: 24,
-      touchAreaRadius: 24 * 1.3,
       right: this.layoutBounds.maxX - 2,
       bottom: this.layoutBounds.maxY - 2
     } ) );
