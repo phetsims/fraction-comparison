@@ -5,16 +5,16 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
-  var FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var StringProperty = require( 'AXON/StringProperty' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  const FractionModel = require( 'FRACTION_COMPARISON/intro/model/FractionModel' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const StringProperty = require( 'AXON/StringProperty' );
 
   // constants
   var VALID_REPRESENTATION_VALUES = [

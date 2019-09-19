@@ -5,15 +5,15 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var IntroScreen = require( 'FRACTION_COMPARISON/intro/IntroScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
+  const IntroScreen = require( 'FRACTION_COMPARISON/intro/IntroScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var fractionComparisonTitleString = require( 'string!FRACTION_COMPARISON/fraction-comparison.title' );
+  const fractionComparisonTitleString = require( 'string!FRACTION_COMPARISON/fraction-comparison.title' );
 
   var simOptions = {
     credits: {

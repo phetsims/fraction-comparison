@@ -5,26 +5,26 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Checkbox = require( 'SUN/Checkbox' );
-  var ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
-  var FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
-  var HorizontalBarContainerNode = require( 'FRACTION_COMPARISON/intro/view/HorizontalBarContainerNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LeftRightSpinner = require( 'SCENERY_PHET/LeftRightSpinner' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const ComparisonRegion = require( 'FRACTION_COMPARISON/intro/view/ComparisonRegion' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  const FractionNode = require( 'FRACTION_COMPARISON/intro/view/FractionNode' );
+  const HorizontalBarContainerNode = require( 'FRACTION_COMPARISON/intro/view/HorizontalBarContainerNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LeftRightSpinner = require( 'SCENERY_PHET/LeftRightSpinner' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const Vector2 = require( 'DOT/Vector2' );
 
-  var NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
-  var RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
+  const NumberLineNode = require( 'FRACTION_COMPARISON/intro/view/NumberLineNode' );
+  const RepresentationPanel = require( 'FRACTION_COMPARISON/intro/view/RepresentationPanel' );
 
   /***
    * @param {IntroModel} model

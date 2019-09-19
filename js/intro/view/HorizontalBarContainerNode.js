@@ -5,19 +5,19 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Animation = require( 'TWIXT/Animation' );
-  var Easing = require( 'TWIXT/Easing' );
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
-  var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Animation = require( 'TWIXT/Animation' );
+  const Easing = require( 'TWIXT/Easing' );
+  const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
+  const Property = require( 'AXON/Property' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
    *

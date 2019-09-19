@@ -5,19 +5,19 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var UpDownSpinner = require( 'SCENERY_PHET/UpDownSpinner' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const UpDownSpinner = require( 'SCENERY_PHET/UpDownSpinner' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    *

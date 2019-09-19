@@ -5,14 +5,14 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CompareSeparateButton = require( 'FRACTION_COMPARISON/intro/view/CompareSeparateButton' );
-  var fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const CompareSeparateButton = require( 'FRACTION_COMPARISON/intro/view/CompareSeparateButton' );
+  const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
    *
