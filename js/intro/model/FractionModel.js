@@ -17,7 +17,7 @@ define( require => {
   const StringProperty = require( 'AXON/StringProperty' );
 
   // constants
-  var VALID_STATE_VALUES = [ 'start', 'dragging', 'compare' ];
+  const VALID_STATE_VALUES = [ 'start', 'dragging', 'compare' ];
 
   /**
    * @constructor

@@ -37,10 +37,10 @@ define( require => {
     }, options );
 
     Node.call( this );
-    var font = new PhetFont( { size: 84 } );
-    var numeratorNode = new Text( numeratorProperty.get(), { font: font, fill: options.fill } );
+    const font = new PhetFont( { size: 84 } );
+    const numeratorNode = new Text( numeratorProperty.get(), { font: font, fill: options.fill } );
 
-    var line = new Line( 0, 0, 80, 0, { lineWidth: 4, stroke: options.fill } );
+    const line = new Line( 0, 0, 80, 0, { lineWidth: 4, stroke: options.fill } );
     this.addChild( line );
 
     numeratorProperty.link( function( value ) {
@@ -48,7 +48,7 @@ define( require => {
       numeratorNode.centerX = line.centerX;
     } );
 
-    var denominatorNode = new Text( denominatorProperty.get(), { font: font, fill: options.fill } );
+    const denominatorNode = new Text( denominatorProperty.get(), { font: font, fill: options.fill } );
     denominatorProperty.link( function( value ) {
       denominatorNode.text = value + '';
       denominatorNode.centerX = line.centerX;
@@ -61,23 +61,23 @@ define( require => {
     this.addChild( denominatorNode );
 
     if ( options.interactive ) {
-      var numeratorUpEnabledProperty = new DerivedProperty(
+      const numeratorUpEnabledProperty = new DerivedProperty(
         [ numeratorProperty, denominatorProperty ],
         function( numerator, denominator ) { return numerator < denominator; } );
-      var numeratorDownEnabledProperty = new DerivedProperty(
+      const numeratorDownEnabledProperty = new DerivedProperty(
         [ numeratorProperty ],
         function( numerator ) { return numerator > 0; } );
-      var denominatorUpEnabledProperty = new DerivedProperty(
+      const denominatorUpEnabledProperty = new DerivedProperty(
         [ denominatorProperty ],
         function( denominator ) { return denominator < 10;} );
-      var denominatorDownEnabledProperty = new DerivedProperty(
+      const denominatorDownEnabledProperty = new DerivedProperty(
         [ numeratorProperty, denominatorProperty ],
         function( numerator, denominator ) { return denominator > 1 && numerator < denominator;} );
 
-      var numeratorSpinner = new UpDownSpinner( numeratorProperty, numeratorUpEnabledProperty, numeratorDownEnabledProperty );
-      var denominatorSpinner = new UpDownSpinner( denominatorProperty, denominatorUpEnabledProperty, denominatorDownEnabledProperty );
+      const numeratorSpinner = new UpDownSpinner( numeratorProperty, numeratorUpEnabledProperty, numeratorDownEnabledProperty );
+      const denominatorSpinner = new UpDownSpinner( denominatorProperty, denominatorUpEnabledProperty, denominatorDownEnabledProperty );
 
-      var spinners = new VBox( {
+      const spinners = new VBox( {
         spacing: 20,
         children: [ numeratorSpinner, denominatorSpinner ],
         left: line.bounds.maxX + 5,

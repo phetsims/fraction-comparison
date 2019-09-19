@@ -17,7 +17,7 @@ define( require => {
   const StringProperty = require( 'AXON/StringProperty' );
 
   // constants
-  var VALID_REPRESENTATION_VALUES = [
+  const VALID_REPRESENTATION_VALUES = [
     'horizontal-bar',
     'vertical-bar',
     'circle',

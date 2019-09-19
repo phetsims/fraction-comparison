@@ -18,7 +18,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
-  var ICON_SCALE = 0.75;
+  const ICON_SCALE = 0.75;
 
   /**
    *
@@ -34,7 +34,7 @@ define( require => {
       yMargin: 7
     }, options );
 
-    var content = new RadioButtonGroup( representationProperty, [
+    const content = new RadioButtonGroup( representationProperty, [
       { value: 'horizontal-bar', node: new Rectangle( 0, 0, 50 * ICON_SCALE, 30 * ICON_SCALE, { fill: '#208644', lineWidth: 1, stroke: 'black' } ) },
       { value: 'vertical-bar', node: new Rectangle( 0, 0, 14 * ICON_SCALE, 50 * ICON_SCALE, { fill: 'red', lineWidth: 1, stroke: 'black' } ) },
       { value: 'circle', node: new Circle( 22 * ICON_SCALE, { fill: '#145991', lineWidth: 1, stroke: 'black' } ) },

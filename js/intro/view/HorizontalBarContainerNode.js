@@ -41,8 +41,8 @@ define( require => {
                                        startPositionFunction,
                                        comparePositionFunction,
                                        options ) {
-    var fractionProperty = fractionModel.fractionProperty;
-    var self = this;
+    const fractionProperty = fractionModel.fractionProperty;
+    const self = this;
 
     this.stateProperty = stateProperty;
     this.animatingProperty = animatingProperty;
@@ -50,7 +50,7 @@ define( require => {
     options = _.extend( { cursor: 'pointer' }, options );
     Node.call( this );
 
-    var border = new Rectangle( 0, 0, 180, 100, { stroke: 'black', lineWidth: 1 } );
+    const border = new Rectangle( 0, 0, 180, 100, { stroke: 'black', lineWidth: 1 } );
     this.addChild( border );
 
     this.contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {
@@ -65,12 +65,12 @@ define( require => {
     this.addChild( this.contents );
 
     //Solid lines to show pieces
-    var pieceDivisions = new Node();
+    const pieceDivisions = new Node();
     Property.multilink( [ fractionModel.numeratorProperty, fractionModel.denominatorProperty ],
       function( numerator, denominator ) {
-        var children = [];
-        for ( var i = 1; i < numerator; i++ ) {
-          var x = i * 180 / denominator;
+        const children = [];
+        for ( let i = 1; i < numerator; i++ ) {
+          const x = i * 180 / denominator;
           children.push( new Line( x, 0, x, 100, { stroke: 'black', lineWidth: 1 } ) );
         }
         pieceDivisions.children = children;
@@ -79,10 +79,10 @@ define( require => {
     this.addChild( pieceDivisions );
 
     //Dotted lines to show user-selected divisions
-    var divisionsNode = new Node();
+    const divisionsNode = new Node();
     divisionsProperty.link( function( divisions ) {
-      var children = [];
-      for ( var i = 1; i < divisions; i++ ) {
+      const children = [];
+      for ( let i = 1; i < divisions; i++ ) {
         children.push( new Line( i * 180 / divisions, 0, i * 180 / divisions, 100, {
           stroke: 'gray',
           lineDash: [ 5, 4 ],
@@ -117,9 +117,9 @@ define( require => {
         },
         endDrag: function() {
           //Move to the start position or compare position, whichever is closer.
-          var center = self.center;
-          var distToStart = self.startPosition.distance( center );
-          var distToCompare = self.comparePosition.distance( center );
+          const center = self.center;
+          const distToStart = self.startPosition.distance( center );
+          const distToCompare = self.comparePosition.distance( center );
 
           if ( distToStart < distToCompare ) {
             self.animateToStart();
@@ -140,9 +140,9 @@ define( require => {
      */
     animateToComparison: function() {
       this.animatingProperty.value = true;
-      var self = this;
-      var positionProperty = new Property( this.center );
-      var animation = new Animation( {
+      const self = this;
+      const positionProperty = new Property( this.center );
+      const animation = new Animation( {
         duration: 0.5,
         targets: [ {
           property: positionProperty,
@@ -150,7 +150,7 @@ define( require => {
           to: this.comparePosition
         } ]
       } );
-      var listener = function( position ) {
+      const listener = function( position ) {
         self.center = position;
       };
       positionProperty.link( listener );
@@ -167,9 +167,9 @@ define( require => {
      */
     animateToStart: function() {
       this.animatingProperty.value = true;
-      var self = this;
-      var positionProperty = new Property( this.center );
-      var animation = new Animation( {
+      const self = this;
+      const positionProperty = new Property( this.center );
+      const animation = new Animation( {
         duration: 0.5,
         targets: [ {
           property: positionProperty,
@@ -177,7 +177,7 @@ define( require => {
           to: this.startPosition
         } ]
       } );
-      var listener = function( position ) {
+      const listener = function( position ) {
         self.center = position;
       };
       positionProperty.link( listener );

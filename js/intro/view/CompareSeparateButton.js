@@ -31,32 +31,32 @@ define( require => {
   function CompareSeparateButton( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
     Node.call( this );
     options = options || {};
-    var xTip = 20;
-    var yTip = 8;
-    var xControl = 12;
-    var yControl = -5;
+    const xTip = 20;
+    const yTip = 8;
+    const xControl = 12;
+    const yControl = -5;
 
-    var rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
-    var leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
+    const rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
+    const leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), { stroke: 'black', lineWidth: 3 } );
 
-    var compareIcon = new HBox( {
+    const compareIcon = new HBox( {
       spacing: 5, children: [
         new Node( { children: [ leftCurve, createArrowhead( Math.PI / 3, new Vector2( xTip, yTip ) ) ] } ),
         new Node( { children: [ rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) ) ] } )
       ]
     } );
 
-    var separateIcon = new HBox( {
+    const separateIcon = new HBox( {
       spacing: 5, children: [
         new Node( { children: [ leftCurve, createArrowhead( Math.PI / 3 + Math.PI * 0.5, new Vector2( 0, 0 ) ) ] } ),
         new Node( { children: [ rightCurve, createArrowhead( Math.PI - Math.PI / 3 - Math.PI / 2, new Vector2( 0, 0 ) ) ] } )
       ]
     } );
 
-    var maxWidth = Math.max( compareIcon.width, separateIcon.width );
-    var maxHeight = Math.max( compareIcon.height, separateIcon.height );
+    const maxWidth = Math.max( compareIcon.width, separateIcon.width );
+    const maxHeight = Math.max( compareIcon.height, separateIcon.height );
 
-    var compareButton = new RectangularPushButton( {
+    const compareButton = new RectangularPushButton( {
       content: new Rectangle( 0, 0, maxWidth, maxHeight, {
         children: [ compareIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
       } ),
@@ -65,7 +65,7 @@ define( require => {
       listener: compareButtonPressed
     } );
 
-    var separateButton = new RectangularPushButton( {
+    const separateButton = new RectangularPushButton( {
       content: new Rectangle( 0, 0, maxWidth, maxHeight, {
         children: [ separateIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
       } ),
@@ -92,11 +92,11 @@ define( require => {
    * @returns {Path}
    */
   var createArrowhead = function( angle, tail ) {
-    var headWidth = 10;
-    var headHeight = 10;
-    var directionUnitVector = Vector2.createPolar( 1, angle );
-    var orthogonalUnitVector = directionUnitVector.perpendicular;
-    var tip = directionUnitVector.times( headHeight ).plus( tail );
+    const headWidth = 10;
+    const headHeight = 10;
+    const directionUnitVector = Vector2.createPolar( 1, angle );
+    const orthogonalUnitVector = directionUnitVector.perpendicular;
+    const tip = directionUnitVector.times( headHeight ).plus( tail );
     return new Path( new Shape().moveToPoint( tail ).
       lineToPoint( tail.plus( orthogonalUnitVector.times( headWidth / 2 ) ) ).
       lineToPoint( tip ).

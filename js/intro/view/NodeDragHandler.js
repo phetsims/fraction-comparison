@@ -32,7 +32,7 @@ define( require => {
       endDrag: function() { /* do nothing */ }  // use this to do things at the end of dragging, like 'snapping'
     }, options );
 
-    var startOffset; // where the drag started, relative to the Movable's origin, in parent view coordinates
+    let startOffset; // where the drag started, relative to the Movable's origin, in parent view coordinates
 
     SimpleDragHandler.call( this, {
 
@@ -46,8 +46,8 @@ define( require => {
 
       // change the location, adjust for starting offset, constrain to drag bounds
       drag: function( event ) {
-        var parentPoint = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( startOffset );
-        var constrainedLocation = constrainBounds( parentPoint, options.dragBounds );
+        const parentPoint = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( startOffset );
+        const constrainedLocation = constrainBounds( parentPoint, options.dragBounds );
         node.setTranslation( constrainedLocation );
         options.drag( event );
       },
@@ -70,8 +70,8 @@ define( require => {
       return point;
     }
     else {
-      var xConstrained = Math.max( Math.min( point.x, bounds.maxX ), bounds.x );
-      var yConstrained = Math.max( Math.min( point.y, bounds.maxY ), bounds.y );
+      const xConstrained = Math.max( Math.min( point.x, bounds.maxX ), bounds.x );
+      const yConstrained = Math.max( Math.min( point.y, bounds.maxY ), bounds.y );
       return new Vector2( xConstrained, yConstrained );
     }
   };

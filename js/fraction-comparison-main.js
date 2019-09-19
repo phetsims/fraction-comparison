@@ -15,7 +15,7 @@ define( require => {
   // strings
   const fractionComparisonTitleString = require( 'string!FRACTION_COMPARISON/fraction-comparison.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Karina K. R. Hensberry',
       softwareDevelopment: 'Sam Reid',
@@ -25,7 +25,7 @@ define( require => {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( fractionComparisonTitleString, [ new IntroScreen() ], simOptions );
+    const sim = new Sim( fractionComparisonTitleString, [ new IntroScreen() ], simOptions );
     sim.start();
   } );
 } );
