@@ -13,6 +13,7 @@ define( require => {
   const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -28,7 +29,7 @@ define( require => {
    */
   function FractionNode( numeratorProperty, denominatorProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       fill: 'black',
       //By default the fraction node is interactive, which means it has up/down spinners

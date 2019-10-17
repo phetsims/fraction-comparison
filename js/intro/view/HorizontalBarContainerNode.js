@@ -14,6 +14,7 @@ define( require => {
   const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NodeDragHandler = require( 'FRACTION_COMPARISON/intro/view/NodeDragHandler' );
   const Property = require( 'AXON/Property' );
@@ -47,7 +48,7 @@ define( require => {
     this.stateProperty = stateProperty;
     this.animatingProperty = animatingProperty;
 
-    options = _.extend( { cursor: 'pointer' }, options );
+    options = merge( { cursor: 'pointer' }, options );
     Node.call( this );
 
     const border = new Rectangle( 0, 0, 180, 100, { stroke: 'black', lineWidth: 1 } );

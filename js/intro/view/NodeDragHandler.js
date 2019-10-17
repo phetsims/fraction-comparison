@@ -16,6 +16,7 @@ define( require => {
   // modules
   const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -26,7 +27,7 @@ define( require => {
    */
   function NodeDragHandler( node, options ) {
 
-    options = _.extend( {
+    options = merge( {
       startDrag: function() {},
       drag: function() {},
       endDrag: function() { /* do nothing */ }  // use this to do things at the end of dragging, like 'snapping'

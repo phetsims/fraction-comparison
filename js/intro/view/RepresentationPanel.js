@@ -12,6 +12,7 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const fractionComparison = require( 'FRACTION_COMPARISON/fractionComparison' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
@@ -28,7 +29,7 @@ define( require => {
    */
   function RepresentationPanel( representationProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       fill: '#efe8e1',
       xMargin: 10,
       yMargin: 7
