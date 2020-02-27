@@ -5,27 +5,24 @@
  *
  * @author Sam Reid
  */
-define( require => {
-  'use strict';
 
-  const IntroScreen = require( 'FRACTION_COMPARISON/intro/IntroScreen' );
-  const Sim = require( 'JOIST/Sim' );
-  const SimLauncher = require( 'JOIST/SimLauncher' );
+import Sim from '../../joist/js/Sim.js';
+import SimLauncher from '../../joist/js/SimLauncher.js';
+import fractionComparisonStrings from './fraction-comparison-strings.js';
+import IntroScreen from './intro/IntroScreen.js';
 
-  // strings
-  const fractionComparisonTitleString = require( 'string!FRACTION_COMPARISON/fraction-comparison.title' );
+const fractionComparisonTitleString = fractionComparisonStrings[ 'fraction-comparison' ].title;
 
-  const simOptions = {
-    credits: {
-      leadDesign: 'Karina K. R. Hensberry',
-      softwareDevelopment: 'Sam Reid',
-      team: 'Bryce Gruneich, Trish Loeblein, Ariel Paul, Kathy Perkins',
-      graphicArts: 'Sharon Siman-Tov'
-    }
-  };
+const simOptions = {
+  credits: {
+    leadDesign: 'Karina K. R. Hensberry',
+    softwareDevelopment: 'Sam Reid',
+    team: 'Bryce Gruneich, Trish Loeblein, Ariel Paul, Kathy Perkins',
+    graphicArts: 'Sharon Siman-Tov'
+  }
+};
 
-  SimLauncher.launch( function() {
-    const sim = new Sim( fractionComparisonTitleString, [ new IntroScreen() ], simOptions );
-    sim.start();
-  } );
+SimLauncher.launch( function() {
+  const sim = new Sim( fractionComparisonTitleString, [ new IntroScreen() ], simOptions );
+  sim.start();
 } );
