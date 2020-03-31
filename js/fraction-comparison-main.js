@@ -8,7 +8,7 @@
 
 import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
-import fractionComparisonStrings from './fraction-comparison-strings.js';
+import fractionComparisonStrings from './fractionComparisonStrings.js';
 import IntroScreen from './intro/IntroScreen.js';
 
 const fractionComparisonTitleString = fractionComparisonStrings[ 'fraction-comparison' ].title;
