@@ -50,7 +50,7 @@ function FractionModel() {
 
 fractionComparison.register( 'FractionModel', FractionModel );
 
-export default inherit( Object, FractionModel, {
+inherit( Object, FractionModel, {
   /**
    * Resets
    * @public
@@ -63,3 +63,5 @@ export default inherit( Object, FractionModel, {
     this.divisionsProperty.reset();
   }
 } );
+
+export default FractionModel;

@@ -132,7 +132,7 @@ function HorizontalBarContainerNode( fractionModel,
 
 fractionComparison.register( 'HorizontalBarContainerNode', HorizontalBarContainerNode );
 
-export default inherit( Node, HorizontalBarContainerNode, {
+inherit( Node, HorizontalBarContainerNode, {
   /**
    * @public
    */
@@ -188,3 +188,5 @@ export default inherit( Node, HorizontalBarContainerNode, {
     this.stateProperty.set( 'start' );
   }
 } );
+
+export default HorizontalBarContainerNode;
