@@ -157,7 +157,7 @@ function NumberLineNode( leftFractionModel, rightFractionModel, visibleProperty,
 
 fractionComparison.register( 'NumberLineNode', NumberLineNode );
 
-export default inherit( Node, NumberLineNode, {},
+inherit( Node, NumberLineNode, {},
 
   //statics
   {
@@ -181,3 +181,5 @@ export default inherit( Node, NumberLineNode, {},
       return b ? gcd( b, a % b ) : Math.abs( a );
     }
   } );
+
+export default NumberLineNode;
