@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import fractionComparisonStrings from './fractionComparisonStrings.js';
 import IntroScreen from './intro/IntroScreen.js';
 
@@ -22,7 +22,7 @@ const simOptions = {
   }
 };
 
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
   const sim = new Sim( fractionComparisonTitleString, [ new IntroScreen() ], simOptions );
   sim.start();
 } );
