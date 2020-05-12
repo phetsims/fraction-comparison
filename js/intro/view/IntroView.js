@@ -197,7 +197,7 @@ function IntroView( model ) {
     { centerX: rightHorizontalBarContainerNode.centerX, top: rightHorizontalBarContainerNode.bottom + 6 } );
   this.addChild( rightDivisionSpinner );
 
-  //Move the containers to the start locations on "reset all", see #30
+  //Move the containers to the start position on "reset all", see #30
   model.leftFractionModel.stateProperty.link( function( state ) {
     if ( state === 'start' ) {
       leftHorizontalBarContainerNode.animateToStart();

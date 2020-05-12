@@ -91,7 +91,7 @@ function HorizontalBarContainerNode( fractionModel,
   } );
   this.addChild( divisionsNode );
 
-  //Only show the separator lines if the user is not dragging/comparing the object (i.e. it is at its start location)
+  //Only show the separator lines if the user is not dragging/comparing the object (i.e. it is at its start position)
   if ( interactive ) {
     this.stateProperty.link( function( state ) {
       divisionsNode.visible = ( state === 'start' );

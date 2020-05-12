@@ -42,11 +42,11 @@ function NodeDragHandler( node, options ) {
       options.startDrag();
     },
 
-    // change the location, adjust for starting offset, constrain to drag bounds
+    // change the position, adjust for starting offset, constrain to drag bounds
     drag: function( event ) {
       const parentPoint = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( startOffset );
-      const constrainedLocation = constrainBounds( parentPoint, options.dragBounds );
-      node.setTranslation( constrainedLocation );
+      const constrainedPosition = constrainBounds( parentPoint, options.dragBounds );
+      node.setTranslation( constrainedPosition );
       options.drag( event );
     },
 
