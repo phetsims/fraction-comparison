@@ -3,7 +3,7 @@
 /**
  * The 'Intro' screen.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Property from '../../../axon/js/Property.js';
@@ -16,8 +16,8 @@ import IntroView from './view/IntroView.js';
 class IntroScreen extends Screen {
   constructor() {
     super(
-      function() { return new IntroModel(); },
-      function( model ) { return new IntroView( model, ModelViewTransform2.createIdentity() ); },
+      () => new IntroModel(),
+      model => new IntroView( model, ModelViewTransform2.createIdentity() ),
       { backgroundColorProperty: new Property( '#e1f1f1' ) }
     );
   }

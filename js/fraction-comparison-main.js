@@ -3,7 +3,7 @@
 /**
  * Main entry point for the 'Fraction Comparison' sim.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Sim from '../../joist/js/Sim.js';

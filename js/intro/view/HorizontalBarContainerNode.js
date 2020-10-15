@@ -3,11 +3,10 @@
 /**
  * The draggable container node for horizontal bars
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -17,128 +16,116 @@ import Easing from '../../../../twixt/js/Easing.js';
 import fractionComparison from '../../fractionComparison.js';
 import NodeDragHandler from './NodeDragHandler.js';
 
-/**
- *
- * @param {FractionModel} fractionModel
- * @param {string} color
- * @param {Property.<string>} stateProperty - see docs in FractionModel
- * @param {Property.<string>} animatingProperty
- * @param {Property.<number>} divisionsProperty - see docs in FractionModel
- * @param {boolean} interactive
- * @param {function} startPositionFunction - a function taking args (width,height) to compute the start center of the node
- * @param {function} comparePositionFunction - a function taking args (width,height) to compute the center position of the node when compared
- * @param {Object} [options]
- * @constructor
- */
-function HorizontalBarContainerNode( fractionModel,
-                                     color,
-                                     stateProperty,
-                                     animatingProperty,
-                                     divisionsProperty,
-                                     interactive,
-                                     startPositionFunction,
-                                     comparePositionFunction,
-                                     options ) {
-  const fractionProperty = fractionModel.fractionProperty;
-  const self = this;
+class HorizontalBarContainerNode extends Node {
 
-  this.stateProperty = stateProperty;
-  this.animatingProperty = animatingProperty;
+  /**
+   * @param {FractionModel} fractionModel
+   * @param {string} color
+   * @param {Property.<string>} stateProperty - see docs in FractionModel
+   * @param {Property.<string>} animatingProperty
+   * @param {Property.<number>} divisionsProperty - see docs in FractionModel
+   * @param {boolean} interactive
+   * @param {function} startPositionFunction - a function taking args (width,height) to compute the start center of the node
+   * @param {function} comparePositionFunction - a function taking args (width,height) to compute the center position of the node when compared
+   * @param {Object} [options]
+   */
+  constructor( fractionModel, color, stateProperty, animatingProperty, divisionsProperty, interactive, startPositionFunction, comparePositionFunction, options ) {
+    const fractionProperty = fractionModel.fractionProperty;
 
-  options = merge( { cursor: 'pointer' }, options );
-  Node.call( this );
+    options = merge( { cursor: 'pointer' }, options );
 
-  const border = new Rectangle( 0, 0, 180, 100, { stroke: 'black', lineWidth: 1 } );
-  this.addChild( border );
+    super();
 
-  this.contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {
-    fill: color,
-    stroke: 'black',
-    lineWidth: 1
-  } );
+    this.stateProperty = stateProperty;
+    this.animatingProperty = animatingProperty;
 
-  fractionProperty.link( function( value ) {
-    self.contents.setRectWidth( value * 180 );
-  } );
-  this.addChild( this.contents );
+    const border = new Rectangle( 0, 0, 180, 100, { stroke: 'black', lineWidth: 1 } );
+    this.addChild( border );
 
-  //Solid lines to show pieces
-  const pieceDivisions = new Node();
-  Property.multilink( [ fractionModel.numeratorProperty, fractionModel.denominatorProperty ],
-    function( numerator, denominator ) {
-      const children = [];
-      for ( let i = 1; i < numerator; i++ ) {
-        const x = i * 180 / denominator;
-        children.push( new Line( x, 0, x, 100, { stroke: 'black', lineWidth: 1 } ) );
-      }
-      pieceDivisions.children = children;
-
+    this.contents = new Rectangle( 0, 0, fractionProperty.get() * 180, 100, {
+      fill: color,
+      stroke: 'black',
+      lineWidth: 1
     } );
-  this.addChild( pieceDivisions );
 
-  //Dotted lines to show user-selected divisions
-  const divisionsNode = new Node();
-  divisionsProperty.link( function( divisions ) {
-    const children = [];
-    for ( let i = 1; i < divisions; i++ ) {
-      children.push( new Line( i * 180 / divisions, 0, i * 180 / divisions, 100, {
-        stroke: 'gray',
-        lineDash: [ 5, 4 ],
-        lineWidth: 1.5
+    fractionProperty.link( value => {
+      this.contents.setRectWidth( value * 180 );
+    } );
+    this.addChild( this.contents );
+
+    //Solid lines to show pieces
+    const pieceDivisions = new Node();
+    Property.multilink( [ fractionModel.numeratorProperty, fractionModel.denominatorProperty ],
+      ( numerator, denominator ) => {
+        const children = [];
+        for ( let i = 1; i < numerator; i++ ) {
+          const x = i * 180 / denominator;
+          children.push( new Line( x, 0, x, 100, { stroke: 'black', lineWidth: 1 } ) );
+        }
+        pieceDivisions.children = children;
+
+      } );
+    this.addChild( pieceDivisions );
+
+    //Dotted lines to show user-selected divisions
+    const divisionsNode = new Node();
+    divisionsProperty.link( divisions => {
+      const children = [];
+      for ( let i = 1; i < divisions; i++ ) {
+        children.push( new Line( i * 180 / divisions, 0, i * 180 / divisions, 100, {
+          stroke: 'gray',
+          lineDash: [ 5, 4 ],
+          lineWidth: 1.5
+        } ) );
+      }
+      divisionsNode.children = children;
+    } );
+    this.addChild( divisionsNode );
+
+    //Only show the separator lines if the user is not dragging/comparing the object (i.e. it is at its start position)
+    if ( interactive ) {
+      this.stateProperty.link( state => {
+        divisionsNode.visible = ( state === 'start' );
+      } );
+    }
+
+    //For the "left behind" pieces, show semi-transparent so it gives the impression that it is just a "shadow", see #19
+    if ( !interactive ) {
+      this.opacity = 0.6;
+    }
+
+    this.mutate( options );
+    this.startPosition = startPositionFunction( this.width, this.height );
+    this.comparePosition = comparePositionFunction( this.width, this.height );
+
+    this.center = this.startPosition;
+    if ( interactive ) {
+      this.addInputListener( new NodeDragHandler( this, {
+        startDrag: () => {
+          this.stateProperty.set( 'dragging' );
+        },
+        endDrag: () => {
+          //Move to the start position or compare position, whichever is closer.
+          const center = this.center;
+          const distToStart = this.startPosition.distance( center );
+          const distToCompare = this.comparePosition.distance( center );
+
+          if ( distToStart < distToCompare ) {
+            this.animateToStart();
+          }
+          else {
+            this.animateToComparison();
+          }
+        }
       } ) );
     }
-    divisionsNode.children = children;
-  } );
-  this.addChild( divisionsNode );
-
-  //Only show the separator lines if the user is not dragging/comparing the object (i.e. it is at its start position)
-  if ( interactive ) {
-    this.stateProperty.link( function( state ) {
-      divisionsNode.visible = ( state === 'start' );
-    } );
   }
 
-  //For the "left behind" pieces, show semi-transparent so it gives the impression that it is just a "shadow", see #19
-  if ( !interactive ) {
-    this.opacity = 0.6;
-  }
-
-  this.mutate( options );
-  this.startPosition = startPositionFunction( this.width, this.height );
-  this.comparePosition = comparePositionFunction( this.width, this.height );
-
-  this.center = this.startPosition;
-  if ( interactive ) {
-    this.addInputListener( new NodeDragHandler( this, {
-      startDrag: function() {
-        self.stateProperty.set( 'dragging' );
-      },
-      endDrag: function() {
-        //Move to the start position or compare position, whichever is closer.
-        const center = self.center;
-        const distToStart = self.startPosition.distance( center );
-        const distToCompare = self.comparePosition.distance( center );
-
-        if ( distToStart < distToCompare ) {
-          self.animateToStart();
-        }
-        else {
-          self.animateToComparison();
-        }
-      }
-    } ) );
-  }
-}
-
-fractionComparison.register( 'HorizontalBarContainerNode', HorizontalBarContainerNode );
-
-inherit( Node, HorizontalBarContainerNode, {
   /**
    * @public
    */
-  animateToComparison: function() {
+  animateToComparison() {
     this.animatingProperty.value = true;
-    const self = this;
     const positionProperty = new Property( this.center );
     const animation = new Animation( {
       duration: 0.5,
@@ -148,24 +135,24 @@ inherit( Node, HorizontalBarContainerNode, {
         to: this.comparePosition
       } ]
     } );
-    const listener = function( position ) {
-      self.center = position;
+    const listener = position => {
+      this.center = position;
     };
     positionProperty.link( listener );
-    animation.finishEmitter.addListener( function() {
-      self.animatingProperty.value = false;
+    animation.finishEmitter.addListener( () => {
+      this.animatingProperty.value = false;
       positionProperty.unlink( listener );
       positionProperty.dispose();
     } );
     animation.start();
     this.stateProperty.set( 'compare' );
-  },
+  }
+
   /**
    * @public
    */
-  animateToStart: function() {
+  animateToStart() {
     this.animatingProperty.value = true;
-    const self = this;
     const positionProperty = new Property( this.center );
     const animation = new Animation( {
       duration: 0.5,
@@ -175,18 +162,20 @@ inherit( Node, HorizontalBarContainerNode, {
         to: this.startPosition
       } ]
     } );
-    const listener = function( position ) {
-      self.center = position;
+    const listener = position => {
+      this.center = position;
     };
     positionProperty.link( listener );
-    animation.finishEmitter.addListener( function() {
-      self.animatingProperty.value = false;
+    animation.finishEmitter.addListener( () => {
+      this.animatingProperty.value = false;
       positionProperty.unlink( listener );
       positionProperty.dispose();
     } );
     animation.start();
     this.stateProperty.set( 'start' );
   }
-} );
+}
+
+fractionComparison.register( 'HorizontalBarContainerNode', HorizontalBarContainerNode );
 
 export default HorizontalBarContainerNode;

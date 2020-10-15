@@ -4,12 +4,11 @@
  * Button that will bring the left/right shapes to the center, or move them back to their homes.
  * One class is used to render both buttons since it is like a toggle button, and so the size won't change when toggling.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -18,74 +17,76 @@ import Color from '../../../../scenery/js/util/Color.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import fractionComparison from '../../fractionComparison.js';
 
-/**
- * @param {Function} compareButtonPressed
- * @param {Function} separateButtonPressed
- * @param {Property.<boolean>} compareBothProperty
- * @param {Object} [options]
- * @constructor
- */
-function CompareSeparateButton( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
-  Node.call( this );
-  options = options || {};
-  const xTip = 20;
-  const yTip = 8;
-  const xControl = 12;
-  const yControl = -5;
+class CompareSeparateButton extends Node {
 
-  const rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), {
-    stroke: 'black',
-    lineWidth: 3
-  } );
-  const leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), {
-    stroke: 'black',
-    lineWidth: 3
-  } );
+  /**
+   * @param {Function} compareButtonPressed
+   * @param {Function} separateButtonPressed
+   * @param {Property.<boolean>} compareBothProperty
+   * @param {Object} [options]
+   */
+  constructor( compareButtonPressed, separateButtonPressed, compareBothProperty, options ) {
+    super();
+    options = options || {};
+    const xTip = 20;
+    const yTip = 8;
+    const xControl = 12;
+    const yControl = -5;
 
-  const compareIcon = new HBox( {
-    spacing: 5, children: [
-      new Node( { children: [ leftCurve, createArrowhead( Math.PI / 3, new Vector2( xTip, yTip ) ) ] } ),
-      new Node( { children: [ rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) ) ] } )
-    ]
-  } );
+    const rightCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( -xControl, yControl, -xTip, yTip ), {
+      stroke: 'black',
+      lineWidth: 3
+    } );
+    const leftCurve = new Path( new Shape().moveTo( 0, 0 ).quadraticCurveTo( xControl, yControl, xTip, yTip ), {
+      stroke: 'black',
+      lineWidth: 3
+    } );
 
-  const separateIcon = new HBox( {
-    spacing: 5, children: [
-      new Node( { children: [ leftCurve, createArrowhead( Math.PI / 3 + Math.PI * 0.5, new Vector2( 0, 0 ) ) ] } ),
-      new Node( { children: [ rightCurve, createArrowhead( Math.PI - Math.PI / 3 - Math.PI / 2, new Vector2( 0, 0 ) ) ] } )
-    ]
-  } );
+    const compareIcon = new HBox( {
+      spacing: 5, children: [
+        new Node( { children: [ leftCurve, createArrowhead( Math.PI / 3, new Vector2( xTip, yTip ) ) ] } ),
+        new Node( { children: [ rightCurve, createArrowhead( Math.PI - Math.PI / 3, new Vector2( -xTip, yTip ) ) ] } )
+      ]
+    } );
 
-  const maxWidth = Math.max( compareIcon.width, separateIcon.width );
-  const maxHeight = Math.max( compareIcon.height, separateIcon.height );
+    const separateIcon = new HBox( {
+      spacing: 5, children: [
+        new Node( { children: [ leftCurve, createArrowhead( Math.PI / 3 + Math.PI * 0.5, new Vector2( 0, 0 ) ) ] } ),
+        new Node( { children: [ rightCurve, createArrowhead( Math.PI - Math.PI / 3 - Math.PI / 2, new Vector2( 0, 0 ) ) ] } )
+      ]
+    } );
 
-  const compareButton = new RectangularPushButton( {
-    content: new Rectangle( 0, 0, maxWidth, maxHeight, {
-      children: [ compareIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
-    } ),
-    baseColor: new Color( 255, 255, 0 ),
-    disabledBaseColor: new Color( 220, 220, 220 ),
-    listener: compareButtonPressed
-  } );
+    const maxWidth = Math.max( compareIcon.width, separateIcon.width );
+    const maxHeight = Math.max( compareIcon.height, separateIcon.height );
 
-  const separateButton = new RectangularPushButton( {
-    content: new Rectangle( 0, 0, maxWidth, maxHeight, {
-      children: [ separateIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
-    } ),
-    baseColor: new Color( 255, 255, 0 ),
-    disabledBaseColor: new Color( 220, 220, 220 ),
-    listener: separateButtonPressed
-  } );
+    const compareButton = new RectangularPushButton( {
+      content: new Rectangle( 0, 0, maxWidth, maxHeight, {
+        children: [ compareIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
+      } ),
+      baseColor: new Color( 255, 255, 0 ),
+      disabledBaseColor: new Color( 220, 220, 220 ),
+      listener: compareButtonPressed
+    } );
 
-  compareBothProperty.linkAttribute( separateButton, 'visible' );
-  compareBothProperty.link( function( compareBoth ) {
-    compareButton.visible = !compareBoth;
-  } );
+    const separateButton = new RectangularPushButton( {
+      content: new Rectangle( 0, 0, maxWidth, maxHeight, {
+        children: [ separateIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
+      } ),
+      baseColor: new Color( 255, 255, 0 ),
+      disabledBaseColor: new Color( 220, 220, 220 ),
+      listener: separateButtonPressed
+    } );
 
-  this.addChild( compareButton );
-  this.addChild( separateButton );
+    compareBothProperty.linkAttribute( separateButton, 'visible' );
+    compareBothProperty.link( compareBoth => {
+      compareButton.visible = !compareBoth;
+    } );
 
-  this.mutate( options );
+    this.addChild( compareButton );
+    this.addChild( separateButton );
+
+    this.mutate( options );
+  }
 }
 
 /**
@@ -94,7 +95,7 @@ function CompareSeparateButton( compareButtonPressed, separateButtonPressed, com
  * @param {Vector2} tail
  * @returns {Path}
  */
-var createArrowhead = function( angle, tail ) {
+const createArrowhead = ( angle, tail ) => {
   const headWidth = 10;
   const headHeight = 10;
   const directionUnitVector = Vector2.createPolar( 1, angle );
@@ -106,5 +107,4 @@ var createArrowhead = function( angle, tail ) {
 
 fractionComparison.register( 'CompareSeparateButton', CompareSeparateButton );
 
-inherit( Node, CompareSeparateButton );
 export default CompareSeparateButton;

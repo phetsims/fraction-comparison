@@ -8,52 +8,53 @@
  * 2. Removed movable API, this class just moves nodes directly
  *
  * @author Chris Malley (PixelZoom, Inc.)
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
 import fractionComparison from '../../fractionComparison.js';
 
-/**
- * @param {Node} node
- * @param {Object} [options]
- * @constructor
- */
-function NodeDragHandler( node, options ) {
+class NodeDragHandler extends SimpleDragHandler {
 
-  options = merge( {
-    startDrag: function() {},
-    drag: function() {},
-    endDrag: function() { /* do nothing */ }  // use this to do things at the end of dragging, like 'snapping'
-  }, options );
+  /**
+   * @param {Node} node
+   * @param {Object} [options]
+   */
+  constructor( node, options ) {
 
-  let startOffset; // where the drag started, relative to the Movable's origin, in parent view coordinates
+    options = merge( {
+      startDrag: () => {},
+      drag: () => {},
+      endDrag: () => { /* do nothing */ }  // use this to do things at the end of dragging, like 'snapping'
+    }, options );
 
-  SimpleDragHandler.call( this, {
+    let startOffset; // where the drag started, relative to the Movable's origin, in parent view coordinates
 
-    allowTouchSnag: true,
+    super( {
 
-    // note where the drag started
-    start: function( event ) {
-      startOffset = event.currentTarget.globalToParentPoint( event.pointer.point ).minusXY( node.x, node.y );
-      options.startDrag();
-    },
+      allowTouchSnag: true,
 
-    // change the position, adjust for starting offset, constrain to drag bounds
-    drag: function( event ) {
-      const parentPoint = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( startOffset );
-      const constrainedPosition = constrainBounds( parentPoint, options.dragBounds );
-      node.setTranslation( constrainedPosition );
-      options.drag( event );
-    },
+      // note where the drag started
+      start: event => {
+        startOffset = event.currentTarget.globalToParentPoint( event.pointer.point ).minusXY( node.x, node.y );
+        options.startDrag();
+      },
 
-    end: function( event ) {
-      options.endDrag( event );
-    }
-  } );
+      // change the position, adjust for starting offset, constrain to drag bounds
+      drag: event => {
+        const parentPoint = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( startOffset );
+        const constrainedPosition = constrainBounds( parentPoint, options.dragBounds );
+        node.setTranslation( constrainedPosition );
+        options.drag( event );
+      },
+
+      end: event => {
+        options.endDrag( event );
+      }
+    } );
+  }
 }
 
 fractionComparison.register( 'NodeDragHandler', NodeDragHandler );
@@ -63,7 +64,7 @@ fractionComparison.register( 'NodeDragHandler', NodeDragHandler );
  * @param {Vector2} point
  * @param {Bounds2} bounds
  */
-var constrainBounds = function( point, bounds ) {
+const constrainBounds = ( point, bounds ) => {
   if ( _.isUndefined( bounds ) || bounds.containsCoordinates( point.x, point.y ) ) {
     return point;
   }
@@ -74,5 +75,4 @@ var constrainBounds = function( point, bounds ) {
   }
 };
 
-inherit( SimpleDragHandler, NodeDragHandler );
 export default NodeDragHandler;

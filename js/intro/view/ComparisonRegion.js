@@ -3,53 +3,52 @@
 /**
  * The region where fractions can be dragged to be compared, in the center top of the screen.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import fractionComparison from '../../fractionComparison.js';
 import CompareSeparateButton from './CompareSeparateButton.js';
 
-/**
- *
- * @param {function} compareButtonPressed
- * @param {function} separateButtonPressed
- * @param {Property.<boolean>} compareBothProperty
- * @param {Property.<boolean>} eitherCompareProperty
- * @param {Object} [options]
- * @constructor
- */
-function ComparisonRegion( compareButtonPressed, separateButtonPressed, compareBothProperty, eitherCompareProperty, options ) {
-  const comparisonRegionLength = 220;
-  Rectangle.call( this, 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {
-    lineStroke: 1,
-    fill: 'white'
-  } );
+class ComparisonRegion extends Rectangle {
 
-  this.addChild( new CompareSeparateButton( compareButtonPressed, separateButtonPressed, compareBothProperty, {
-    centerX: this.bounds.centerX,
-    bottom: this.bottom - 5
-  } ) );
+  /**
+   * @param {function} compareButtonPressed
+   * @param {function} separateButtonPressed
+   * @param {Property.<boolean>} compareBothProperty
+   * @param {Property.<boolean>} eitherCompareProperty
+   * @param {Object} [options]
+   */
+  constructor( compareButtonPressed, separateButtonPressed, compareBothProperty, eitherCompareProperty, options ) {
+    const comparisonRegionLength = 220;
+    super( 0, 0, comparisonRegionLength, comparisonRegionLength, 10, 10, {
+      lineStroke: 1,
+      fill: 'white'
+    } );
 
-  const target = new Rectangle( 0, 0, 180, 100, {
-    stroke: 'red',
-    lineWidth: 1,
-    lineDash: [ 6, 5 ],
-    centerX: this.bounds.centerX,
-    top: 59
-  } );
-  this.addChild( target );
+    this.addChild( new CompareSeparateButton( compareButtonPressed, separateButtonPressed, compareBothProperty, {
+      centerX: this.bounds.centerX,
+      bottom: this.bottom - 5
+    } ) );
 
-  //Only show the target region if both shapes are not in the compare region
-  eitherCompareProperty.link( function( eitherCompare ) {
-    target.visible = !eitherCompare;
-  } );
+    const target = new Rectangle( 0, 0, 180, 100, {
+      stroke: 'red',
+      lineWidth: 1,
+      lineDash: [ 6, 5 ],
+      centerX: this.bounds.centerX,
+      top: 59
+    } );
+    this.addChild( target );
 
-  this.mutate( options );
+    //Only show the target region if both shapes are not in the compare region
+    eitherCompareProperty.link( eitherCompare => {
+      target.visible = !eitherCompare;
+    } );
+
+    this.mutate( options );
+  }
 }
 
 fractionComparison.register( 'ComparisonRegion', ComparisonRegion );
 
-inherit( Rectangle, ComparisonRegion );
 export default ComparisonRegion;

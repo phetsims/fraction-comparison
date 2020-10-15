@@ -4,15 +4,15 @@
 /**
  * View for the 'Intro' screen.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import LeftRightSpinner from '../../../../scenery-phet/js/LeftRightSpinner.js';
+import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import fractionComparison from '../../fractionComparison.js';
@@ -24,13 +24,12 @@ import RepresentationPanel from './RepresentationPanel.js';
 
 class IntroView extends ScreenView {
 
-  /***
+  /**
    * @param {IntroModel} model
    */
   constructor( model ) {
 
     super( { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
-    const self = this;
 
     //Representation panel at the bottom center
     const representationPanel = new RepresentationPanel( model.representationProperty, {
@@ -75,12 +74,12 @@ class IntroView extends ScreenView {
       } );
     this.addChild( rightFractionNode );
 
-    const compareButtonPressed = function() {
+    const compareButtonPressed = () => {
       leftHorizontalBarContainerNode.animateToComparison();
       rightHorizontalBarContainerNode.animateToComparison();
     };
 
-    const separateButtonPressed = function() {
+    const separateButtonPressed = () => {
       leftHorizontalBarContainerNode.animateToStart();
       rightHorizontalBarContainerNode.animateToStart();
     };
@@ -92,31 +91,23 @@ class IntroView extends ScreenView {
     this.addChild( comparisonRegion );
 
     //Containers
-    var leftHorizontalBarContainerNode = new HorizontalBarContainerNode(
+    const leftHorizontalBarContainerNode = new HorizontalBarContainerNode(
       model.leftFractionModel,
       '#61c9e4',
       model.leftFractionModel.stateProperty,
       model.leftFractionModel.animatingProperty,
       model.leftFractionModel.divisionsProperty,
       true,
-      function( width, height ) {
-        return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
-      }, function( width, height ) {
-        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-      } );
+      ( width, height ) => new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY ), ( width, height ) => new Vector2( this.layoutBounds.centerX, comparisonRegion.bounds.centerY ) );
 
-    var rightHorizontalBarContainerNode = new HorizontalBarContainerNode(
+    const rightHorizontalBarContainerNode = new HorizontalBarContainerNode(
       model.rightFractionModel,
       '#dc528d',
       model.rightFractionModel.stateProperty,
       model.rightFractionModel.animatingProperty,
       model.rightFractionModel.divisionsProperty,
       true,
-      function( width, height ) {
-        return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
-      }, function( width, height ) {
-        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-      } );
+      ( width, height ) => new Vector2( this.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY ), ( width, height ) => new Vector2( this.layoutBounds.centerX, comparisonRegion.bounds.centerY ) );
 
     //Show the shadows right behind the originals, and don't let the shadows be moved
     const leftHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode(
@@ -126,11 +117,7 @@ class IntroView extends ScreenView {
       model.leftFractionModel.animatingProperty,
       model.leftFractionModel.divisionsProperty,
       false,
-      function( width, height ) {
-        return new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY );
-      }, function( width, height ) {
-        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-      } );
+      ( width, height ) => new Vector2( width / 2 + 10, comparisonRegion.bounds.centerY ), ( width, height ) => new Vector2( this.layoutBounds.centerX, comparisonRegion.bounds.centerY ) );
 
     const rightHorizontalBarContainerNodeShadow = new HorizontalBarContainerNode(
       model.rightFractionModel,
@@ -139,11 +126,7 @@ class IntroView extends ScreenView {
       model.rightFractionModel.animatingProperty,
       model.rightFractionModel.divisionsProperty,
       false,
-      function( width, height ) {
-        return new Vector2( self.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY );
-      }, function( width, height ) {
-        return new Vector2( self.layoutBounds.centerX, comparisonRegion.bounds.centerY );
-      } );
+      ( width, height ) => new Vector2( this.layoutBounds.maxX - width / 2 - 10, comparisonRegion.bounds.centerY ), ( width, height ) => new Vector2( this.layoutBounds.centerX, comparisonRegion.bounds.centerY ) );
 
     this.addChild( leftHorizontalBarContainerNodeShadow );
     this.addChild( rightHorizontalBarContainerNodeShadow );
@@ -158,7 +141,7 @@ class IntroView extends ScreenView {
       lineWidth: lineWidth,
       lineDash: [ 11, 7 ]
     } );
-    model.leftFractionModel.fractionProperty.link( function( value ) {
+    model.leftFractionModel.fractionProperty.link( value => {
       leftDottedLineContainerNode.setRectWidth( value * 180 );
     } );
 
@@ -166,46 +149,40 @@ class IntroView extends ScreenView {
     leftDottedLineContainerNode.centerY = leftHorizontalBarContainerNode.comparePosition.y;
 
     const leftValueSmallerProperty = new DerivedProperty( [ model.leftFractionModel.fractionProperty, model.rightFractionModel.fractionProperty ],
-      function( leftFraction, rightFraction ) {
-        return leftFraction <= rightFraction;
-      } );
+      ( leftFraction, rightFraction ) => leftFraction <= rightFraction );
 
     //Only show the dotted line for the "underneath" shape after animation is complete
     const eitherAnimating = new DerivedProperty(
       [ model.leftFractionModel.animatingProperty, model.rightFractionModel.animatingProperty ],
-      function( leftAnimating, rightAnimating ) {
-        return leftAnimating || rightAnimating;
-      } );
+      ( leftAnimating, rightAnimating ) => leftAnimating || rightAnimating );
 
     const leftDottedLineContainerVisibleProperty = new DerivedProperty( [ model.bothCompareProperty, leftValueSmallerProperty, eitherAnimating ],
-      function( bothCompare, leftValueSmaller, eitherAnimating ) {
-        return bothCompare && leftValueSmaller && !eitherAnimating;
-      } );
+      ( bothCompare, leftValueSmaller, eitherAnimating ) => bothCompare && leftValueSmaller && !eitherAnimating );
     leftDottedLineContainerVisibleProperty.linkAttribute( leftDottedLineContainerNode, 'visible' );
     this.addChild( leftDottedLineContainerNode );
 
     const leftDivisionsProperty = model.leftFractionModel.divisionsProperty;
     const leftDivisionSpinner = new LeftRightSpinner( leftDivisionsProperty,
-      new DerivedProperty( [ leftDivisionsProperty ], function( leftDivisions ) { return leftDivisions > 1; } ),
-      new DerivedProperty( [ leftDivisionsProperty ], function( leftDivisions ) { return leftDivisions < 10; } ),
+      new DerivedProperty( [ leftDivisionsProperty ], leftDivisions => leftDivisions > 1 ),
+      new DerivedProperty( [ leftDivisionsProperty ], leftDivisions => leftDivisions < 10 ),
       { centerX: leftHorizontalBarContainerNode.centerX, top: leftHorizontalBarContainerNode.bottom + 6 } );
     this.addChild( leftDivisionSpinner );
 
     const rightDivisionsProperty = model.rightFractionModel.divisionsProperty;
     const rightDivisionSpinner = new LeftRightSpinner( rightDivisionsProperty,
-      new DerivedProperty( [ rightDivisionsProperty ], function( rightDivisions ) { return rightDivisions > 1; } ),
-      new DerivedProperty( [ rightDivisionsProperty ], function( rightDivisions ) { return rightDivisions < 10; } ),
+      new DerivedProperty( [ rightDivisionsProperty ], rightDivisions => rightDivisions > 1 ),
+      new DerivedProperty( [ rightDivisionsProperty ], rightDivisions => rightDivisions < 10 ),
       { centerX: rightHorizontalBarContainerNode.centerX, top: rightHorizontalBarContainerNode.bottom + 6 } );
     this.addChild( rightDivisionSpinner );
 
     //Move the containers to the start position on "reset all", see #30
-    model.leftFractionModel.stateProperty.link( function( state ) {
+    model.leftFractionModel.stateProperty.link( state => {
       if ( state === 'start' ) {
         leftHorizontalBarContainerNode.animateToStart();
       }
     } );
 
-    model.rightFractionModel.stateProperty.link( function( state ) {
+    model.rightFractionModel.stateProperty.link( state => {
       if ( state === 'start' ) {
         rightHorizontalBarContainerNode.animateToStart();
       }
