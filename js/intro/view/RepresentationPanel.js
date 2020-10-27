@@ -11,7 +11,7 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Panel from '../../../../sun/js/Panel.js';
-import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import fractionComparison from '../../fractionComparison.js';
 
 // constants
@@ -31,7 +31,7 @@ class RepresentationPanel extends Panel {
       yMargin: 7
     }, options );
 
-    const content = new RadioButtonGroup( representationProperty, [
+    const content = new RectangularRadioButtonGroup( representationProperty, [
       {
         value: 'horizontal-bar',
         node: new Rectangle( 0, 0, 50 * ICON_SCALE, 30 * ICON_SCALE, { fill: '#208644', lineWidth: 1, stroke: 'black' } )
@@ -55,7 +55,7 @@ class RepresentationPanel extends Panel {
         } )
       }
     ], {
-      // RadioButtonGroup options
+      // RectangularRadioButtonGroup options
       orientation: 'horizontal',
       baseColor: 'white',
       cornerRadius: 10,
