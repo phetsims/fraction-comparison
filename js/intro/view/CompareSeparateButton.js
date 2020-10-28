@@ -64,7 +64,6 @@ class CompareSeparateButton extends Node {
         children: [ compareIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
       } ),
       baseColor: new Color( 255, 255, 0 ),
-      disabledBaseColor: new Color( 220, 220, 220 ),
       listener: compareButtonPressed
     } );
 
@@ -73,7 +72,6 @@ class CompareSeparateButton extends Node {
         children: [ separateIcon.mutate( { centerX: maxWidth / 2, centerY: maxHeight / 2 } ) ]
       } ),
       baseColor: new Color( 255, 255, 0 ),
-      disabledBaseColor: new Color( 220, 220, 220 ),
       listener: separateButtonPressed
     } );
 
