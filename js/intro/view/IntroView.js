@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import LeftRightSpinner from '../../../../scenery-phet/js/LeftRightSpinner.js';
+import LeftRightSpinner from './LeftRightSpinner.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
