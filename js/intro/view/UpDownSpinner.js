@@ -3,7 +3,7 @@
 /**
  * Node for up/down buttons.  Used in the Fractions sims to increase/decrease numerator/denominator.  See also LeftRightSpinner.
  *
- * TODO press to hold, see https://github.com/phetsims/scenery-phet/issues/584
+ * TODO support for press to hold
  * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/scenery-phet/issues/584
  * @author Sam Reid
  */
