@@ -22,7 +22,7 @@ const simOptions = {
   }
 };
 
-simLauncher.launch( function() {
+simLauncher.launch( () => {
   const sim = new Sim( fractionComparisonTitleString, [ new IntroScreen() ], simOptions );
   sim.start();
 } );
