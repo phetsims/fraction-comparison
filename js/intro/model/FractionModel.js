@@ -41,7 +41,7 @@ class FractionModel {
 
     // check for the validity of the sate, present for the lifetime of the sim
     this.stateProperty.link( state => {
-      assert && assert( _.includes( VALID_STATE_VALUES, state ), 'invalid state: ' + state );
+      assert && assert( _.includes( VALID_STATE_VALUES, state ), `invalid state: ${state}` );
     } );
   }
 

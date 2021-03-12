@@ -41,13 +41,13 @@ class FractionNode extends Node {
     this.addChild( line );
 
     numeratorProperty.link( value => {
-      numeratorNode.text = value + '';
+      numeratorNode.text = `${value}`;
       numeratorNode.centerX = line.centerX;
     } );
 
     const denominatorNode = new Text( denominatorProperty.get(), { font: font, fill: options.fill } );
     denominatorProperty.link( value => {
-      denominatorNode.text = value + '';
+      denominatorNode.text = `${value}`;
       denominatorNode.centerX = line.centerX;
     } );
 

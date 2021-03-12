@@ -46,7 +46,7 @@ class IntroModel {
 
     // check for validity of representation, present for the lifetime of the sim
     this.representationProperty.link( representation => {
-      assert && assert( _.includes( VALID_REPRESENTATION_VALUES, representation ), 'invalid representation: ' + representation );
+      assert && assert( _.includes( VALID_REPRESENTATION_VALUES, representation ), `invalid representation: ${representation}` );
     } );
   }
 
