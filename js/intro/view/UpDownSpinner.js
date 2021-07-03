@@ -4,7 +4,7 @@
  * Node for up/down buttons.  Used in the Fractions sims to increase/decrease numerator/denominator.  See also LeftRightSpinner.
  *
  * TODO support for press to hold
- * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/scenery-phet/issues/584
+ * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/fraction-comparison/issues/41
  * @author Sam Reid
  */
 
@@ -27,7 +27,7 @@ class UpDownSpinner extends VBox {
    * @param {Object} [options]
    */
   constructor( valueProperty, upEnabledProperty, downEnabledProperty, options ) {
-    deprecationWarning( 'Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/scenery-phet/issues/584' );
+    deprecationWarning( 'Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/fraction-comparison/issues/41' );
     options = merge( {
       spacing: 6
     }, options );

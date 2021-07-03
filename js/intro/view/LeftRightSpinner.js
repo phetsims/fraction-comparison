@@ -4,7 +4,7 @@
  * Node for up/down buttons.  Used in the fractions sims to change the number of divisions in a container.  See also UpDownSpinner.
  *
  * TODO: support for press to hold
- * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/scenery-phet/issues/584
+ * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/fraction-comparison/issues/41
  * @author Sam Reid
  */
 
@@ -26,7 +26,7 @@ class LeftRightSpinner extends HBox {
    * @param {Object} [options]
    */
   constructor( valueProperty, leftEnabledProperty, rightEnabledProperty, options ) {
-    deprecationWarning( 'Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/scenery-phet/issues/584' );
+    deprecationWarning( 'Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/fraction-comparison/issues/41' );
     options = merge( {
       spacing: 6
     }, options );
