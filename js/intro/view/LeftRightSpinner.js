@@ -5,7 +5,7 @@
  *
  * TODO: support for press to hold
  * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/fraction-comparison/issues/41
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Shape from '../../../../kite/js/Shape.js';
