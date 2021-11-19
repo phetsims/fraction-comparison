@@ -3,11 +3,17 @@
 /**
  * Auto-generated from modulify, DO NOT manually modify.
  */
-
+/* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
 import fractionComparison from './fractionComparison.js';
 
-const fractionComparisonStrings = getStringModule( 'FRACTION_COMPARISON' );
+type StringsType = {
+  'fraction-comparison': {
+    'title': string
+  }
+};
+
+const fractionComparisonStrings = getStringModule( 'FRACTION_COMPARISON' ) as StringsType;
 
 fractionComparison.register( 'fractionComparisonStrings', fractionComparisonStrings );
 
