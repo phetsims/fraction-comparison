@@ -10,10 +10,10 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import UpDownSpinner from './UpDownSpinner.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import { Line } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Text } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
 import fractionComparison from '../../fractionComparison.js';
 
 class FractionNode extends Node {

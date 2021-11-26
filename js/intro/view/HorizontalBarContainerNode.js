@@ -8,9 +8,9 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import { Line } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import fractionComparison from '../../fractionComparison.js';

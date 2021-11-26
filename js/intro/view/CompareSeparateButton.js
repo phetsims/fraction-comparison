@@ -9,11 +9,11 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { HBox } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import fractionComparison from '../../fractionComparison.js';
 

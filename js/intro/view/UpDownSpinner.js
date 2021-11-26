@@ -12,8 +12,8 @@ import Shape from '../../../../kite/js/Shape.js';
 import deprecationWarning from '../../../../phet-core/js/deprecationWarning.js';
 import InstanceRegistry from '../../../../phet-core/js/documentation/InstanceRegistry.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import { Path } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import sceneryPhet from '../../../../scenery-phet/js/sceneryPhet.js';
 

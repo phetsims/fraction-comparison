@@ -13,7 +13,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
 import fractionComparison from '../../fractionComparison.js';
 
 class NodeDragHandler extends SimpleDragHandler {
