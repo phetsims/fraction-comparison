@@ -4,7 +4,6 @@
  * Node for up/down buttons.  Used in the Fractions sims to increase/decrease numerator/denominator.  See also LeftRightSpinner.
  *
  * TODO support for press to hold
- * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/fraction-comparison/issues/41
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
@@ -17,6 +16,9 @@ import { VBox } from '../../../../scenery/js/imports.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import sceneryPhet from '../../../../scenery-phet/js/sceneryPhet.js';
 
+/**
+ * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner, see https://github.com/phetsims/fraction-comparison/issues/41
+ */
 class UpDownSpinner extends VBox {
 
   /**
