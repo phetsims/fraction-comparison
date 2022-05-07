@@ -9,7 +9,7 @@ import fractionComparison from './fractionComparison.js';
 
 type StringsType = {
   'fraction-comparison': {
-    'title': string
+    'title': string;
   }
 };
 
