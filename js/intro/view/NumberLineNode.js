@@ -7,7 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Line } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
@@ -74,7 +74,7 @@ class NumberLineNode extends Node {
 
     //When tick spacing or labeled ticks change, update the ticks
     //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem
-    Property.multilink( [ visibleProperty,
+    Multilink.multilink( [ visibleProperty,
         leftFractionModel.numeratorProperty,
         leftFractionModel.denominatorProperty,
         rightFractionModel.numeratorProperty,

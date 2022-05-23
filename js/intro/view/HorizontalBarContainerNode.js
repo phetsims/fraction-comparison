@@ -7,6 +7,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Line } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
@@ -55,7 +56,7 @@ class HorizontalBarContainerNode extends Node {
 
     //Solid lines to show pieces
     const pieceDivisions = new Node();
-    Property.multilink( [ fractionModel.numeratorProperty, fractionModel.denominatorProperty ],
+    Multilink.multilink( [ fractionModel.numeratorProperty, fractionModel.denominatorProperty ],
       ( numerator, denominator ) => {
         const children = [];
         for ( let i = 1; i < numerator; i++ ) {
