@@ -43,7 +43,7 @@ class IntroView extends ScreenView {
     this.addChild( numberLineNode );
 
     //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
-    this.addChild( new Checkbox( new Rectangle( 0, 0, 0, 0 ), model.numberLineVisibleProperty, {
+    this.addChild( new Checkbox( model.numberLineVisibleProperty, new Rectangle( 0, 0, 0, 0 ), {
       top: numberLineNode.bounds.maxY + 7,
       centerX: numberLineNode.centerX,
       scale: 1.15
