@@ -57,9 +57,11 @@ class RepresentationPanel extends Panel {
     ], {
       // RectangularRadioButtonGroup options
       orientation: 'horizontal',
-      baseColor: 'white',
-      cornerRadius: 10,
-      spacing: 12
+      spacing: 12,
+      radioButtonOptions: {
+        baseColor: 'white',
+        cornerRadius: 10
+      }
     } );
 
     super( content, options );
