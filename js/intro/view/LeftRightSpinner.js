@@ -12,10 +12,9 @@ import { Shape } from '../../../../kite/js/imports.js';
 import deprecationWarning from '../../../../phet-core/js/deprecationWarning.js';
 import InstanceRegistry from '../../../../phet-core/js/documentation/InstanceRegistry.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import sceneryPhet from '../../../../scenery-phet/js/sceneryPhet.js';
+import { HBox, Path } from '../../../../scenery/js/imports.js';
+import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 
 /**
  * @deprecated - Please use NumberPicker or generalize RoundNumberSpinner,

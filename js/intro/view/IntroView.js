@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import LeftRightSpinner from './LeftRightSpinner.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
@@ -19,6 +18,7 @@ import fractionComparison from '../../fractionComparison.js';
 import ComparisonRegion from './ComparisonRegion.js';
 import FractionNode from './FractionNode.js';
 import HorizontalBarContainerNode from './HorizontalBarContainerNode.js';
+import LeftRightSpinner from './LeftRightSpinner.js';
 import NumberLineNode from './NumberLineNode.js';
 import RepresentationPanel from './RepresentationPanel.js';
 
