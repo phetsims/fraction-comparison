@@ -51,7 +51,8 @@ class UpDownSpinner extends VBox {
       baseColor: '#fefd53',
       yContentOffset: -3
     } );
-    const upEnabledPropertyLinkAttribute = upEnabledProperty.linkAttribute( upButton, 'enabled' );
+    const upEnabledPropertyLinkAttribute = enabled => {upButton.enabled = enabled;};
+    upEnabledProperty.link( upEnabledPropertyLinkAttribute );
 
     const downButton = new RoundPushButton( {
       content: downIcon,
@@ -63,7 +64,8 @@ class UpDownSpinner extends VBox {
       baseColor: '#fefd53',
       yContentOffset: +3
     } );
-    const downEnabledPropertyLinkAttribute = downEnabledProperty.linkAttribute( downButton, 'enabled' );
+    const downEnabledPropertyLinkAttribute = enabled => {downButton.enabled = enabled;};
+    downEnabledProperty.link( downEnabledPropertyLinkAttribute );
 
     assert && assert( !options.children, 'UpDownSpinner sets children' );
     options.children = [ upButton, downButton ];
@@ -73,10 +75,10 @@ class UpDownSpinner extends VBox {
     // @private
     this.disposeUpDownSpinner = function() {
       if ( upEnabledProperty.hasListener( upEnabledPropertyLinkAttribute ) ) {
-        upEnabledProperty.unlinkAttribute( upEnabledPropertyLinkAttribute );
+        upEnabledProperty.unlink( upEnabledPropertyLinkAttribute );
       }
       if ( downEnabledProperty.hasListener( downEnabledPropertyLinkAttribute ) ) {
-        downEnabledProperty.unlinkAttribute( downEnabledPropertyLinkAttribute );
+        downEnabledProperty.unlink( downEnabledPropertyLinkAttribute );
       }
     };
 

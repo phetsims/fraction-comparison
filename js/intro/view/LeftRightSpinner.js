@@ -52,7 +52,8 @@ class LeftRightSpinner extends HBox {
       touchAreaDilation: 10,
       xContentOffset: -3
     } );
-    const leftEnabledPropertyLinkAttribute = leftEnabledProperty.linkAttribute( leftButton, 'enabled' );
+    const leftEnabledPropertyLinkAttribute = enabled => {leftButton.enabled = enabled;};
+    leftEnabledProperty.link( leftEnabledPropertyLinkAttribute );
 
     const rightButton = new RoundPushButton( {
       radius: radius,
@@ -64,7 +65,8 @@ class LeftRightSpinner extends HBox {
       baseColor: '#7fb539',
       xContentOffset: +3
     } );
-    const rightEnabledPropertyLinkAttribute = rightEnabledProperty.linkAttribute( rightButton, 'enabled' );
+    const rightEnabledPropertyLinkAttribute = enabled => {rightButton.enabled = enabled;};
+    rightEnabledProperty.link( rightEnabledPropertyLinkAttribute );
 
     assert && assert( !options.children, 'LeftRightSpinner sets children' );
     options.children = [ leftButton, rightButton ];
@@ -74,10 +76,10 @@ class LeftRightSpinner extends HBox {
     // @private
     this.disposeLeftRightSpinner = function() {
       if ( leftEnabledProperty.hasListener( leftEnabledPropertyLinkAttribute ) ) {
-        leftEnabledProperty.unlinkAttribute( leftEnabledPropertyLinkAttribute );
+        leftEnabledProperty.unlink( leftEnabledPropertyLinkAttribute );
       }
       if ( rightEnabledProperty.hasListener( rightEnabledPropertyLinkAttribute ) ) {
-        rightEnabledProperty.unlinkAttribute( rightEnabledPropertyLinkAttribute );
+        rightEnabledProperty.unlink( rightEnabledPropertyLinkAttribute );
       }
     };
 
