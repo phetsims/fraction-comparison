@@ -11,7 +11,7 @@ import fractionComparison from './fractionComparison.js';
 type StringsType = {
   'fraction-comparison': {
     'title': string;
-    'titleProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': TReadOnlyProperty<string>;
   }
 };
 
