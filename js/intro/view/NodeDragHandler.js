@@ -16,6 +16,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
 import fractionComparison from '../../fractionComparison.js';
 
+/**
+ * @deprecated - please use DragListener for new code
+ */
 class NodeDragHandler extends SimpleDragHandler {
 
   /**
