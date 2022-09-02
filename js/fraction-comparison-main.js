@@ -11,7 +11,7 @@ import simLauncher from '../../joist/js/simLauncher.js';
 import fractionComparisonStrings from './fractionComparisonStrings.js';
 import IntroScreen from './intro/IntroScreen.js';
 
-const fractionComparisonTitleString = fractionComparisonStrings[ 'fraction-comparison' ].title;
+const fractionComparisonTitleStringProperty = fractionComparisonStrings[ 'fraction-comparison' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -23,6 +23,6 @@ const simOptions = {
 };
 
 simLauncher.launch( () => {
-  const sim = new Sim( fractionComparisonTitleString, [ new IntroScreen() ], simOptions );
+  const sim = new Sim( fractionComparisonTitleStringProperty, [ new IntroScreen() ], simOptions );
   sim.start();
 } );
