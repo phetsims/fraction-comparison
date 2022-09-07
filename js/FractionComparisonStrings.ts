@@ -15,8 +15,8 @@ type StringsType = {
   }
 };
 
-const fractionComparisonStrings = getStringModule( 'FRACTION_COMPARISON' ) as StringsType;
+const FractionComparisonStrings = getStringModule( 'FRACTION_COMPARISON' ) as StringsType;
 
-fractionComparison.register( 'fractionComparisonStrings', fractionComparisonStrings );
+fractionComparison.register( 'FractionComparisonStrings', FractionComparisonStrings );
 
-export default fractionComparisonStrings;
+export default FractionComparisonStrings;

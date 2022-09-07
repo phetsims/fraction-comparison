@@ -8,10 +8,10 @@
 
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
-import fractionComparisonStrings from './fractionComparisonStrings.js';
+import FractionComparisonStrings from './FractionComparisonStrings.js';
 import IntroScreen from './intro/IntroScreen.js';
 
-const fractionComparisonTitleStringProperty = fractionComparisonStrings[ 'fraction-comparison' ].titleStringProperty;
+const fractionComparisonTitleStringProperty = FractionComparisonStrings[ 'fraction-comparison' ].titleStringProperty;
 
 const simOptions = {
   credits: {
