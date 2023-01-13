@@ -32,23 +32,23 @@ class RepresentationPanel extends Panel {
     const content = new RectangularRadioButtonGroup( representationProperty, [
       {
         value: 'horizontal-bar',
-        createNode: tandem => new Rectangle( 0, 0, 50 * ICON_SCALE, 30 * ICON_SCALE, { fill: '#208644', lineWidth: 1, stroke: 'black' } )
+        createNode: () => new Rectangle( 0, 0, 50 * ICON_SCALE, 30 * ICON_SCALE, { fill: '#208644', lineWidth: 1, stroke: 'black' } )
       },
       {
         value: 'vertical-bar',
-        createNode: tandem => new Rectangle( 0, 0, 14 * ICON_SCALE, 50 * ICON_SCALE, { fill: 'red', lineWidth: 1, stroke: 'black' } )
+        createNode: () => new Rectangle( 0, 0, 14 * ICON_SCALE, 50 * ICON_SCALE, { fill: 'red', lineWidth: 1, stroke: 'black' } )
       },
       {
         value: 'circle',
-        createNode: tandem => new Circle( 22 * ICON_SCALE, { fill: '#145991', lineWidth: 1, stroke: 'black' } )
+        createNode: () => new Circle( 22 * ICON_SCALE, { fill: '#145991', lineWidth: 1, stroke: 'black' } )
       },
       {
         value: 'chocolate',
-        createNode: tandem => new Rectangle( 0, 0, 50 * ICON_SCALE, 40 * ICON_SCALE, { fill: '#563329', lineWidth: 1, stroke: 'black' } )
+        createNode: () => new Rectangle( 0, 0, 50 * ICON_SCALE, 40 * ICON_SCALE, { fill: '#563329', lineWidth: 1, stroke: 'black' } )
       },
       {
         value: 'different-sized-circles',
-        createNode: tandem => new Node( {
+        createNode: () => new Node( {
           children: [
             new Circle( 20 * ICON_SCALE, { fill: '#f0d041', lineWidth: 1, stroke: 'black', x: 26, y: -26 } ),
             new Circle( 12 * ICON_SCALE, { fill: '#f0d041', lineWidth: 1, stroke: 'black' } )
