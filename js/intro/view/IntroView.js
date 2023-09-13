@@ -1,6 +1,6 @@
 // Copyright 2013-2022, University of Colorado Boulder
 
-//TODO: redo layout so things float to the sides (and bottom)
+//TODO: redo layout so things float to the sides (and bottom) https://github.com/phetsims/tasks/issues/1129
 /**
  * View for the 'Intro' screen.
  *
@@ -42,7 +42,7 @@ class IntroView extends ScreenView {
       { centerX: this.layoutBounds.centerX, bottom: representationPanel.top - 70 } );
     this.addChild( numberLineNode );
 
-    //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line
+    //TODO: Manually tuned to be centered on the number line part.  Could be affected based on the font, would be superior to lay out based on global bounds of number line https://github.com/phetsims/tasks/issues/1129
     this.addChild( new Checkbox( model.numberLineVisibleProperty, new Rectangle( 0, 0, 0, 0 ), {
       top: numberLineNode.bounds.maxY + 7,
       centerX: numberLineNode.centerX,

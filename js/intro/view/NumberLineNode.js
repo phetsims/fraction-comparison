@@ -70,7 +70,7 @@ class NumberLineNode extends Node {
     this.addChild( rightFractionNodeTickMark );
 
     //When tick spacing or labeled ticks change, update the ticks
-    //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem
+    //TODO: Could be redesigned so that the black ticks aren't changing when the numerators change, if it is a performance problem https://github.com/phetsims/tasks/issues/1129
     Multilink.multilink( [ visibleProperty,
         leftFractionModel.numeratorProperty,
         leftFractionModel.denominatorProperty,
