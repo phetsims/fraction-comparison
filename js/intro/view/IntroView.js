@@ -1,4 +1,4 @@
-// Copyright 2013-2023, University of Colorado Boulder
+// Copyright 2013-2024, University of Colorado Boulder
 
 //TODO: redo layout so things float to the sides (and bottom) https://github.com/phetsims/tasks/issues/1129
 /**
