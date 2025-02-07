@@ -7,12 +7,13 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import deprecationWarning from '../../../../phet-core/js/deprecationWarning.js';
 import InstanceRegistry from '../../../../phet-core/js/documentation/InstanceRegistry.js';
 import merge from '../../../../phet-core/js/merge.js';
 import sceneryPhet from '../../../../scenery-phet/js/sceneryPhet.js';
-import { Path, VBox } from '../../../../scenery/js/imports.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 
 /**
