@@ -13,7 +13,6 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import fractionComparison from '../../fractionComparison.js';
 import FractionNode from './FractionNode.js';
 
 class NumberLineNode extends Node {
@@ -172,7 +171,5 @@ class NumberLineNode extends Node {
     return b ? NumberLineNode.greatestCommonDenominator( b, a % b ) : Math.abs( a );
   }
 }
-
-fractionComparison.register( 'NumberLineNode', NumberLineNode );
 
 export default NumberLineNode;

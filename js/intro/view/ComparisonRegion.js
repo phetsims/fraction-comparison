@@ -7,7 +7,6 @@
  */
 
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import fractionComparison from '../../fractionComparison.js';
 import CompareSeparateButton from './CompareSeparateButton.js';
 
 class ComparisonRegion extends Rectangle {
@@ -48,7 +47,5 @@ class ComparisonRegion extends Rectangle {
     this.mutate( options );
   }
 }
-
-fractionComparison.register( 'ComparisonRegion', ComparisonRegion );
 
 export default ComparisonRegion;

@@ -14,7 +14,6 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
-import fractionComparison from '../../fractionComparison.js';
 
 /**
  * @deprecated - please use DragListener for new code
@@ -59,8 +58,6 @@ class NodeDragHandler extends SimpleDragHandler {
     } );
   }
 }
-
-fractionComparison.register( 'NodeDragHandler', NodeDragHandler );
 
 /**
  * Constrains a point to some bounds.

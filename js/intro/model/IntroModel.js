@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
-import fractionComparison from '../../fractionComparison.js';
 import FractionModel from './FractionModel.js';
 
 // constants
@@ -61,7 +60,5 @@ class IntroModel {
     this.rightFractionModel.reset();
   }
 }
-
-fractionComparison.register( 'IntroModel', IntroModel );
 
 export default IntroModel;

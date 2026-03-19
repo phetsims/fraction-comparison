@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import deprecationWarning from '../../../../phet-core/js/deprecationWarning.js';
 import InstanceRegistry from '../../../../phet-core/js/documentation/InstanceRegistry.js';
 import merge from '../../../../phet-core/js/merge.js';
-import sceneryPhet from '../../../../scenery-phet/js/sceneryPhet.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
@@ -98,5 +97,4 @@ class LeftRightSpinner extends HBox {
   }
 }
 
-sceneryPhet.register( 'LeftRightSpinner', LeftRightSpinner );
 export default LeftRightSpinner;

@@ -14,7 +14,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
-import fractionComparison from '../../fractionComparison.js';
 import NodeDragHandler from './NodeDragHandler.js';
 
 class HorizontalBarContainerNode extends Node {
@@ -176,7 +175,5 @@ class HorizontalBarContainerNode extends Node {
     this.stateProperty.set( 'start' );
   }
 }
-
-fractionComparison.register( 'HorizontalBarContainerNode', HorizontalBarContainerNode );
 
 export default HorizontalBarContainerNode;

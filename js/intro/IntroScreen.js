@@ -9,7 +9,6 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
-import fractionComparison from '../fractionComparison.js';
 import IntroModel from './model/IntroModel.js';
 import IntroView from './view/IntroView.js';
 
@@ -23,5 +22,4 @@ class IntroScreen extends Screen {
   }
 }
 
-fractionComparison.register( 'IntroScreen', IntroScreen );
 export default IntroScreen;

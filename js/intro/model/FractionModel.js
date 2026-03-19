@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
-import fractionComparison from '../../fractionComparison.js';
 
 // constants
 const VALID_STATE_VALUES = [ 'start', 'dragging', 'compare' ];
@@ -57,7 +56,5 @@ class FractionModel {
     this.divisionsProperty.reset();
   }
 }
-
-fractionComparison.register( 'FractionModel', FractionModel );
 
 export default FractionModel;

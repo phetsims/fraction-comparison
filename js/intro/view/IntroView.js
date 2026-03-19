@@ -14,7 +14,6 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
-import fractionComparison from '../../fractionComparison.js';
 import ComparisonRegion from './ComparisonRegion.js';
 import FractionNode from './FractionNode.js';
 import HorizontalBarContainerNode from './HorizontalBarContainerNode.js';
@@ -193,5 +192,4 @@ class IntroView extends ScreenView {
   }
 }
 
-fractionComparison.register( 'IntroView', IntroView );
 export default IntroView;

@@ -20,6 +20,4 @@ type StringsType = {
 
 const FractionComparisonStrings = getStringModule( 'FRACTION_COMPARISON' ) as StringsType;
 
-fractionComparison.register( 'FractionComparisonStrings', FractionComparisonStrings );
-
 export default FractionComparisonStrings;

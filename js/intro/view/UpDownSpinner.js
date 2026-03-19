@@ -11,7 +11,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import deprecationWarning from '../../../../phet-core/js/deprecationWarning.js';
 import InstanceRegistry from '../../../../phet-core/js/documentation/InstanceRegistry.js';
 import merge from '../../../../phet-core/js/merge.js';
-import sceneryPhet from '../../../../scenery-phet/js/sceneryPhet.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
@@ -97,5 +96,4 @@ class UpDownSpinner extends VBox {
   }
 }
 
-sceneryPhet.register( 'UpDownSpinner', UpDownSpinner );
 export default UpDownSpinner;

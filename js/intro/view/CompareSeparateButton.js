@@ -15,7 +15,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import fractionComparison from '../../fractionComparison.js';
 
 class CompareSeparateButton extends Node {
 
@@ -102,7 +101,5 @@ const createArrowhead = ( angle, tail ) => {
   return new Path( new Shape().moveToPoint( tail ).lineToPoint( tail.plus( orthogonalUnitVector.times( headWidth / 2 ) ) ).lineToPoint( tip ).lineToPoint( tail.plus( orthogonalUnitVector.times( -headWidth / 2 ) ) ).lineToPoint( tail ).close(),
     { fill: 'black' } );
 };
-
-fractionComparison.register( 'CompareSeparateButton', CompareSeparateButton );
 
 export default CompareSeparateButton;

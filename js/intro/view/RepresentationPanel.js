@@ -12,7 +12,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Panel from '../../../../sun/js/Panel.js';
-import fractionComparison from '../../fractionComparison.js';
 
 // constants
 const ICON_SCALE = 0.75;
@@ -71,5 +70,4 @@ class RepresentationPanel extends Panel {
   }
 }
 
-fractionComparison.register( 'RepresentationPanel', RepresentationPanel );
 export default RepresentationPanel;

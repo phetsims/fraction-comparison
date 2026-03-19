@@ -13,7 +13,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import fractionComparison from '../../fractionComparison.js';
 import UpDownSpinner from './UpDownSpinner.js';
 
 class FractionNode extends Node {
@@ -86,7 +85,5 @@ class FractionNode extends Node {
     this.mutate( options );
   }
 }
-
-fractionComparison.register( 'FractionNode', FractionNode );
 
 export default FractionNode;
